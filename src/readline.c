@@ -1,6 +1,15 @@
-alsdkfsdf
-__CLANG_ATOMIC_SHORT_LOCK_FREEdf
-__SIZEOF_DOUBLE__sdf
-__CLANG_ATOMIC_SHORT_LOCK_FREEsad
-__INT_FAST8_FMTd__as
-dfsdf
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
+int	main(int argc, char **argv)
+{	
+	char	*str;
+	if (argc != 2)
+		return (0);
+	while (1)
+	{
+		str = readline(argv[1]);
+		printf("Readline yo: %s", str);
+	}
+}
