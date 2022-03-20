@@ -1,7 +1,7 @@
-#include <stdio.h>
+// #include <stdio.h>
 
-int main (void)
-{
-	printf("im readline now");
-	return (0);
-}
+// int main (void)
+// {
+// 	printf("im readline now");
+// 	return (0);
+// }
