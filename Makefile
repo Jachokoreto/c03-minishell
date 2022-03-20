@@ -10,7 +10,7 @@ SRCS_DIR	= ./src
 GNL_DIR		= ./get_next_line
 OBJS_DIR 	= ./obj
 
-SRCS		= readline.c read_commands.c
+SRCS		= readline.c read_commands.c echo.c init_mini.c pwd.c cd.c
 OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 SRCS_GNL	= get_next_line.c get_next_line_utils.c

@@ -3,12 +3,14 @@
 int	main(int argc, char **argv)
 {	
 	char	*line;
+	t_temp	*temp;
 
-	while ((line = get_next_line(0)) != NULL)
+	(void)argv;
+	argc = 1;
+	temp = init_mini();
+	while (1)
 	{
-		read_commands(line);
-		//printf("%s", line);
-		free(line);
+		line = readline("minishell > ");
+		read_commands(temp, line);
 	}
-	line = readline(line);
 }
