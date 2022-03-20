@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+         #
+#    By: jatan <jatan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/07 13:17:07 by leu-lee           #+#    #+#              #
-#    Updated: 2022/03/20 12:02:50 by leu-lee          ###   ########.fr        #
+#    Updated: 2022/03/20 14:05:57 by jatan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,17 +36,33 @@ NAME		= libft.a
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-		ar rcs $(NAME) $(OBJS)
+		@ar rcs $(NAME) $(OBJS)
+		@echo "$(GREEN)Compiled $@ successfully$(RESET)"
 
 bonus:		$(OBJS) $(OBJS_BONUS)
-		ar rcs $(NAME) $(OBJS) $(OBJS_BONUS)
+		@ar rcs $(NAME) $(OBJS) $(OBJS_BONUS)
 
 clean:
-		$(RM) $(OBJS) $(OBJS_BONUS)
+		@$(RM) $(OBJS) $(OBJS_BONUS)
+		@echo "$(RED)Removed $(NAME) .obj$(RESET)"
+
 
 fclean:		clean
-		$(RM) $(NAME)
+		@$(RM) $(NAME)
+		@echo "$(RED)Removed $(NAME)$(RESET)"
 
 re:			fclean all
 
 .PHONY:		all bonus clean fclean re
+
+# Colors are great!
+# Formats are greater!
+# https://misc.flogisoft.com/bash/tip_colors_and_formatting
+RED		= \033[31m
+GREEN	= \033[32m
+YELLOW	= \033[033m
+BLUE	= \033[034m
+PINK	= \033[035m
+TEAL	= \033[036m
+WHITE	= \033[037m
+RESET	= \033[0m # No Color
