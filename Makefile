@@ -22,10 +22,12 @@ INCLUDES	= -Iincludes -Iget_next_line -Ilibft
 
 all:	$(NAME)
 
-$(NAME): $(OBJS) $(OBJS_GNL) main.c
-		@make -C libft
+$(NAME): $(OBJS) $(OBJS_GNL) main.c libft/libft.a
 		@$(CC) $(INCLUDES) $(LDFLAGS) $(CPPFLAGS) $(LIB) main.c $(OBJS) $(OBJS_GNL) -o $@
-		@echo "$(GREEN) Compiled $@ successfully $(RESET)"
+		@echo "$(GREEN)Compiled $@ successfully $(RESET)"
+
+libft/libft.a :
+		@make -C libft
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
@@ -37,12 +39,10 @@ $(OBJS_DIR)/%.o: $(GNL_DIR)/%.c
 
 clean:
 	@$(RM) $(OBJS_DIR)
-	@make clean -C libft
 	@echo "$(RED)Removed $(NAME) .obj$(RESET)"
 
 fclean: clean
 	@$(RM)  $(NAME)
-	@make fclean -C libft
 	@echo "$(RED)Removed $(NAME)$(RESET)"
 	
 re:		fclean all

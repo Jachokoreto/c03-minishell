@@ -6,7 +6,7 @@
 #    By: jatan <jatan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/07 13:17:07 by leu-lee           #+#    #+#              #
-#    Updated: 2022/03/20 14:05:57 by jatan            ###   ########.fr        #
+#    Updated: 2022/03/20 14:16:28 by jatan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,8 @@ $(NAME):	$(OBJS)
 bonus:		$(OBJS) $(OBJS_BONUS)
 		@ar rcs $(NAME) $(OBJS) $(OBJS_BONUS)
 
+%.o: %.c
+		@$(CC) $(CFLAGS) -c $<
 clean:
 		@$(RM) $(OBJS) $(OBJS_BONUS)
 		@echo "$(RED)Removed $(NAME) .obj$(RESET)"
