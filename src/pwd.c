@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:47:28 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/21 14:47:29 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/21 20:30:09 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 void	pwd(char **args)
 {
-	char	buf[256];
-	(void)args;
+	// static int	i;
+	char		*buf;
 
-	getcwd(buf, sizeof(buf));
+	(void)args;
+	// while (args)
+	// 	i++;
+	//printf("i: %d\n", i);
+	buf = getcwd(NULL, 0);
 	printf("%s\n", buf);
 }

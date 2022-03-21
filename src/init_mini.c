@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:37 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/21 17:00:17 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/21 20:27:57 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_env(t_data	*data, char **envp)
 	int		i;
 	t_env	*env;
 	char	**str;
+	// char	buf[256];
 
 	i = -1;
 	while (envp[++i])
@@ -27,6 +28,8 @@ void	init_env(t_data	*data, char **envp)
 		env = malloc(sizeof(t_env));
 		env->key = str[0];
 		env->value = str[1];
+		if (ft_strncmp(env->key, "OLDPWD", ft_strlen("OLDPWD")) == 0)
+			env->value = getcwd(NULL, 0);
 		ft_lstadd_back(&data->env_list, ft_lstnew(env));
 	}
 }
