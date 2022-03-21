@@ -6,7 +6,11 @@
 #    By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/07 13:17:07 by leu-lee           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2022/03/20 14:16:12 by leu-lee          ###   ########.fr        #
+=======
+#    Updated: 2022/03/20 14:16:28 by jatan            ###   ########.fr        #
+>>>>>>> origin/main
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +46,8 @@ $(NAME):	$(OBJS)
 bonus:		$(OBJS) $(OBJS_BONUS)
 		@ar rcs $(NAME) $(OBJS) $(OBJS_BONUS)
 
+%.o: %.c
+		@$(CC) $(CFLAGS) -c $<
 clean:
 		@$(RM) $(OBJS) $(OBJS_BONUS)
 		@echo "$(RED)Removed $(NAME) .obj$(RESET)"
