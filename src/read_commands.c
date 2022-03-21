@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_commands.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/21 14:44:47 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/03/21 14:45:35 by leu-lee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	read_commands(t_data *data, char *line)
@@ -13,9 +25,8 @@ void	read_commands(t_data *data, char *line)
 	{
 		if (ft_strncmp(split[0], data->builtins[i], ft_strlen(split[0])) == 0)
 		{
-				data->builtin_funcs[i](&split[1]);
+			data->builtin_funcs[i](&split[1]);
 		}
-
 	}
 	return ;
 }

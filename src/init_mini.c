@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_mini.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/21 14:45:37 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/03/21 14:47:21 by leu-lee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-
 
 void	init_env(t_data	*data, char **envp)
 {
@@ -11,7 +21,7 @@ void	init_env(t_data	*data, char **envp)
 	i = -1;
 	while (envp[++i])
 	{
-		str = ft_split(envp[i],'=');
+		str = ft_split(envp[i], '=');
 		env = malloc(sizeof(t_env));
 		env->key = str[0];
 		env->value = str[1];
@@ -33,7 +43,5 @@ t_data	*init_mini(char **envp)
 	data->builtin_funcs[5] = env;
 	// data->builtin_funcs[6] = ft_exit;
 	init_env(data, envp);
-
-
 	return (data);
 }
