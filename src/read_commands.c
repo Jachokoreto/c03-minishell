@@ -1,8 +1,6 @@
 #include "minishell.h"
 
-
-
-void	read_commands(t_temp *temp, char *line)
+void	read_commands(t_data *data, char *line)
 {
 	int		i;
 	char	**split;
@@ -13,9 +11,9 @@ void	read_commands(t_temp *temp, char *line)
 	i = -1;
 	while (++i < 7)
 	{
-		if (ft_strncmp(split[0], temp->builtins[i], ft_strlen(split[0])) == 0)
+		if (ft_strncmp(split[0], data->builtins[i], ft_strlen(split[0])) == 0)
 		{
-				temp->builtin_funcs[i](&split[1]);
+				data->builtin_funcs[i](&split[1]);
 		}
 
 	}

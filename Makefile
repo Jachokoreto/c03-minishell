@@ -1,7 +1,7 @@
 NAME	 	= minishell
 
-LDFLAGS		= -L/usr/local/opt/readline/lib
-CPPFLAGS	= -I/usr/local/opt/readline/include
+#LDFLAGS		= -L/usr/local/opt/readline/lib
+#CPPFLAGS	= -I/usr/local/opt/readline/include
 
 CC			= gcc -Wall -Wextra -Werror
 RM			= rm -rf
@@ -10,7 +10,7 @@ SRCS_DIR	= ./src
 GNL_DIR		= ./get_next_line
 OBJS_DIR 	= ./obj
 
-SRCS		= readline.c read_commands.c echo.c init_mini.c pwd.c cd.c
+SRCS		= read_commands.c echo.c init_mini.c pwd.c cd.c env.c
 OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 SRCS_GNL	= get_next_line.c get_next_line_utils.c
@@ -23,7 +23,7 @@ INCLUDES	= -Iincludes -Iget_next_line -Ilibft
 all:	$(NAME)
 
 $(NAME): $(OBJS) $(OBJS_GNL) main.c libft/libft.a
-		@$(CC) $(INCLUDES) $(LDFLAGS) $(CPPFLAGS) $(LIB) main.c $(OBJS) $(OBJS_GNL) -o $@
+		@$(CC) $(INCLUDES) $(LIB) main.c $(OBJS) $(OBJS_GNL) -o $@
 		@echo "$(GREEN)Compiled $@ successfully $(RESET)"
 
 libft/libft.a :
