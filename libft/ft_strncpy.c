@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 14:44:55 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/21 14:49:16 by leu-lee          ###   ########.fr       */
+/*   Created: 2022/03/21 17:27:49 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/03/21 17:27:57 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	cd(char **args)
+char	*ft_strncpy(char *dst, const char *src, size_t n)
 {
-	char	buf[256];
-	(void)args;
-	getcwd(buf, sizeof(buf));
-	printf("%s\n", buf);
-	chdir(args[0]);
-	getcwd(buf, sizeof(buf));
-	printf("%s\n", buf);
+	size_t	index;
+
+	if (!src && !dst)
+		return (0);
+	index = 0;
+	while (src[index] != '\0' && index < n)
+	{
+		dst[index] = src[index];
+		++index;
+	}
+	while (index < n)
+	{
+		dst[index] = '\0';
+		index++;
+	}
+	return (dst);
 }

@@ -1,6 +1,6 @@
 NAME	 	= minishell
 
-#LDFLAGS		= -L/usr/local/opt/readline/lib
+#LDFLAGS	= -L/usr/local/opt/readline/lib
 #CPPFLAGS	= -I/usr/local/opt/readline/include
 
 CC			= gcc -Wall -Wextra -Werror
@@ -10,7 +10,8 @@ SRCS_DIR	= ./src
 GNL_DIR		= ./get_next_line
 OBJS_DIR 	= ./obj
 
-SRCS		= read_commands.c echo.c init_mini.c pwd.c cd.c env.c
+SRCS		= read_commands.c echo.c init_mini.c pwd.c cd.c env.c export.c unset.c \
+				ft_exit.c
 OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 SRCS_GNL	= get_next_line.c get_next_line_utils.c

@@ -6,7 +6,14 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:54 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/21 14:46:55 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/21 17:01:35 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+
+void	ft_exit(char **args)
+{
+	(void)args;
+	exit(1);
+}
