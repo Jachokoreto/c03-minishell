@@ -6,12 +6,11 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/21 18:31:33 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/22 20:37:34 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 char	**key_value_split(const char *s, char c)
 {

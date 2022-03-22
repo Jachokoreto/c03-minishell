@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:37 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/21 20:27:57 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/22 19:29:02 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	init_env(t_data	*data, char **envp)
 	int		i;
 	t_env	*env;
 	char	**str;
-	// char	buf[256];
 
 	i = -1;
 	while (envp[++i])
@@ -47,6 +46,7 @@ t_data	*init_mini(char **envp)
 	data->builtin_funcs[4] = unset;
 	data->builtin_funcs[5] = env;
 	data->builtin_funcs[6] = ft_exit;
+	data->newline = 0;
 	init_env(data, envp);
 	return (data);
 }
