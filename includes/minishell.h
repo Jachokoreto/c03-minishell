@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/23 11:03:36 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/23 16:27:22 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -30,10 +31,18 @@ typedef struct s_env
 	char	*value;
 }	t_env;
 
+enum e_Type { cmd, arg, redir, pip, file};
+typedef struct s_token
+{
+	enum e_Type	type;
+	char		*value;
+}	t_token;
+
 typedef struct s_data
 {
 	char			**builtins;
 	t_list			*env_list;
+	t_list			*tokens;
 	int				newline;
 	t_builtin_funcs	builtin_funcs[7];
 }	t_data;
