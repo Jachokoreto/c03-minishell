@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/22 20:24:36 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/23 11:03:36 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	unset(char **args);
 void	ft_exit(char **args);
 void	shellsignals(void);
 char	**get_env_array(void);
+char	*mini_getenv(char *key);
+char	*join_key_value(char *str1, char *str2, char c);
 t_data	*init_mini(char **envp);
 
 #endif

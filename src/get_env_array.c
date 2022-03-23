@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-char	*join_key_value(char *str1, char *str2)
+char	*join_key_value(char *str1, char *str2, char c)
 {
 	int			i;
 	char		*heap;
@@ -13,7 +13,7 @@ char	*join_key_value(char *str1, char *str2)
 	i = 0;	
 	while (*str1)
 		heap[i++] = *str1++;
-	heap[i++] = '=';
+	heap[i++] = c;
 	while (*str2)
 		heap[i++] = *str2++;
 	heap[i] = '\0';
@@ -33,7 +33,7 @@ char	**get_env_array(void)
 	while (node)
 	{
 		env = node->content;
-		arr[i] = join_key_value(env->key, env->value);
+		arr[i] = join_key_value(env->key, env->value, '=');
 		node = node->next;
 		//printf("%s\n", arr[i++]);
 	}

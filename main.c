@@ -6,11 +6,12 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/22 20:22:12 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/23 11:16:56 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 int	main(int argc, char **argv, char **envp)
 {	
