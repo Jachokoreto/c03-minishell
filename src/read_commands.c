@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:47 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/23 11:27:02 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/24 19:53:41 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,11 @@
 
 void	execve_stuff(char *input)
 {
-	char	**path;
-	char	*cmd = NULL;
-	char	*argvec[] = { cmd, NULL};
-	char	*envVec[] = {"CSC220=Linux", "SECRET=Study Hard", "HELLO=BYE"};
-	int		i;
-
+	data->pipe_number = 0; // temp here
+	if (data->pipe_number > 0)
+		exec_pipes(input);
 	if (fork() == 0)
-	{
-		path = ft_split(mini_getenv("PATH"), ':');
-		i = 0;
-		while (path)
-		{
-			cmd = join_key_value(path[i++], input, '/');
-			argvec[0] = cmd;
-			// printf("cmd :%s, input: %s\n", argvec[0], argvec[1]);
-			// printf("start of execve call %s:\n", cmd);
-			// printf("--------------------------------------------------\n");
-			if (execve(cmd, argvec, envVec) == -1)
-			{
-				// perror("Could not execute execve");
-			}
-			// printf("Oops, something went wrong!\n\n");
-		}
-	}
+		exec_path(input);
 }
 
 void	read_commands(t_data *data, char *line)
@@ -51,12 +32,14 @@ void	read_commands(t_data *data, char *line)
 	i = -1;
 	while (++i < 7)
 	{
-		if (ft_strncmp(split[0], data->builtins[i], ft_strlen(data->builtins[i])) == 0)
+		if (ft_strncmp(split[0], data->builtins[i],
+				ft_strlen(data->builtins[i])) == 0)
 		{
 			data->builtin_funcs[i](&split[1]);
 			return ;
 		}
+		else
+			execve_stuff(split[0]);
 	}
-	execve_stuff(split[0]);
 	return ;
 }
