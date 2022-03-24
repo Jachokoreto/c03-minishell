@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 17:58:29 by leu-lee           #+#    #+#             */
-/*   Updated: 2021/06/09 00:14:37 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/23 19:47:02 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		else
 			*lst = new;
 	}
+	// while (lst && *lst)
+	// 	lst = &(*lst)->next;
+	// *lst = new;
 }

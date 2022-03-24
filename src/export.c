@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/22 20:37:34 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/23 19:44:37 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	export(char **args)
 	t_env	*env;
 	t_list	*lst;
 
-	lst = data->env_list;
+	lst = g_data->env_list;
 	str = key_value_split(args[0], '=');
 	while (lst)
 	{
@@ -62,5 +62,5 @@ void	export(char **args)
 	env = malloc(sizeof(t_env));
 	env->key = str[0];
 	env->value = str[1];
-	ft_lstadd_back(&data->env_list, ft_lstnew(env));
+	ft_lstadd_back(&g_data->env_list, ft_lstnew(env));
 }

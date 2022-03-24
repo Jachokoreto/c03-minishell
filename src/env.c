@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:38 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/21 14:54:18 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/23 19:44:37 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ void	print_list(void *content)
 void	env(char **args)
 {
 	(void)args;
-	ft_lstiter(data->env_list, print_list);
+	ft_lstiter(g_data->env_list, print_list);
 }

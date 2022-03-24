@@ -11,7 +11,6 @@ void	handler(int signo)
 	if (signo == SIGINT)
 	{
 		write(1, "\n", 1);
-		ft_strlcpy(rl_prompt, "hihi", 5);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();

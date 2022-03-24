@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/23 16:28:39 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/24 18:06:02 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define KEY 0
+# define B_KEY 1
+# define A_KEY 2
+
+
 typedef void	(*t_builtin_funcs)(char **args);
 
 typedef struct s_env
@@ -38,18 +43,26 @@ typedef struct s_token
 	char		*value;
 }	t_token;
 
+typedef struct s_cmd_grp
+{
+	char	*cmd;
+	char	**args;
+	char	*infile;
+	char	*outfile;
+}	t_cmd_grp;
+
 typedef struct s_data
 {
 	char			**builtins;
 	t_list			*env_list;
 	t_list			*tokens;
-	int				newline;
+	t_list			*cmd_grp;
 	t_builtin_funcs	builtin_funcs[7];
 }	t_data;
 
-t_data	*data;
+t_data			*g_data;
 
-void	read_commands(t_data *data, char *line);
+void	run_command(t_data *g_data);
 void	echo(char **args);
 void	pwd(char **args);
 void	cd(char **args);
@@ -62,5 +75,9 @@ char	**get_env_array(void);
 char	*mini_getenv(char *key);
 char	*join_key_value(char *str1, char *str2, char c);
 t_data	*init_mini(char **envp);
+
+void	mini_lexer(char *line);
+void	parser(char *line);
+
 
 #endif

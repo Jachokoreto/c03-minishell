@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:47:34 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/21 19:39:10 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/23 19:44:37 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	unset(char **args)
 	t_list	*curnode;
 	t_list	*prevnode;
 
-	curnode = data->env_list;
+	curnode = g_data->env_list;
 	prevnode = NULL;
 	str = ft_split(args[0], '=');
 	while (curnode)
@@ -41,7 +41,7 @@ void	unset(char **args)
 		if (ft_strncmp(tmp->key, args[0], ft_strlen(args[0])) == 0)
 		{
 			if (prevnode == NULL)
-				data->env_list = curnode->next;
+				g_data->env_list = curnode->next;
 			else
 				prevnode->next = curnode->next;
 			ft_lstdelone(curnode, free);

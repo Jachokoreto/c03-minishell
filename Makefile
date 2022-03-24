@@ -1,20 +1,17 @@
 NAME	 	= minishell
 
-# LDFLAGS		= -L/usr/local/opt/readline/lib
-# CPPFLAGS	= -I/usr/local/opt/readline/include
+LDFLAGS		= -L/usr/local/opt/readline/lib
+CPPFLAGS	= -I/usr/local/opt/readline/include
 
-# LDFLAGS		= -L/Users/jatan/Desktop/readline-8.1/lib
-# CPPFLAGS	= -I/Users/jatan/Desktop/readline-8.1/include
-
-CC			= gcc -Wall -Wextra -Werror
+CC			= gcc -Wall -Wextra -Werror -fsanitize=address -g3
 RM			= rm -rf
 
 SRCS_DIR	= ./src
 GNL_DIR		= ./get_next_line
 OBJS_DIR 	= ./obj
 
-SRCS		= read_commands.c echo.c init_mini.c pwd.c cd.c env.c export.c unset.c \
-				ft_exit.c shellsignals.c get_env_array.c mini_getenv.c
+SRCS		= run_command.c echo.c init_mini.c pwd.c cd.c env.c export.c unset.c \
+				ft_exit.c shellsignals.c get_env_array.c mini_getenv.c mini_lexer.c parser.c
 OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 SRCS_GNL	= get_next_line.c get_next_line_utils.c
@@ -41,6 +38,9 @@ $(OBJS_DIR)/%.o: $(GNL_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) $(INCLUDES) -c $< -o $@
 
+t: all
+	./minishell
+
 clean:
 	@$(RM) $(OBJS_DIR)
 	@echo "$(RED)Removed $(NAME) .obj$(RESET)"
@@ -51,7 +51,7 @@ fclean: clean
 	
 re:		fclean all
 
-.PHONY: all run clean fclean
+.PHONY: all run clean fclean t
 
 # Colors are great!
 # Formats are greater!

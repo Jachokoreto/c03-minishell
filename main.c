@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/23 16:28:41 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/24 12:14:46 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	argc = 1;
-	data = init_mini(envp);
+	g_data = init_mini(envp);
 	shellsignals();
 	get_env_array();
 	while (1)
@@ -32,7 +32,10 @@ int	main(int argc, char **argv, char **envp)
 		if (line && *line)
 		{
 			add_history(line);
-			read_commands(data, line);
+			parser(line);
+			// run_command(g_data, line);
+			ft_lstclear(&g_data->tokens, free);
+			g_data->tokens = NULL;
 		}
 	}
 }
