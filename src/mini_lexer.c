@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/03/28 17:05:16 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/28 18:48:56 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,13 @@ char	*get_string_into_buffer(char **line)
 	return (buffer);
 }
 
-// char	*buffer
+// char	*process_buffer(char *buffer)
+// {
+// 	int	quoted;
+
+// 	quoted = 0;
+
+// }
 
 void	mini_lexer(char *line)
 {
@@ -118,7 +124,7 @@ void	mini_lexer(char *line)
 			perror("Invalid");
 			break ;
 		}
-		// buffer = process_buffer(buffer);
+		buffer = process_buffer(buffer);
 		decide_token_type(buffer);
 		free(buffer);
 	}
