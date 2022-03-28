@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/03/28 16:49:21 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/28 17:05:16 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,34 +74,22 @@ char	*get_string_into_buffer(char **line)
 {
 	char	*index;
 	char	*buffer;
-	char	*quote[2];
 
 	index = *line;
 	while (*index && *index != ' ')
 	{
-		if (*index && (*index == '<' || *index == '>' || *index == '|'))
+		if (*index == '<' || *index == '>' || *index == '|')
 		{
-			if (index == *line)
-			{
+			if (index == *line
+				&& *(++index) && *index == *(index - 1) && *(index - 1) != '|')
 				index++;
-				if (*index == *(index - 1) && *(index - 1) != '|')
-					index++;
-			}
 			break ;
 		}
 		if (*index == '\"' || *index == '\'')
 		{
-			// index = ft_strchr(index + 1, *index);
-			// if (index == NULL)
-			// 	return (NULL);
-			// if (*index == '<' || *index == '>' || *index == '|')
-			// 	break ;
-			
-			quote[0] = index;
-			quote[1] = ft_strchr(quote[0] + 1, *quote[0]);
-			if (quote[1] == NULL)
+			index = ft_strchr(index + 1, *index);
+			if (index == NULL)
 				return (NULL);
-			index = quote[1];
 		}
 		index++;
 	}
