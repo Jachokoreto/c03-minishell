@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/03/28 14:04:48 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/28 16:49:21 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	decide_token_type(char *str)
 }
 
 
-
 char	*expand_env_var(char *buf)
 {
 	char	*tmp[4];
@@ -71,24 +70,6 @@ char	*expand_env_var(char *buf)
 	return (buf);
 }
 
-	// while (ft_isalnum(line[i]) == 1)
-	// 	i++;
-	// if (line[i] == '\"' || line[i] == '\'')
-	// {
-	// 	quote = line[i++];
-	// 	while (line[i] && line[i] != quote)
-	// 		i++;
-	// 	return (++i);
-	// }
-	// if (line[i] == '<' || line[i] == '>' || line[i] == '|')
-	// 	i++;
-	// if (line[i] == '<' || line[i] == '>')
-	// 	return (++i);
-	// while (ft_isalnum(line[i]) == 1)
-	// 	i++;
-	// return (i);
-
-
 char	*get_string_into_buffer(char **line)
 {
 	char	*index;
@@ -98,24 +79,39 @@ char	*get_string_into_buffer(char **line)
 	index = *line;
 	while (*index && *index != ' ')
 	{
+		if (*index && (*index == '<' || *index == '>' || *index == '|'))
+		{
+			if (index == *line)
+			{
+				index++;
+				if (*index == *(index - 1) && *(index - 1) != '|')
+					index++;
+			}
+			break ;
+		}
 		if (*index == '\"' || *index == '\'')
 		{
+			// index = ft_strchr(index + 1, *index);
+			// if (index == NULL)
+			// 	return (NULL);
+			// if (*index == '<' || *index == '>' || *index == '|')
+			// 	break ;
+			
 			quote[0] = index;
-			quote[1] = ft_strchr(quote[0], *quote[0]);
+			quote[1] = ft_strchr(quote[0] + 1, *quote[0]);
 			if (quote[1] == NULL)
 				return (NULL);
 			index = quote[1];
 		}
-		else if (*index == '<' || *index == '>' || *index == '|')
-			break ;
 		index++;
 	}
 	buffer = ft_substr(*line, 0, index - *line);
 	*line = index;
-	printf("%s\n", buffer);
 	return (buffer);
 }
- 
+
+// char	*buffer
+
 void	mini_lexer(char *line)
 {
 	int		i;
@@ -129,9 +125,13 @@ void	mini_lexer(char *line)
 		while (*line == ' ')
 			line++;
 		buffer = get_string_into_buffer(&line);
-		printf("buff : %s\n", buffer);
+		if (buffer == NULL)
+		{
+			perror("Invalid");
+			break ;
+		}
+		// buffer = process_buffer(buffer);
 		decide_token_type(buffer);
 		free(buffer);
 	}
 }
-
