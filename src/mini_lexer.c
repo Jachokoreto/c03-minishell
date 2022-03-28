@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/03/28 10:05:56 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/28 14:04:48 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ char	*expand_env_var(char *buf)
 		free(tmp[0]);
 		free(tmp[1]);
 		free(tmp[2]);
-		return (buf);
 	}
+	return (buf);
 }
 
 	// while (ft_isalnum(line[i]) == 1)
@@ -88,53 +88,50 @@ char	*expand_env_var(char *buf)
 	// 	i++;
 	// return (i);
 
-int	get_word_idx(char *line, int start)
+
+char	*get_string_into_buffer(char **line)
 {
-	int		i;
-	char	*quote[2];
-	char	*tmp;
+	char	*index;
 	char	*buffer;
+	char	*quote[2];
 
-	i = start;
-	while (line[i] != ' ')
+	index = *line;
+	while (*index && *index != ' ')
 	{
-		if (line[i] == '\"' || line[i] == '\'')
+		if (*index == '\"' || *index == '\'')
 		{
-			quote[0] = &line[i++];
-			quote[1] = ft_strchr(&line[i], *quote[i]);
-			if (*quote[1] == NULL)
-				return (-1);
-			buffer
-			ft_memmove(quote[0], quote[0] + 1, ft_strlen(quote[0] + 1));
-			ft_memmove(quote[1], quote[1] + 1, ft_strlen(quote[1] + 1));
-			if (*quote[0] == '\"')
-			{
-				buffer = ft_substr(line, start, quote[1] - line);
-				buffer = expand_env_var(buffer);
-			}
-
+			quote[0] = index;
+			quote[1] = ft_strchr(quote[0], *quote[0]);
+			if (quote[1] == NULL)
+				return (NULL);
+			index = quote[1];
 		}
+		else if (*index == '<' || *index == '>' || *index == '|')
+			break ;
+		index++;
 	}
-
+	buffer = ft_substr(*line, 0, index - *line);
+	*line = index;
+	printf("%s\n", buffer);
+	return (buffer);
 }
-
+ 
 void	mini_lexer(char *line)
 {
 	int		i;
-	int		start_idx;
 	char	*buffer;
 
 	i = 0;
 	g_data->tokens = NULL;
-	while (line[i])
+	buffer = NULL;
+	while (*line)
 	{
-		while (line[i] == ' ')
-			i++;
-		start_idx = i;
-		buffer = expand_env_var(buffer);
-		i = get_word_idx(line, start_idx, buffer);
-		buffer = ft_substr(line, start_idx, i - start_idx);
+		while (*line == ' ')
+			line++;
+		buffer = get_string_into_buffer(&line);
+		printf("buff : %s\n", buffer);
 		decide_token_type(buffer);
 		free(buffer);
 	}
 }
+
