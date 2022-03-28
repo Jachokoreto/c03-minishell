@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/03/28 10:05:56 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/28 11:18:58 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,46 @@ void	decide_token_type(char *str)
 		prev_token = add_new_token(str, arg);
 }
 
+int	get_string(char *line, int start)
+{
+	int		i;
+	char	quote;
+
+	i = start;
+	while (ft_isalnum(line[i]) == 1)
+	{
+		i++;
+		if (line[i] == '\"' || line[i] == '\'')
+		{	
+			quote = line[i];
+			while (line[++i] && line[i] != quote)
+			{
+				if (line[i] == '$' && quote == '\"')
+				line[i - 1] = line[i];
+			}
+			line = expand_env_var(line);
+		}
+	}
+	if (line[i] == '<' || line[i] == '>' || line[i] == '|')
+		i++;
+	if (line[i] == '<' || line[i] == '>')
+		return (++i);
+	while (ft_isalnum(line[i]) == 1)
+		i++;
+	return (i); 
+}
 
 
-char	*expand_env_var(char *buf)
+char	*expand_env_var(char *buf, int len)
 {
 	char	*tmp[4];
 
+	buf = ft_substr(buf, 0, len);
 	while (buf)
 	{
-		tmp[3] = ft_strchr(buf, '$');
-		if (tmp[3] == NULL || tmp[3])
-			break ;
+		tmp[3] = ft_strrchr(buf, '$');
+		if (tmp[3] == NULL)
+			return (buf);
 		tmp[1] = ft_substr(buf, 0, tmp[3] - buf);
 		buf = tmp[3] + 1;
 		while (ft_isalnum(*buf) == 1 || *buf == '_')
@@ -67,56 +96,10 @@ char	*expand_env_var(char *buf)
 		free(tmp[0]);
 		free(tmp[1]);
 		free(tmp[2]);
-		return (buf);
 	}
+	return (buf);
 }
 
-	// while (ft_isalnum(line[i]) == 1)
-	// 	i++;
-	// if (line[i] == '\"' || line[i] == '\'')
-	// {
-	// 	quote = line[i++];
-	// 	while (line[i] && line[i] != quote)
-	// 		i++;
-	// 	return (++i);
-	// }
-	// if (line[i] == '<' || line[i] == '>' || line[i] == '|')
-	// 	i++;
-	// if (line[i] == '<' || line[i] == '>')
-	// 	return (++i);
-	// while (ft_isalnum(line[i]) == 1)
-	// 	i++;
-	// return (i);
-
-int	get_word_idx(char *line, int start)
-{
-	int		i;
-	char	*quote[2];
-	char	*tmp;
-	char	*buffer;
-
-	i = start;
-	while (line[i] != ' ')
-	{
-		if (line[i] == '\"' || line[i] == '\'')
-		{
-			quote[0] = &line[i++];
-			quote[1] = ft_strchr(&line[i], *quote[i]);
-			if (*quote[1] == NULL)
-				return (-1);
-			buffer
-			ft_memmove(quote[0], quote[0] + 1, ft_strlen(quote[0] + 1));
-			ft_memmove(quote[1], quote[1] + 1, ft_strlen(quote[1] + 1));
-			if (*quote[0] == '\"')
-			{
-				buffer = ft_substr(line, start, quote[1] - line);
-				buffer = expand_env_var(buffer);
-			}
-
-		}
-	}
-
-}
 
 void	mini_lexer(char *line)
 {
@@ -131,8 +114,7 @@ void	mini_lexer(char *line)
 		while (line[i] == ' ')
 			i++;
 		start_idx = i;
-		buffer = expand_env_var(buffer);
-		i = get_word_idx(line, start_idx, buffer);
+		i = get_string(line, start_idx);
 		buffer = ft_substr(line, start_idx, i - start_idx);
 		decide_token_type(buffer);
 		free(buffer);
