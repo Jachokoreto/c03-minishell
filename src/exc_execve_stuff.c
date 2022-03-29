@@ -3,7 +3,7 @@
 void	execve_stuff(char *input)
 {
 	char	**path;
-	char	*cmd;
+	char	*cmd = NULL;
 	char	*argvec[] = { cmd, input , NULL};
 	char	*envVec[] = {"CSC220=Linux", "SECRET=Study Hard", "HELLO=BYE"};
 	int		i;

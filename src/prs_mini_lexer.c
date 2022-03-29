@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_lexer.c                                       :+:      :+:    :+:   */
+/*   prs_mini_lexer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/03/29 10:41:43 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/29 12:38:03 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +97,16 @@ char	*get_string_into_buffer(char **line)
 	return (buffer);
 }
 
-char	*process_buffer(char *buffer)
-{
-	t_list	*env;
+// char	*process_buffer(char *buffer)
+// {
+// 	t_list	*env;
 
-	while (*buffer)
-	{
+// 	while (*buffer)
+// 	{
 
-	}
-	return (buffer);
-}
+// 	}
+// 	return (buffer);
+// }
 
 void	mini_lexer(char *line)
 {
@@ -126,7 +126,7 @@ void	mini_lexer(char *line)
 			perror("Invalid");
 			break ;
 		}
-		buffer = process_buffer(buffer);
+		// buffer = process_buffer(buffer);
 		decide_token_type(buffer);
 		free(buffer);
 	}
