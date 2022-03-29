@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:55 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/21 20:42:12 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/29 11:18:24 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -19,7 +20,7 @@ void	cd(char **args)
 	t_list			*curnode;
 	t_env			*env;
 
-	curnode = data->env_list;
+	curnode = g_data->env_list;
 	if (oldpwd == NULL)
 	{
 		while (curnode)
