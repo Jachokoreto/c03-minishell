@@ -11,7 +11,6 @@ GNL_DIR		= ./get_next_line
 OBJS_DIR 	= ./obj
 
 SRCS		=	bi_cd.c bi_echo.c bi_env.c bi_export.c bi_ft_exit.c bi_pwd.c bi_unset.c \
-				exc_execve_stuff.c exc_run_command.c \
 				prs_mini_lexer.c prs_mini_yacc.c prs_parser.c \
 				ult_mini_getenv.c utl_free_str_array.c utl_get_env_array.c utl_init_mini.c \
 				shellsignals.c 
