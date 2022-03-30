@@ -28,8 +28,8 @@ char	**get_env_array(void)
 	int i;
 
 	i = 0;
-	arr = malloc(sizeof(char *) * ft_lstsize(data->env_list) + 1);
-	node = data->env_list;
+	arr = malloc(sizeof(char *) * ft_lstsize(g_data->env_list) + 1);
+	node = g_data->env_list;
 	while (node)
 	{
 		env = node->content;

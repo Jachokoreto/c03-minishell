@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_pipes.c                                       :+:      :+:    :+:   */
+/*   exe_pipes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 19:46:10 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/24 19:53:02 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/29 14:51:52 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	**get_pipes(void)
 	int	**pipes;
 	int	i;
 
-	pipes = malloc(sizeof(int *) * data->pipe_number);
+	pipes = malloc(sizeof(int *) * g_data->pipe_number);
 	i = 0;
-	while (i < data->pipe_number)
+	while (i < g_data->pipe_number)
 	{
 		pipes[i] = malloc(sizeof(int) * 2);
 		pipe(pipes[i]);
@@ -41,9 +41,9 @@ void	first_last_child(int **pipes, int i, char *input)
 		dup2(pipes[i][1], 1);
 		close(pipes[i][1]);
 		close(pipes[i][0]);
-		exec_path(input);
+		exe_path(input);
 	}
-	if (i == data->pipe_number)
+	if (i == g_data->pipe_number)
 	{
 		fd_out = open("outfile", O_CREAT | O_WRONLY| O_APPEND, 0644);
 		dup2(pipes[i - 1][0], 0);
@@ -51,7 +51,7 @@ void	first_last_child(int **pipes, int i, char *input)
 		close(pipes[i - 1][1]);
 		dup2(fd_out, 1);
 		close(fd_out);
-		exec_path(input);
+		exe_path(input);
 	}
 }
 
@@ -62,7 +62,7 @@ void	middle_child(int **pipes, int i, char *input)
 	dup2(pipes[i][1], 1);
 	close(pipes[i][1]);
 	close(pipes[i][0]);
-	exec_path(input);
+	exe_path(input);
 	// execve("/bin/ps", args2, envp);
 }
 
@@ -70,7 +70,7 @@ void	parent_close_fd(int **pipes, int i)
 {
 	if (i == 0)
 		close(pipes[i][1]);
-	else if (i == data->pipe_number)
+	else if (i == g_data->pipe_number)
 		close(pipes[i - 1][0]);
 	else
 	{
@@ -79,7 +79,7 @@ void	parent_close_fd(int **pipes, int i)
 	}
 }
 
-int	exec_pipes(char *input)
+int	exe_pipes(char *input)
 {
 	int	i;
 	int	process;
@@ -88,12 +88,12 @@ int	exec_pipes(char *input)
 
 	pipes = get_pipes();
 	i = -1;
-	while (++i <= data->pipe_number)
+	while (++i <= g_data->pipe_number)
 	{
 		process = fork();
 		if (process == 0)
 		{
-			if ((i == 0) || (i == data->pipe_number))
+			if ((i == 0) || (i == g_data->pipe_number))
 				first_last_child(pipes, i, input);
 			else
 				middle_child(pipes, i, input);

@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   bi_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/22 20:37:34 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/29 19:46:35 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// LATER FIX IT PLS 
+void	print_declarations(void *content)
+{
+	t_env	*tmp;
+
+	tmp = (t_env *)content;
+	// printf("|%s|\n", tmp->value);
+	// printf("|./minishell|\n");
+	if (ft_strncmp(tmp->value, "./minishell", ft_strlen("./minishell") == 0))
+		printf("LALALALALALA\n");
+	printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+}
 
 char	**key_value_split(const char *s, char c)
 {
@@ -25,9 +38,9 @@ char	**key_value_split(const char *s, char c)
 		index++;
 	index++;
 	table[0] = ft_strndup(s, index - 1);
-	printf("%s\n", table[0]);
+	// printf("%s\n", table[0]);
 	table[1] = ft_strndup(s + index, ft_strlen(s) - index);
-	printf("%s\n", table[1]);
+	// printf("%s\n", table[1]);
 	table[2] = NULL;
 	return (table);
 }
@@ -51,7 +64,12 @@ void	export(char **args)
 	t_env	*env;
 	t_list	*lst;
 
-	lst = data->env_list;
+	if (args[0] == NULL)
+	{
+		ft_lstiter(g_data->env_list, print_declarations);
+		return ;
+	}
+	lst = g_data->env_list;
 	str = key_value_split(args[0], '=');
 	while (lst)
 	{
@@ -62,5 +80,5 @@ void	export(char **args)
 	env = malloc(sizeof(t_env));
 	env->key = str[0];
 	env->value = str[1];
-	ft_lstadd_back(&data->env_list, ft_lstnew(env));
+	ft_lstadd_back(&g_data->env_list, ft_lstnew(env));
 }

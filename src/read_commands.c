@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:47 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/24 19:53:41 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/29 17:58:21 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	execve_stuff(char *input)
 {
-	data->pipe_number = 0; // temp here
-	if (data->pipe_number > 0)
-		exec_pipes(input);
+	g_data->pipe_number = 0; // temp here
+	if (g_data->pipe_number > 0)
+		exe_pipes(input);
 	if (fork() == 0)
-		exec_path(input);
+		exe_path(input);
 }
 
-void	read_commands(t_data *data, char *line)
+void	read_commands(t_data *g_data, char *line)
 {
 	int		i;
 	char	**split;
@@ -32,14 +32,14 @@ void	read_commands(t_data *data, char *line)
 	i = -1;
 	while (++i < 7)
 	{
-		if (ft_strncmp(split[0], data->builtins[i],
-				ft_strlen(data->builtins[i])) == 0)
+		if (ft_strncmp(split[0], g_data->builtins[i],
+				ft_strlen(split[0])) == 0)
 		{
-			data->builtin_funcs[i](&split[1]);
+			g_data->builtin_funcs[i](&split[1]);
 			return ;
 		}
 		else
-			execve_stuff(split[0]);
+			;// execve_stuff(split[0]);
 	}
 	return ;
 }

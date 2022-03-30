@@ -10,8 +10,10 @@ SRCS_DIR	= ./src
 GNL_DIR		= ./get_next_line
 OBJS_DIR 	= ./obj
 
-SRCS		= read_commands.c echo.c init_mini.c pwd.c cd.c env.c export.c unset.c \
-				ft_exit.c shellsignals.c get_env_array.c mini_getenv.c exec_pipes.c exec_path.c
+SRCS		= read_commands.c bi_echo.c bi_pwd.c bi_cd.c bi_env.c bi_export.c bi_unset.c \
+				bi_exit.c shellsignals.c get_env_array.c mini_getenv.c exe_pipes.c exe_path.c \
+				utl_init_mini.c heredoc.c\
+
 OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 SRCS_GNL	= get_next_line.c get_next_line_utils.c
@@ -32,7 +34,7 @@ libft/libft.a :
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) $(INCLUDES) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(INCLUDES) $(CPPFLAGS) -c $< -o $@
 
 $(OBJS_DIR)/%.o: $(GNL_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)

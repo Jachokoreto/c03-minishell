@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/24 19:50:32 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/29 15:51:57 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ typedef struct s_data
 	t_builtin_funcs	builtin_funcs[7];
 }	t_data;
 
-t_data	*data;
+t_data	*g_data;
 
-void	read_commands(t_data *data, char *line);
+void	read_commands(t_data *g_data, char *line);
 void	echo(char **args);
 void	pwd(char **args);
 void	cd(char **args);
@@ -65,8 +65,9 @@ void	shellsignals(void);
 char	**get_env_array(void);
 char	*mini_getenv(char *key);
 char	*join_key_value(char *str1, char *str2, char c);
-int		exec_pipes(char *input);
-void	exec_path(char *input);
+int		exe_pipes(char *input);
+void	exe_path(char *input);
 t_data	*init_mini(char **envp);
+void	heredoc(char *delim);
 
 #endif

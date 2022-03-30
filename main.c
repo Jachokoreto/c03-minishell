@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/24 18:00:51 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/30 12:13:44 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	argc = 1;
-	data = init_mini(envp);
+	g_data = init_mini(envp);
 	shellsignals();
 	get_env_array();
 	while (1)
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 		if (line && *line)
 		{
 			add_history(line);
-			read_commands(data, line);
+			read_commands(g_data, line);
 		}
 	}
 }

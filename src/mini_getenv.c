@@ -5,7 +5,7 @@ char	*mini_getenv(char *key)
 	t_list	*node;
 	t_env	*env;
 	
-	node = data->env_list;
+	node = g_data->env_list;
 	while (node)
 	{
 		env = node->content;
