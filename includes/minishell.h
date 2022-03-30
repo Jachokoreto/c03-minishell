@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/24 18:06:02 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/30 11:55:13 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include "get_next_line.h"
 # include "libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -78,6 +77,10 @@ t_data	*init_mini(char **envp);
 
 void	mini_lexer(char *line);
 void	parser(char *line);
+void	decide_token(char *str);
+char	*process_buffer(char *buffer);
+
+
 
 
 #endif

@@ -7,27 +7,23 @@ CC			= gcc -Wall -Wextra -Werror -fsanitize=address -g3
 RM			= rm -rf
 
 SRCS_DIR	= ./src
-GNL_DIR		= ./get_next_line
 OBJS_DIR 	= ./obj
 
 SRCS		=	bi_cd.c bi_echo.c bi_env.c bi_export.c bi_ft_exit.c bi_pwd.c bi_unset.c \
-				prs_mini_lexer.c prs_mini_yacc.c prs_parser.c \
+				prs_decide_token.c prs_mini_lexer.c prs_mini_yacc.c prs_parser.c prs_process_buffer.c  \
 				ult_mini_getenv.c utl_free_str_array.c utl_get_env_array.c utl_init_mini.c \
 				shellsignals.c 
 
 OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-SRCS_GNL	= get_next_line.c get_next_line_utils.c
-OBJS_GNL	= $(SRCS_GNL:%.c=$(OBJS_DIR)/%.o)
-
 
 LIB			= -Llibft -lft -lreadline
-INCLUDES	= -Iincludes -Iget_next_line -Ilibft
+INCLUDES	= -Iincludes -Ilibft
 
 all:	$(NAME)
 
-$(NAME): $(OBJS) $(OBJS_GNL) main.c libft/libft.a
-		@$(CC) $(LDFLAGS) $(CPPFLAGS) $(INCLUDES) $(LIB) main.c $(OBJS) $(OBJS_GNL) -o $@
+$(NAME): $(OBJS) main.c libft/libft.a
+		@$(CC) $(LDFLAGS) $(CPPFLAGS) $(INCLUDES) $(LIB) main.c $(OBJS) -o $@
 		@echo "$(GREEN)Compiled $@ successfully $(RESET)"
 
 libft/libft.a :
@@ -37,9 +33,6 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) $(INCLUDES) $(CPPFLAGS) -c $< -o $@
 
-$(OBJS_DIR)/%.o: $(GNL_DIR)/%.c
-	@mkdir -p $(OBJS_DIR)
-	@$(CC) $(INCLUDES) -c $< -o $@
 
 t: all
 	./minishell

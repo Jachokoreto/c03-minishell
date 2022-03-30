@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_tokenize.c                                     :+:      :+:    :+:   */
+/*   prs_decide_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:36:13 by jatan             #+#    #+#             */
-/*   Updated: 2022/03/29 11:36:47 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/29 18:51:59 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token	*add_new_token(char *str, enum e_Type type)
 	return (token);
 }
 
-void	decide_token_type(char *str)
+void	decide_token(char *str)
 {
 	static t_token	*prev_token;
 
