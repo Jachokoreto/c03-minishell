@@ -31,7 +31,7 @@ libft/libft.a :
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) $(INCLUDES) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(INCLUDES) $(CPPFLAGS) -c $< -o $@
 
 
 t: all
