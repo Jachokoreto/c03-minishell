@@ -1,24 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:55 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/21 14:49:16 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/30 14:35:57 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "minishell.h"
 
 void	cd(char **args)
 {
-	char	buf[256];
-	(void)args;
-	getcwd(buf, sizeof(buf));
-	printf("%s\n", buf);
+	static t_list	*oldpwd;
+	static t_list	*pwd;
+	t_list			*curnode;
+	t_env			*env;
+
+	curnode = g_data->env_list;
+	if (oldpwd == NULL)
+	{
+		while (curnode)
+		{
+			env = (t_env *)curnode->content;
+			if (ft_strncmp(env->key, "OLDPWD", ft_strlen("OLDPWD")) == 0)
+				oldpwd = curnode;
+			if (ft_strncmp(env->key, "PWD", ft_strlen("PWD")) == 0)
+				pwd = curnode;
+			curnode = curnode->next;
+		}
+	}
+	env = (t_env *)oldpwd->content;
+	env->value = getcwd(NULL, 0);
 	chdir(args[0]);
-	getcwd(buf, sizeof(buf));
-	printf("%s\n", buf);
+	env = (t_env *)pwd->content;
+	env->value = getcwd(NULL, 0);
 }

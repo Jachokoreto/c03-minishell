@@ -4,8 +4,8 @@ void	handler(int signo)
 {
 	if (signo == SIGQUIT)
 	{
-		// write(1, "\nMinishell >", 14);
-		// rl_on_new_line();
+		rl_on_new_line();
+		rl_redisplay();
 		return ;
 	}
 	if (signo == SIGINT)
