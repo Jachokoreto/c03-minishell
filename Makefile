@@ -9,10 +9,11 @@ RM			= rm -rf
 SRCS_DIR	= ./src
 OBJS_DIR 	= ./obj
 
-SRCS		=	bi_cd.c bi_echo.c bi_env.c bi_export.c bi_ft_exit.c bi_pwd.c bi_unset.c \
-				prs_decide_token.c prs_mini_lexer.c prs_mini_yacc.c prs_parser.c prs_process_buffer.c  \
-				ult_mini_getenv.c utl_free_str_array.c utl_get_env_array.c utl_init_mini.c \
-				shellsignals.c 
+SRCS		=	read_commands.c shellsignals.c \
+				bi_cd.c bi_echo.c bi_env.c bi_exit.c bi_export.c bi_pwd.c bi_unset.c \
+				exe_path.c exe_pipes.c exe_heredoc.c \
+				prs_decide_token.c prs_mini_lexer.c prs_mini_yacc.c prs_parser.c prs_process_buffer.c \
+				ult_mini_getenv.c utl_free_str_array.c utl_get_env_array.c utl_init_mini.c  
 
 OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 

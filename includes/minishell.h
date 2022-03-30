@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/30 14:32:06 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/30 14:55:44 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,7 @@
 
 typedef void	(*t_builtin_funcs)(char **args);
 
-
-enum e_Type { cmd, opt, arg, sym };
-
-typedef struct s_token
-{
-	enum e_Type	token_type;
-	char		*value;
-}	t_token;
+enum e_Type { cmd, arg, redir, pip, file};
 
 typedef struct s_env
 {
@@ -47,7 +40,6 @@ typedef struct s_env
 	char	*value;
 }	t_env;
 
-enum e_Type { cmd, arg, redir, pip, file};
 typedef struct s_token
 {
 	enum e_Type	type;
@@ -66,14 +58,14 @@ typedef struct s_data
 {
 	char			**builtins;
 	t_list			*env_list;
-	t_token			*tokens;
+	t_list			*tokens;
 	int				pipe_number;
 	t_list			*cmd_grp;
 	int				newline;
 	t_builtin_funcs	builtin_funcs[7];
 }	t_data;
 
-t_data	*g_data;
+t_data			*g_data;
 
 void	read_commands(t_data *g_data, char *line);
 void	echo(char **args);
