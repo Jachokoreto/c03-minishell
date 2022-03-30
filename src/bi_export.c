@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/29 19:46:35 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/30 14:51:23 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ void	print_declarations(void *content)
 	t_env	*tmp;
 
 	tmp = (t_env *)content;
-	// printf("|%s|\n", tmp->value);
-	// printf("|./minishell|\n");
-	if (ft_strncmp(tmp->value, "./minishell", ft_strlen("./minishell") == 0))
-		printf("LALALALALALA\n");
-	printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+	if (ft_strncmp(tmp->key, "_", ft_strlen(tmp->key)) != 0)
+		printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 }
 
 char	**key_value_split(const char *s, char c)
