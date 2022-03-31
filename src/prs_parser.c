@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/30 14:30:41 by jatan            ###   ########.fr       */
+/*   Created: 2022/03/23 10:34:39 by jatan             #+#    #+#             */
+/*   Updated: 2022/03/24 18:16:15 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
-{	
-	char	*line;
 
-	(void)argv;
-	argc = 1;
-	g_data = init_mini(envp);
-	shellsignals();
-	get_env_array();
-	while (1)
+
+void	parser(char *line)
+{
+	t_list	*tmp;
+	t_token	*tmp_token;
+
+	mini_lexer(line);
+	tmp = g_data->tokens;
+	while (tmp)
 	{
-		line = readline("minishell > ");
-		// heredoc("hello");
-		if (line == NULL)
-			exit(10);
-		if (line && *line)
-		{
-			add_history(line);
-			read_commands(g_data, line);
-		}
+		tmp_token = tmp->content;
+		printf("%d, |%s|\n", tmp_token->type, tmp_token->value);
+		tmp = tmp->next;
 	}
 }

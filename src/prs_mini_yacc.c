@@ -1,39 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   prs_mini_yacc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/30 14:30:41 by jatan            ###   ########.fr       */
+/*   Created: 2022/03/24 18:12:55 by jatan             #+#    #+#             */
+/*   Updated: 2022/03/31 11:11:29 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//take token and organize into cmd_grp
+void	mini_yacc(void)
+{
 
-
-
-#include "minishell.h"
-
-int	main(int argc, char **argv, char **envp)
-{	
-	char	*line;
-
-	(void)argv;
-	argc = 1;
-	g_data = init_mini(envp);
-	shellsignals();
-	get_env_array();
-	while (1)
-	{
-		line = readline("minishell > ");
-		// heredoc("hello");
-		if (line == NULL)
-			exit(10);
-		if (line && *line)
-		{
-			add_history(line);
-			read_commands(g_data, line);
-		}
-	}
 }

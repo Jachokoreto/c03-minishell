@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/29 15:51:57 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/31 11:11:05 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -19,21 +21,18 @@
 # include <unistd.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# include "get_next_line.h"
 # include "libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define KEY 0
+# define B_KEY 1
+# define A_KEY 2
+
+
 typedef void	(*t_builtin_funcs)(char **args);
 
-
-enum e_Type { cmd, opt, arg, sym };
-
-typedef struct s_token
-{
-	enum e_Type	token_type;
-	char		*value;
-}	t_token;
+enum e_Type { cmd, arg, redir, pip, file};
 
 typedef struct s_env
 {
@@ -41,17 +40,30 @@ typedef struct s_env
 	char	*value;
 }	t_env;
 
+typedef struct s_token
+{
+	enum e_Type	type;
+	char		*value;
+}	t_token;
+
+typedef struct s_cmd_grp
+{
+	char	**args; // args[0] = cmd, args[n] = arguments
+	char	**infile;
+	char	**outfile;
+}	t_cmd_grp;
+
 typedef struct s_data
 {
 	char			**builtins;
 	t_list			*env_list;
-	t_token			*tokens;
+	t_list			*tokens;
 	int				pipe_number;
-	int				newline;
+	t_list			*cmd_grp;
 	t_builtin_funcs	builtin_funcs[7];
 }	t_data;
 
-t_data	*g_data;
+t_data			*g_data;
 
 void	read_commands(t_data *g_data, char *line);
 void	echo(char **args);
@@ -69,5 +81,13 @@ int		exe_pipes(char *input);
 void	exe_path(char *input);
 t_data	*init_mini(char **envp);
 void	heredoc(char *delim);
+
+void	mini_lexer(char *line);
+void	parser(char *line);
+void	decide_token(char *str);
+char	*process_buffer(char *buffer);
+
+
+
 
 #endif

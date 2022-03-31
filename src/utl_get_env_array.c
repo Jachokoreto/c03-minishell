@@ -6,15 +6,15 @@ char	*join_key_value(char *str1, char *str2, char c)
 	char		*heap;
 	int			len;
 
-	len = strlen(str1) + strlen(str2) + 2;
+	len = ft_strlen(str1) + ft_strlen(str2) + 2;
 	heap = (char *)malloc(sizeof(char) * len);
 	if (!heap)
 		return (NULL);
 	i = 0;	
-	while (*str1)
+	while (str1 && *str1)
 		heap[i++] = *str1++;
 	heap[i++] = c;
-	while (*str2)
+	while (str2 && *str2)
 		heap[i++] = *str2++;
 	heap[i] = '\0';
 	return (heap);

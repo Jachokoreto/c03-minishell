@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+         #
+#    By: jatan <jatan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/07 13:17:07 by leu-lee           #+#    #+#              #
-#    Updated: 2022/03/21 17:41:39 by leu-lee          ###   ########.fr        #
+#    Updated: 2022/03/23 19:13:12 by jatan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ $(NAME):	$(OBJS)
 
 bonus:		$(OBJS) $(OBJS_BONUS)
 		@ar rcs $(NAME) $(OBJS) $(OBJS_BONUS)
+		@echo "$(GREEN)Compiled $@ successfully$(RESET)"
 
 %.o: %.c
 		@$(CC) $(CFLAGS) -c $<

@@ -9,7 +9,7 @@ char	*mini_getenv(char *key)
 	while (node)
 	{
 		env = node->content;
-		if (ft_strncmp(env->key, key, ft_strlen(env->key)) == 0)
+		if (ft_strncmp(env->key, key, ft_strlen(key)) == 0)
 			return(env->value);	
 		node = node->next;
 	}

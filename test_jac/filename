@@ -1,0 +1,1 @@
+cd.c echo.c env.c execve.c export.c ft_exit.c get_env_array.c init_mini.c pipestuff.c pwd.c run_command.c shellsignals.c unset.c 
