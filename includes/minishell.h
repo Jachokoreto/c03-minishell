@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/30 14:55:44 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/31 11:11:05 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,9 @@ typedef struct s_token
 
 typedef struct s_cmd_grp
 {
-	char	*cmd;
-	char	**args;
-	char	*infile;
-	char	*outfile;
+	char	**args; // args[0] = cmd, args[n] = arguments
+	char	**infile;
+	char	**outfile;
 }	t_cmd_grp;
 
 typedef struct s_data
@@ -61,7 +60,6 @@ typedef struct s_data
 	t_list			*tokens;
 	int				pipe_number;
 	t_list			*cmd_grp;
-	int				newline;
 	t_builtin_funcs	builtin_funcs[7];
 }	t_data;
 

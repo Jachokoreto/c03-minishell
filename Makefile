@@ -1,7 +1,7 @@
 NAME	 	= minishell
 
-LDFLAGS		= -L/usr/local/opt/readline/lib
-CPPFLAGS	= -I/usr/local/opt/readline/include
+# LDFLAGS		= -L/usr/local/opt/readline/lib
+# CPPFLAGS	= -I/usr/local/opt/readline/include
 
 CC			= gcc -Wall -Wextra -Werror -fsanitize=address -g3
 RM			= rm -rf
