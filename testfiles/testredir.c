@@ -25,7 +25,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*heap;
 
 	len = ft_strlen(s1) + ft_strlen(s2);
-	heap = malloc(sizeof(char) * (len + 1));
+	heap = ft_calloc(sizeof(char) * (len + 1));
 	if (!heap)
 		return (NULL);
 	index = 0;
@@ -75,7 +75,7 @@ int	main(void)
 			dup2(fd_in, 0);
 			if (!str)
 			{
-				str = malloc(sizeof(char));
+				str = ft_calloc(sizeof(char));
 				str[0] = 0;			
 			}
 			ret = read(fd_in, buffer, 256);

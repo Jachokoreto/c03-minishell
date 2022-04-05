@@ -25,7 +25,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*heap;
 
 	len = ft_strlen(s1) + ft_strlen(s2);
-	heap = malloc(sizeof(char) * (len + 1));
+	heap = ft_calloc(sizeof(char) * (len + 1));
 	if (!heap)
 		return (NULL);
 	index = 0;
@@ -63,7 +63,7 @@ int	main(void)
 
 	redir_in = 2;
 	int	status;
-	// fd_in = malloc(sizeof(int)); // resolves the issue.
+	// fd_in = ft_calloc(sizeof(int)); // resolves the issue.
 	char *argv[] = {"/bin/cat", NULL};
 	fd_out = open("outfile", O_WRONLY | O_CREAT | O_APPEND, 0777);
 	process = fork();
@@ -80,7 +80,7 @@ int	main(void)
 			dup2(*fd_in, 0);
 			if (!str)
 			{
-				str = malloc(sizeof(char));
+				str = ft_calloc(sizeof(char));
 				str[0] = 0;			
 			}
 			ret = read(*fd_in, buffer, 256);

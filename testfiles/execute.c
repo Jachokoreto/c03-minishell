@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mypipe.c                                           :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 16:11:43 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/24 16:13:17 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/03/31 18:59:28 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	**get_pipes(int nopipes)
 	int	**pipes;
 	int	i;
 
-	pipes = malloc(sizeof(int *) * nopipes);
+	pipes = ft_calloc(nopipes, sizeof(int *));
 	i = 0;
 	while (i < nopipes)
 	{
-		pipes[i] = malloc(sizeof(int) * 2);
+		pipes[i] = ft_calloc(2, sizeof(int));
 		pipe(pipes[i]);
 		i++;
 	}

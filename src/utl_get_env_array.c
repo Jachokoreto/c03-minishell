@@ -7,7 +7,7 @@ char	*join_key_value(char *str1, char *str2, char c)
 	int			len;
 
 	len = ft_strlen(str1) + ft_strlen(str2) + 2;
-	heap = (char *)malloc(sizeof(char) * len);
+	heap = (char *)ft_calloc(len, sizeof(char));
 	if (!heap)
 		return (NULL);
 	i = 0;	
@@ -28,7 +28,7 @@ char	**get_env_array(void)
 	int i;
 
 	i = 0;
-	arr = malloc(sizeof(char *) * ft_lstsize(g_data->env_list) + 1);
+	arr = ft_calloc(ft_lstsize(g_data->env_list) + 1, sizeof(char *));
 	node = g_data->env_list;
 	while (node)
 	{

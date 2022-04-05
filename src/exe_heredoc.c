@@ -6,7 +6,7 @@ void	heredoc(char *delim)
 	char		*temp;
 	char		*line;
 
-	str = malloc(sizeof(char));
+	str = ft_calloc(1, sizeof(char));
 	if (delim == NULL)
 		return ; 
 	while (1)

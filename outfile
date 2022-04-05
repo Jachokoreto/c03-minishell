@@ -1,35 +1,3 @@
-  PID TTY           TIME CMD
-54328 ttys001    0:00.06 /bin/zsh -l
-57099 ttys001    0:00.00 ./minishell
- 2157 ttys008    0:00.02 /Applications/iTerm.app/Contents/MacOS/iTerm2 --server /usr/bin/login -fpl leu-lee /Applications/iTerm.app/Contents/MacOS/iTerm2 --launch_shell
- 2159 ttys008    0:00.08 -zsh
-  PID TTY           TIME CMD
-54328 ttys001    0:00.06 /bin/zsh -l
-57099 ttys001    0:00.00 ./minishell
- 2157 ttys008    0:00.02 /Applications/iTerm.app/Contents/MacOS/iTerm2 --server /usr/bin/login -fpl leu-lee /Applications/iTerm.app/Contents/MacOS/iTerm2 --launch_shell
- 2159 ttys008    0:00.08 -zsh
-  PID TTY           TIME CMD
-54328 ttys001    0:00.06 /bin/zsh -l
-57099 ttys001    0:00.00 ./minishell
- 2157 ttys008    0:00.02 /Applications/iTerm.app/Contents/MacOS/iTerm2 --server /usr/bin/login -fpl leu-lee /Applications/iTerm.app/Contents/MacOS/iTerm2 --launch_shell
- 2159 ttys008    0:00.08 -zsh
-  PID TTY           TIME CMD
-54328 ttys001    0:00.06 /bin/zsh -l
-57099 ttys001    0:00.01 ./minishell
- 2157 ttys008    0:00.02 /Applications/iTerm.app/Contents/MacOS/iTerm2 --server /usr/bin/login -fpl leu-lee /Applications/iTerm.app/Contents/MacOS/iTerm2 --launch_shell
- 2159 ttys008    0:00.08 -zsh
-  PID TTY           TIME CMD
-54328 ttys001    0:00.06 /bin/zsh -l
-57099 ttys001    0:00.01 ./minishell
- 2157 ttys008    0:00.02 /Applications/iTerm.app/Contents/MacOS/iTerm2 --server /usr/bin/login -fpl leu-lee /Applications/iTerm.app/Contents/MacOS/iTerm2 --launch_shell
- 2159 ttys008    0:00.08 -zsh
-  PID TTY           TIME CMD
-54328 ttys001    0:00.06 /bin/zsh -l
-57099 ttys001    0:00.01 ./minishell
- 2157 ttys008    0:00.02 /Applications/iTerm.app/Contents/MacOS/iTerm2 --server /usr/bin/login -fpl leu-lee /Applications/iTerm.app/Contents/MacOS/iTerm2 --launch_shell
- 2159 ttys008    0:00.08 -zsh
-  PID TTY           TIME CMD
-54328 ttys001    0:00.06 /bin/zsh -l
-57099 ttys001    0:00.01 ./minishell
- 2157 ttys008    0:00.02 /Applications/iTerm.app/Contents/MacOS/iTerm2 --server /usr/bin/login -fpl leu-lee /Applications/iTerm.app/Contents/MacOS/iTerm2 --launch_shell
- 2159 ttys008    0:00.08 -zsh
+hello world
+my name is Jaclyn
+imgonna say hello again

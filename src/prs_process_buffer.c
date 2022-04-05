@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/03/30 14:17:19 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/31 18:58:05 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*process_buffer(char *buffer)
 	{
 		if (*idx[0] == '$')
 		{
-			data = malloc(sizeof(char *) * 2);
+			data = ft_calloc(2, sizeof(char *));
 			idx[1] = idx[0] + 1;
 			while (ft_isalnum(*idx[1]) == 1 || *idx[1] == '_')
 				idx[1]++;
