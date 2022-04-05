@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/05 14:17:08 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/05 16:52:02 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*process_buffer(char *buffer)
 	{
 		if (*idx[0] == '$')
 		{
-			data = malloc(sizeof(char *) * 2);
+			data = ft_calloc(2, sizeof(char *));
 			idx[1] = idx[0] + 1;
 			while (ft_isalnum(*idx[1]) == 1 || *idx[1] == '_')
 				idx[1]++;

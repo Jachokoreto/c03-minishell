@@ -19,7 +19,7 @@ void	heredoc(char *delim)
 	char		*line;
 	int			process;
 
-	str = malloc(sizeof(char));
+	str = ft_calloc(1, sizeof(char));
 	if (delim == NULL)
 		return ;
 	// heredocsignals();

@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/31 18:58:08 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/05 16:51:10 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 typedef void	(*t_builtin_funcs)(char **args);
 
-enum e_Type { cmd, arg, redir, pip, file};
+enum e_Type { arg, redir, pip, infile, outfile, delim};
 
 typedef struct s_env
 {
@@ -47,9 +47,9 @@ typedef struct s_token
 typedef struct s_cmd_grp
 {
 	char	**args; // args[0] = cmd, args[n] = arguments
-	char	**infile;
-	char	**outfile;
+	t_list	*retokens;
 }	t_cmd_grp;
+
 
 typedef struct s_data
 {
@@ -57,7 +57,7 @@ typedef struct s_data
 	t_list			*env_list;
 	t_list			*tokens;
 	int				pipe_number;
-	t_list			*cmd_grp;
+	t_list			*cmd_grps;
 	t_builtin_funcs	builtin_funcs[7];
 }	t_data;
 
@@ -84,6 +84,7 @@ void	mini_lexer(char *line);
 void	parser(char *line);
 void	decide_token(char *str);
 char	*process_buffer(char *buffer);
+void	mini_yacc(void);
 
 
 

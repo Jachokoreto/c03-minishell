@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 19:46:10 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/04 13:08:34 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/05 16:52:08 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int	**get_pipes(void)
 	int	**pipes;
 	int	i;
 
-	pipes = malloc(sizeof(int *) * g_data->pipe_number);
+	pipes = ft_calloc(g_data->pipe_number, sizeof(int *));
 	i = 0;
 	while (i < g_data->pipe_number)
 	{
-		pipes[i] = malloc(sizeof(int) * 2);
+		pipes[i] = ft_calloc(2, sizeof(int));
 		pipe(pipes[i]);
 		i++;
 	}

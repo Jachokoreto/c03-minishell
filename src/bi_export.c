@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/31 18:14:03 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/05 16:51:44 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**key_value_split(const char *s, char c)
 	size_t	index;
 
 	index = 0;
-	table = (char **)malloc(sizeof(char *) * (3));
+	table = ft_calloc(3, sizeof(char *));
 	if (!table)
 		return (NULL);
 	while (s[index] != c)
@@ -76,7 +76,7 @@ void	export(char **args)
 			return ;
 		lst = lst->next;
 	}
-	env = malloc(sizeof(t_env));
+	env = ft_calloc(1, sizeof(t_env));
 	env->key = str[0];
 	env->value = str[1];
 	ft_lstadd_back(&g_data->env_list, ft_lstnew(env));

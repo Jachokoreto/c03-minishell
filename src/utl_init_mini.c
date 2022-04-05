@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:37 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/30 14:42:46 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/31 18:59:04 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_env(t_data	*g_data, char **envp)
 	while (envp[++i])
 	{
 		str = ft_split(envp[i], '=');
-		env = malloc(sizeof(t_env));
+		env = ft_calloc(1, sizeof(t_env));
 		env->key = str[0];
 		env->value = str[1];
 		if (ft_strncmp(env->key, "OLDPWD", ft_strlen("OLDPWD")) == 0)
@@ -39,7 +39,7 @@ t_data	*init_mini(char **envp)
 {
 	t_data	*g_data;
 
-	g_data = (t_data *)malloc(sizeof(t_data));
+	g_data = (t_data *)ft_calloc(1, sizeof(t_data));
 	g_data->builtins = ft_split("echo cd pwd export unset env exit", ' ');
 	g_data->builtin_funcs[0] = echo;
 	g_data->builtin_funcs[1] = cd;

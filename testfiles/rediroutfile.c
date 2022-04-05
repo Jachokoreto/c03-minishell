@@ -30,7 +30,7 @@ int	main(void)
 		dup2(fd_in, 0);
 		if (!str)
 		{
-			str = malloc(sizeof(char));
+			str = ft_calloc(sizeof(char));
 			str[0] = 0;			
 		}
 		ret = read(fd_in, buffer, 256);
