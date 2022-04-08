@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/04 19:33:42 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/08 14:52:21 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ char	*get_string_into_buffer(char **line)
 	{
 		if (*index == '<' || *index == '>' || *index == '|')
 		{
-			if (index == *line && *(++index)
-				&& *index == *(index - 1) && *(index - 1) != '|')
+			while (*index == **line)
 				index++;
 			break ;
 		}
@@ -59,8 +58,6 @@ void	mini_lexer(char *line)
 			perror("Invalid");
 			break ;
 		}
-		buffer = process_buffer(buffer);
 		decide_token(buffer);
-		free(buffer);
 	}
 }

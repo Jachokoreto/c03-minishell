@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/04 16:52:50 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/08 15:23:43 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int	main(int argc, char **argv, char **envp)
 		if (line && *line)
 		{
 			add_history(line);
-			// read_commands(g_data, line);
 			parser(line);
+			// read_commands(g_data, line);
+			ft_lstclear(&g_data->tokens, free);
+			ft_lstclear(&g_data->cmd_grps, free);
 		}
 	}
 }

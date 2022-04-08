@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/03/31 18:58:05 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/08 15:55:53 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*expand_env_var(char *buf, t_list *env)
 	char	**data;
 
 	index = -1;
-	printf("%s\n", buf);
 	while (buf[++index])
 	{
 		tmp[3] = ft_strchr(&buf[index], '$'); // get $ pos
@@ -28,12 +27,10 @@ char	*expand_env_var(char *buf, t_list *env)
 		data = env->content;
 		env = env->next;
 		index = tmp[3] - buf;
-		printf("index: %d\n", index);
-		if ('\"' == '\'')
+		if (*(data[0]) == '\'')
 			continue ;
 		tmp[0] = ft_substr(buf, 0, tmp[3] - buf); // get string before $
 		tmp[1] = mini_getenv(data[1]);
-		printf("data[1]: %s\ntmp[0]:%s\ntmp[1]:%s\n", data[1], tmp[0], tmp[1]);
 		tmp[2] = ft_strdup(&buf[index + ft_strlen(data[1]) + 1]); // get string after $ name
 		free(buf);
 		if (tmp[1] == NULL)
@@ -53,35 +50,34 @@ char	*expand_env_var(char *buf, t_list *env)
 char	*process_buffer(char *buffer)
 {
 	t_list	*env;
-	char	*idx[2];
-	char	qt;
+	char	*i[2];
+	char	*qt;
 	char	**data;
 
-	idx[0] = buffer;
-	qt = 0;
+	i[0] = buffer;
+	qt = ft_calloc(2, sizeof(char *));
 	env = NULL;
-	while (idx[0] && *idx[0])
+	while (i[0] && *(i[0]))
 	{
-		if (*idx[0] == '$')
+		if (*i[0] == '$')
 		{
 			data = ft_calloc(2, sizeof(char *));
-			idx[1] = idx[0] + 1;
-			while (ft_isalnum(*idx[1]) == 1 || *idx[1] == '_')
-				idx[1]++;
-			data[1] = ft_substr(idx[0], 1, idx[1] - idx[0] - 1);
-			// data[0] = qt;
+			i[1] = i[0] + 1;
+			while (ft_isalnum(*i[1]) == 1 || *i[1] == '_')
+				i[1]++;
+			data[1] = ft_substr(i[0], 1, i[1] - i[0] - 1);
+			data[0] = ft_strdup(qt);
 			ft_lstadd_back(&env, ft_lstnew(data));
-			idx[0] = idx[1] - 1;
+			i[0] = i[1] - 1;
 		}
-		else if (*idx[0] == '\'' || *idx[0] == '\"')
+		else if (*i[0] == '\'' || *i[0] == '\"')
 		{
-			qt = (qt != *idx[0]) * qt + (qt != *idx[0] && qt == 0) * *idx[0];
-			if (qt == 0 || qt == *idx[0])
-				ft_memmove(idx[0], idx[0] + 1, ft_strlen(idx[0] - 1));
+			*qt = (*qt != *i[0]) * *qt + (*qt == 0) * *i[0];
+			if (*qt == 0 || *qt == *i[0])
+				ft_memmove(i[0], i[0] + 1, ft_strlen(i[0]--));
 		}
-		idx[0]++;
+		i[0]++;
 	}
-	printf("buffer: %s\n", buffer);
 	if (env)
 		buffer = expand_env_var(buffer, env);
 	ft_lstclear(&env, free);

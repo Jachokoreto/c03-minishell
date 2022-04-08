@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/04 19:23:22 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/08 14:08:08 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 typedef void	(*t_builtin_funcs)(char **args);
 
-enum e_Type { arg, redir, pip, infile, outfile, delim};
+enum e_Type { arg, redir, pip, infile, outfile1, outfile2, delim};
 
 typedef struct s_env
 {
