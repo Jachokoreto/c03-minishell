@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:23:09 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/04 10:58:05 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/08 11:55:28 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ void	exe_path(char *input)
 		argvec[0] = cmd;
 		execve(cmd, argvec, envp);
 	}
+	return ;
 }

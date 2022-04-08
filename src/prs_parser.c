@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prs_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 10:34:39 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/04 19:28:43 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/05 17:00:59 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 void	parser(char *line)
 {

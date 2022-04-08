@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/05 16:52:02 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/06 17:46:53 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*expand_env_var(char *buf, t_list *env)
 	char	**data;
 
 	index = -1;
-	printf("%s\n", buf);
+	printf("buffer enpansion on: %s\n", buf);
 	while (buf[++index])
 	{
 		tmp[3] = ft_strchr(&buf[index], '$'); // get $ pos
