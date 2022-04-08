@@ -1,7 +1,7 @@
-# include <stdio.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 
@@ -53,10 +53,6 @@ int main ()
 		{
 			close(fd[0]); // closing std input of the pipe
 		}
-
-
-
-
 		i++;
 	}
 	//printf("In fd is %i\n", in_fd);

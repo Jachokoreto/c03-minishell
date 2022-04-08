@@ -1,14 +1,10 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include <minishell.h>
 
 char	**get_infiles()
 {
 	char	**infiles;
-
+	// temp mallocs
+	// change to linked list
 	infiles = malloc(sizeof(char *) * 3);
 	infiles[0] = "infile";
 	infiles[1] = "infile1";
@@ -18,9 +14,10 @@ char	**get_infiles()
 char	**get_outfiles()
 {
 	char	**outfiles;
-
+	// temp mallocs
+	// change to linked list
 	outfiles = malloc(sizeof(char *) * 3);
-	outfiles[0] = "0outfile";
+	outfiles[0] = "0tempfile";
 	outfiles[1] = "1outfile2";
 	return (outfiles);
 }
@@ -46,6 +43,7 @@ void	output_redir(int redir_out)
 
 	outfiles = get_outfiles();
 	i = -1;
+	printf("Redir out\n");
 	while (++i < redir_out)
 	{ // might need to change to linked list
 		if (outfiles[i][0] == '0')
@@ -65,6 +63,7 @@ void	output_redir(int redir_out)
 		dup2(fd_out, 1);
 		close(fd_out);
 	}
+	return ;
 }
 
 void	input_redir(int redir_in)
@@ -77,6 +76,7 @@ void	input_redir(int redir_in)
 	i = -1;
 	while (++i < redir_in)
 	{
+		// heredoc should be here
 		if (i == 0)
 			fd_in = ft_open( infiles[0], O_RDWR, 0777);
 		if (i == 1)
@@ -84,27 +84,19 @@ void	input_redir(int redir_in)
 		dup2(fd_in, 0);
 		close(fd_in);
 	}
+	return ;
 }
 
-int	main(void)
+void	use_redirections(void)
 {
-	int	fd_in;
-	int	fd_out;
-	int	i;
-	int	process;
 	int	redir_in;
 	int	redir_out;
-	char *argv[] = {"/bin/cat", NULL};
 
-	redir_in = 2;
-	redir_out = 0;
-	// fork is just to test if it works or not
-	process = fork();
-	if (process == 0)
-	{
+	redir_in = 0; // temps here
+	redir_out = 1;
+	if (redir_in > 0)
 		input_redir(redir_in);
+	if (redir_out > 0)
 		output_redir(redir_out);
-		execve("/bin/cat", argv, NULL);
-	}
-	return (0);
+	return ;
 }

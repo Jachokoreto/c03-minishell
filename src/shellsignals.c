@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shellsignals.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/31 14:36:36 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/04/06 17:20:08 by leu-lee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 void	handler(int signo)
@@ -11,7 +23,7 @@ void	handler(int signo)
 	if (signo == SIGINT)
 	{
 		write(1, "\n", 1);
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		ft_memmove(rl_line_buffer, "", 1);
 		rl_on_new_line();
 		rl_redisplay();

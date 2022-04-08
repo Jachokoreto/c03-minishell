@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:55 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/30 14:35:57 by jatan            ###   ########.fr       */
+/*   Updated: 2022/03/31 18:17:26 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "minishell.h"
 
@@ -36,7 +34,10 @@ void	cd(char **args)
 	}
 	env = (t_env *)oldpwd->content;
 	env->value = getcwd(NULL, 0);
-	chdir(args[0]);
+	if (args[0][0] == '~')
+		chdir(ft_strjoin(mini_getenv("HOME"), args[0] + 1));
+	else
+		chdir(args[0]);
 	env = (t_env *)pwd->content;
 	env->value = getcwd(NULL, 0);
 }

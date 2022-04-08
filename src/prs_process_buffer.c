@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   prs_process_buffer.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/08 15:55:53 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/08 16:36:01 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -21,7 +22,7 @@ char	*expand_env_var(char *buf, t_list *env)
 	index = -1;
 	while (buf[++index])
 	{
-		tmp[3] = ft_strchr(&buf[index], '$'); // get $ pos
+		tmp[3] = ft_strchr(&buf[index], '$');
 		if (tmp[3] == NULL)
 			return (buf);
 		data = env->content;
@@ -29,9 +30,9 @@ char	*expand_env_var(char *buf, t_list *env)
 		index = tmp[3] - buf;
 		if (*(data[0]) == '\'')
 			continue ;
-		tmp[0] = ft_substr(buf, 0, tmp[3] - buf); // get string before $
+		tmp[0] = ft_substr(buf, 0, tmp[3] - buf);
 		tmp[1] = mini_getenv(data[1]);
-		tmp[2] = ft_strdup(&buf[index + ft_strlen(data[1]) + 1]); // get string after $ name
+		tmp[2] = ft_strdup(&buf[index + ft_strlen(data[1]) + 1]);
 		free(buf);
 		if (tmp[1] == NULL)
 			buf = ft_strdup(tmp[0]);

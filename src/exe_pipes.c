@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_pipes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 19:46:10 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/31 18:57:32 by jatan            ###   ########.fr       */
+/*   Created: 2022/04/07 16:54:56 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/04/07 18:36:07 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,43 @@ void	first_last_child(int **pipes, int i, char *input)
 {
 	int	fd_out;
 	int	fd_in;
-
+	int	infile = 0; // temp again
 	if (i == 0)
 	{
-		fd_in = open("infile", O_RDONLY, 0777);
-		dup2(fd_in, 0);
-		close(fd_in);
-		dup2(pipes[i][1], 1);
-		close(pipes[i][1]);
-		close(pipes[i][0]);
+		printf("firstchild\n");
+		if (infile > 0)
+		{
+			fd_in = open("infile", O_RDONLY, 0777); // maybe initialize beforehand
+			dup2(fd_in, 0);
+			close(fd_in);
+		}
+		if (g_data->pipe_number > 0)
+		{
+			dup2(pipes[i][1], 1);
+			close(pipes[i][1]);
+			close(pipes[i][0]);
+		}
 		exe_path(input);
 	}
-	if (i == g_data->pipe_number)
+	else if (i == g_data->pipe_number)
 	{
+		printf("lastchild\n");
+		// fix when there is only 1 pipe
 		fd_out = open("outfile", O_CREAT | O_WRONLY| O_APPEND, 0644);
-		dup2(pipes[i - 1][0], 0);
-		close(pipes[i - 1][0]);
-		close(pipes[i - 1][1]);
+		// if (i == g_data->pipe_number)
+		// {
+			// printf("if\n");
+		dup2(pipes[i][0], 0);
+		close(pipes[i][0]);
+		close(pipes[i][1]);
+		// }
+		// else
+		// {
+		// 	printf("else\n");
+		// 	dup2(pipes[i - 1][0], 0);
+		// 	close(pipes[i - 1][0]);
+		// 	close(pipes[i - 1][1]);
+		// }
 		dup2(fd_out, 1);
 		close(fd_out);
 		exe_path(input);
@@ -57,13 +77,12 @@ void	first_last_child(int **pipes, int i, char *input)
 
 void	middle_child(int **pipes, int i, char *input)
 {
+	printf("middlechild\n");
 	dup2(pipes[i - 1][0], 0);
 	close(pipes[i - 1][0]);
 	dup2(pipes[i][1], 1);
 	close(pipes[i][1]);
-	close(pipes[i][0]);
 	exe_path(input);
-	// execve("/bin/ps", args2, envp);
 }
 
 void	parent_close_fd(int **pipes, int i)

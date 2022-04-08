@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/08 15:23:43 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/08 16:20:44 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 
 #include "minishell.h"
@@ -24,10 +22,10 @@ int	main(int argc, char **argv, char **envp)
 	g_data = init_mini(envp);
 	shellsignals();
 	get_env_array();
+	//heredoc("hello");
 	while (1)
 	{
 		line = readline("minishell > ");
-		// heredoc("hello");
 		if (line == NULL)
 			exit(10);
 		if (line && *line)
@@ -37,6 +35,8 @@ int	main(int argc, char **argv, char **envp)
 			// read_commands(g_data, line);
 			ft_lstclear(&g_data->tokens, free);
 			ft_lstclear(&g_data->cmd_grps, free);
+			read_commands(g_data, line);
+			// parser(line);
 		}
 	}
 }
