@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe_path.c                                         :+:      :+:    :+:   */
+/*   utl_move_fd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 17:23:09 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/10 15:44:47 by leu-lee          ###   ########.fr       */
+/*   Created: 2022/04/10 15:24:43 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/04/10 15:24:58 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	reorganize_fd()
-// {
-// 	dup()
-// }
-
-void	exe_path(char **input)
+void	utl_move_fd(int fd1, int fd2)
 {
-	char	**path;
-	char	**envp;
-	int		i;
-	char	*cmd = NULL;
-
-	envp = get_env_array();
-	path = ft_split(mini_getenv("PATH"), ':');
-	i = 0;
-	while (path)
-	{
-		cmd = join_key_value(path[i++], input[0], '/');
-		execve(cmd, input, envp);
-	}
-	return ;
+	ft_dup2(fd1, fd2);
+	close(fd1);
 }

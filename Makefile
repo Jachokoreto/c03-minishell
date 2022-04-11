@@ -3,17 +3,18 @@ NAME	 	= minishell
 LDFLAGS		= -L/usr/local/opt/readline/lib
 CPPFLAGS	= -I/usr/local/opt/readline/include
 
-CC			= gcc -Wall -Wextra -Werror
+CC			= gcc -Wall -Wextra -Werror -fsanitize=address -g3
 RM			= rm -rf
 
 SRCS_DIR	= ./src
 OBJS_DIR 	= ./obj
 
-SRCS		=	read_commands.c shellsignals.c \
+SRCS		=	read_commands.c shellsignals.c ft_utils.c ft_utils2.c \
 				bi_cd.c bi_echo.c bi_env.c bi_exit.c bi_export.c bi_pwd.c bi_unset.c \
 				exe_path.c exe_pipes.c exe_heredoc.c heredocsignals.c exe_redir.c \
 				prs_decide_token.c prs_mini_lexer.c prs_mini_yacc.c prs_parser.c prs_process_buffer.c \
-				ult_mini_getenv.c utl_free_str_array.c utl_get_env_array.c utl_init_mini.c
+				ult_mini_getenv.c utl_free_str_array.c utl_get_env_array.c utl_init_mini.c \
+				utl_key_value_split.c utl_strncmp.c utl_join_key_value.c utl_move_fd.c
 
 OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 

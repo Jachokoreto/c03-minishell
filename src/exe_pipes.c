@@ -5,119 +5,155 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 16:54:56 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/07 18:36:07 by leu-lee          ###   ########.fr       */
+/*   Created: 2022/04/10 15:02:33 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/04/11 10:37:41 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	**get_pipes(void)
+int	loop_builtins(t_cmd_grp *cmd_grp)
 {
-	int	**pipes;
 	int	i;
 
-	pipes = ft_calloc(g_data->pipe_number, sizeof(int *));
-	i = 0;
-	while (i < g_data->pipe_number)
+	i = -1;
+	while (++i < 7)
 	{
-		pipes[i] = ft_calloc(2, sizeof(int));
-		pipe(pipes[i]);
-		i++;
+		if (utl_strncmp(cmd_grp->args[0], g_data->builtins[i]) == 0)
+		{
+			g_data->builtin_funcs[i](cmd_grp->args);
+			return (0);
+		}
 	}
-	return (pipes);
+	return (1);
 }
 
-void	first_last_child(int **pipes, int i, char *input)
+void	loop_retokens(t_list *retokens)
 {
-	int	fd_out;
-	int	fd_in;
-	int	infile = 0; // temp again
+	t_token	*token;
+	int		fd_in;
+	int		fd_out;
+
+	fd_out = 0;
+	fd_in = 0;
+	while (retokens)
+	{
+		token = retokens->content;
+		if (token->type == outfile1)
+		{
+			if (!fd_out)
+				ft_close(fd_out);
+			fd_out = ft_open(token->value, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		}
+		if (token->type == outfile2)
+		{
+			if (!fd_out)
+				ft_close(fd_out);
+			fd_out = ft_open(token->value, O_WRONLY | O_CREAT | O_APPEND, 0666);
+		}
+		if (token->type == infile)
+		{
+			if (!fd_in)
+				ft_close(fd_in);
+			fd_in = ft_open(token->value, O_RDONLY, 0666);
+		}
+		if (token->type == delim)
+		{
+			if (!fd_in)
+				ft_close(fd_in);
+			fd_in = heredoc(token->value);
+		}
+		retokens = retokens->next;
+	}
+	if (fd_out != 0)
+		utl_move_fd(fd_out, 1);
+	if (fd_in != 0)
+		utl_move_fd(fd_in, 0);
+}
+
+void	first_last_child(int prev_fd, int i, t_cmd_grp *cmd_grp, int *fd)
+{
+	(void)cmd_grp;
+	(void)fd;
 	if (i == 0)
 	{
 		printf("firstchild\n");
-		if (infile > 0)
-		{
-			fd_in = open("infile", O_RDONLY, 0777); // maybe initialize beforehand
-			dup2(fd_in, 0);
-			close(fd_in);
-		}
-		if (g_data->pipe_number > 0)
-		{
-			dup2(pipes[i][1], 1);
-			close(pipes[i][1]);
-			close(pipes[i][0]);
-		}
-		exe_path(input);
+		ft_dup2(fd[1], 1);
+		ft_close(fd[1]);
+		ft_close(fd[0]);
+		printf("testing\n");
+		//loop_retokens(cmd_grp->retokens);
+		// exe_path(cmd_grp->args);
 	}
 	else if (i == g_data->pipe_number)
 	{
 		printf("lastchild\n");
-		// fix when there is only 1 pipe
-		fd_out = open("outfile", O_CREAT | O_WRONLY| O_APPEND, 0644);
-		// if (i == g_data->pipe_number)
-		// {
-			// printf("if\n");
-		dup2(pipes[i][0], 0);
-		close(pipes[i][0]);
-		close(pipes[i][1]);
-		// }
-		// else
-		// {
-		// 	printf("else\n");
-		// 	dup2(pipes[i - 1][0], 0);
-		// 	close(pipes[i - 1][0]);
-		// 	close(pipes[i - 1][1]);
-		// }
-		dup2(fd_out, 1);
-		close(fd_out);
-		exe_path(input);
+		ft_dup2(prev_fd, 0);
+		ft_close(prev_fd);
+		//loop_retokens(cmd_grp->retokens);
+		// exe_path(cmd_grp->args);
 	}
 }
 
-void	middle_child(int **pipes, int i, char *input)
+void	middle_child(int prev_fd, t_cmd_grp *cmd_grp, int *fd)
 {
+	(void)cmd_grp;
 	printf("middlechild\n");
-	dup2(pipes[i - 1][0], 0);
-	close(pipes[i - 1][0]);
-	dup2(pipes[i][1], 1);
-	close(pipes[i][1]);
-	exe_path(input);
+	ft_dup2(fd[1], 1);
+	ft_close(fd[1]);
+	ft_dup2(prev_fd, 0);
+	ft_close(prev_fd);
+	ft_close(fd[0]);
+	// exe_path(cmd_grp->args);
 }
 
-void	parent_close_fd(int **pipes, int i)
+int	exe_pipes(t_list *cmd_grps_list)
 {
-	if (i == 0)
-		close(pipes[i][1]);
-	else if (i == g_data->pipe_number)
-		close(pipes[i - 1][0]);
-	else
-	{
-		close(pipes[i - 1][0]);
-		close(pipes[i][1]);
-	}
-}
+	int			i;
+	int			process;
+	int			fd[2];
+	int			status;
+	static int	prev_fd;
+	t_cmd_grp	*cmd_grp;
 
-int	exe_pipes(char *input)
-{
-	int	i;
-	int	process;
-	int	**pipes;
-	int	status;
-
-	pipes = get_pipes();
 	i = -1;
+	printf("g_data->cmd_grps: %d\n", g_data->pipe_number);
 	while (++i <= g_data->pipe_number)
 	{
-		process = fork();
+		// printf("cmd_grp %s\n", cmd_grp->args[0]);
+		cmd_grp = cmd_grps_list->content;
+		if (i != g_data->pipe_number)
+			ft_pipe(fd);
+		process = ft_fork();
 		if (process == 0)
 		{
+			printf("i: %d\n", i);
 			if ((i == 0) || (i == g_data->pipe_number))
-				first_last_child(pipes, i, input);
+			{
+				first_last_child(prev_fd, i, cmd_grp, fd);
+			}
 			else
-				middle_child(pipes, i, input);
+				middle_child(prev_fd, cmd_grp, fd);
+			if (loop_builtins(cmd_grp) == 1)
+				exe_path(cmd_grp->args);
+				
 		}
-		parent_close_fd(pipes, i);
+		else if (i == 0)
+		{
+			ft_close(fd[1]);
+			prev_fd = fd[0];
+		}
+		else if (i == g_data->pipe_number)
+		{
+			ft_close(prev_fd);
+		}
+		else
+		{
+			ft_close(fd[1]);
+			ft_close(prev_fd);
+			prev_fd = fd[0];
+		}
+		cmd_grps_list = cmd_grps_list->next;
 		while (waitpid(-1, &status, 0) > 0)
 			;
 	}

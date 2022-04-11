@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:36:36 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/06 17:20:08 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/10 18:21:50 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,14 @@ void	handler(int signo)
 
 void	shellsignals(void)
 {
-	signal(SIGQUIT ,handler);
-	signal(SIGINT ,handler);
+	struct termios	termios_new;
+	struct termios	termios_save;
+
+	ft_tcgetattr(0, &termios_save);
+	termios_new = termios_save;
+	termios_new.c_lflag &= ~ECHOCTL;
+	ft_tcsetattr(0, 0, &termios_new);
+	signal(SIGQUIT, handler);
+	signal(SIGINT, handler);
 	return ;
 }

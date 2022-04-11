@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:50 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/29 11:23:02 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/10 09:36:24 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,13 @@
 
 void	echo(char **args)
 {
-	printf("%s\n", args[0]);
+	int	i;
+
+	i = 0;
+	while (args[++i])
+	{
+		if (args)
+		printf("%s ", args[i]);
+	}
+	printf("\n");
 }

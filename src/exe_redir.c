@@ -22,19 +22,6 @@ char	**get_outfiles()
 	return (outfiles);
 }
 
-int	ft_open(char *filename, int oflag, int mode)
-{
-	int	fd;
-
-	fd = open(filename, oflag, mode);
-	if (fd == - 1)
-	{
-		printf("Error\n");
-		exit(1);
-	}
-	return (fd);
-}
-
 void	output_redir(int redir_out)
 {
 	int	i;
@@ -76,7 +63,7 @@ void	input_redir(int redir_in)
 	i = -1;
 	while (++i < redir_in)
 	{
-		// heredoc should be here
+		// heredoc should be here or does it? Does it? Hmm
 		if (i == 0)
 			fd_in = ft_open( infiles[0], O_RDWR, 0777);
 		if (i == 1)

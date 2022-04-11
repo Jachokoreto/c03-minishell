@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/08 16:20:44 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/11 10:37:32 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(line);
 			parser(line);
-			// read_commands(g_data, line);
+			g_data->pipe_number = ft_lstsize(g_data->cmd_grps) - 1;
+			read_commands(g_data->cmd_grps);
 			ft_lstclear(&g_data->tokens, free);
 			ft_lstclear(&g_data->cmd_grps, free);
-			read_commands(g_data, line);
-			// parser(line);
 		}
 	}
 }

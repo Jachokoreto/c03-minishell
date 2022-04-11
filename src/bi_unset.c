@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:47:34 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/30 14:42:48 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/09 17:01:12 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,30 @@
 
 void	unset(char **args)
 {
-	char	**str;
 	t_env	*tmp;
 	t_list	*curnode;
 	t_list	*prevnode;
+	int		i;
 
-	curnode = g_data->env_list;
-	prevnode = NULL;
-	str = ft_split(args[0], '=');
-	while (curnode)
+	i = 0;
+	while (args[++i])
 	{
-		tmp = (t_env *)curnode->content;
-		if (ft_strncmp(tmp->key, args[0], ft_strlen(args[0])) == 0)
+		curnode = g_data->env_list;
+		prevnode = NULL;
+		while (curnode)
 		{
-			if (prevnode == NULL)
-				g_data->env_list = curnode->next;
-			else
-				prevnode->next = curnode->next;
-			ft_lstdelone(curnode, free);
-			return ;
+			tmp = (t_env *)curnode->content;
+			if (ft_strncmp(tmp->key, args[i], ft_strlen(args[0])) == 0)
+			{
+				if (prevnode == NULL)
+					g_data->env_list = curnode->next;
+				else
+					prevnode->next = curnode->next;
+				ft_lstdelone(curnode, free);
+				break ;
+			}
+			prevnode = curnode;
+			curnode = curnode->next;
 		}
-		prevnode = curnode;
-		curnode = curnode->next;
 	}
 }

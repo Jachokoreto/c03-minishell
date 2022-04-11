@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utl_init_mini.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:37 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/31 18:59:04 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/09 15:49:55 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_env(t_data	*g_data, char **envp)
 	i = -1;
 	while (envp[++i])
 	{
-		str = ft_split(envp[i], '=');
+		str = key_value_split(envp[i], '=');
 		env = ft_calloc(1, sizeof(t_env));
 		env->key = str[0];
 		env->value = str[1];
