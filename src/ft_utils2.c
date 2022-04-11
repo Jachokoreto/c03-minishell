@@ -30,6 +30,7 @@ void	ft_close(int fd)
 {
 	if (close(fd)== -1)
 	{
+		ft_putnbr_fd(fd, 2);
 		perror("close failed");
 		exit(errno);
 	}

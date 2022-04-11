@@ -6,31 +6,33 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:23:09 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/10 15:44:47 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/11 21:58:47 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	reorganize_fd()
-// {
-// 	dup()
-// }
 
 void	exe_path(char **input)
 {
 	char	**path;
 	char	**envp;
 	int		i;
-	char	*cmd = NULL;
+	char	*cmd;
 
 	envp = get_env_array();
 	path = ft_split(mini_getenv("PATH"), ':');
 	i = 0;
-	while (path)
+	if (ft_strchr(input[0], '/') != NULL)
+		ft_execve(input[0], input, envp);
+	else
 	{
-		cmd = join_key_value(path[i++], input[0], '/');
-		execve(cmd, input, envp);
+		while (path[i])
+		{
+			cmd = join_key_value(path[i++], input[0], '/');
+			execve(cmd, input, envp);
+			free(cmd);
+		}
+		return ;
 	}
-	return ;
+	free_str_array(envp);
 }

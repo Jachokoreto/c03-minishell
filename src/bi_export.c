@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/10 12:03:14 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/11 21:50:49 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	export(char **args)
 		if (str == NULL)
 			return ;
 		check_key(g_data->env_list, str);
-		// free_str_array(str);
+		free_str_array(str);
 	}
 	return ;
 }

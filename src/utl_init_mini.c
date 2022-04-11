@@ -6,12 +6,9 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:37 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/09 15:49:55 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/11 21:37:39 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-// reminder that ft_split will fail if two or more '='(s) are found.
 
 #include "minishell.h"
 

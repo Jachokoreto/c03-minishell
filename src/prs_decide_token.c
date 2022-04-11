@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_decide_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:36:13 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/08 16:09:06 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/11 15:57:56 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,20 @@ void	decide_token(char *str)
 		p_token = NULL;
 	if (ft_strncmp(str, "|", l) == 0)
 		p_token = add_new_token(str, pip);
-	else if (p_token == NULL)
-		p_token = add_new_token(str, arg);
-	else if (p_token->type == redir && ft_strncmp(p_token->value, "<<", l) == 0)
-		p_token = add_new_token(str, delim);
-	else if (p_token->type == redir && ft_strncmp(p_token->value, "<", l) == 0)
-		p_token = add_new_token(str, infile);
-	else if (p_token->type == redir && ft_strncmp(p_token->value, ">", l) == 0)
-		p_token = add_new_token(str, outfile1);
-	else if (p_token->type == redir && ft_strncmp(p_token->value, ">>", l) == 0)
-		p_token = add_new_token(str, outfile2);
 	else if (ft_strncmp(str, ">>", l) == 0 || ft_strncmp(str, "<<", l) == 0
 		|| ft_strncmp(str, ">", l) == 0 || ft_strncmp(str, "<", l) == 0)
 		p_token = add_new_token(str, redir);
-	// else if (p_token == NULL || (p_token && p_token->type == pip))
-	// 	p_token = add_new_token(str, arg);
+	else if (p_token != NULL && p_token->type == redir)
+	{
+		if (ft_strncmp(p_token->value, "<<", l) == 0)
+			p_token = add_new_token(str, delim);
+		else if (ft_strncmp(p_token->value, "<", l) == 0)
+			p_token = add_new_token(str, infile);
+		else if (ft_strncmp(p_token->value, ">", l) == 0)
+			p_token = add_new_token(str, outfile1);
+		else if (ft_strncmp(p_token->value, ">>", l) == 0)
+			p_token = add_new_token(str, outfile2);
+	}
 	else
 		p_token = add_new_token(str, arg);
 }
