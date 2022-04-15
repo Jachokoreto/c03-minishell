@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_mini_lexer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/15 11:11:07 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/15 15:48:18 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_string_into_buffer(char **line)
  * "get_string_into_buffer". After getting the string, the string will be 
  * tokenized.
  */
-void	mini_lexer(char *line)
+void	mini_lexer(char *line, t_data *g_data)
 {
 	int		i;
 	char	*buffer;

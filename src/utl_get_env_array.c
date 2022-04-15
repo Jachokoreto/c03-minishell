@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-char	**get_env_array(void)
+char	**get_env_array(t_data *g_data)
 {
 	char 	**arr;
 	
@@ -17,7 +17,6 @@ char	**get_env_array(void)
 		env = node->content;
 		arr[i] = join_key_value(env->key, env->value, '=');
 		node = node->next;
-		// printf("%s\n", arr[i++]);
 	}
 	return (arr);
 }

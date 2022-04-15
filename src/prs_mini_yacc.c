@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 18:12:55 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/08 16:05:53 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/15 15:49:55 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	set_arg_value(char ***value, int c, enum e_Type type, t_list *tokens)
 }
 
 // take token and organize into cmd_grp
-void	mini_yacc(void)
+void	mini_yacc(t_data *g_data)
 {
 	t_list		*token_lst;
 	t_token		*token;
