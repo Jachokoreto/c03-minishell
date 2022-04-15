@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:47 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/11 17:21:56 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/15 11:26:53 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void	read_commands(t_list *cmd_grp_list)
 		redirections(cmd_grp->retokens);
 		if (exe_builtins(cmd_grp) == 1)
 		{
-			// printf("Builtins\n");
+			printf("Non-builtins\n");
 			if (ft_fork() == 0)
 				exe_path(cmd_grp->args);
 		}
 		// printf("cmd: %s\n", cmd_grp->args[0]);
 		while (waitpid(-1, &status, 0) > 0)
-			;
+					;
 	}
 	utl_move_fd(saved_fd[1], 1);
 	utl_move_fd(saved_fd[0], 0);

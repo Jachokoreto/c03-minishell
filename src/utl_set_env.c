@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bi_echo.c                                          :+:      :+:    :+:   */
+/*   utl_set_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 14:45:50 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/14 17:46:23 by leu-lee          ###   ########.fr       */
+/*   Created: 2022/04/15 10:16:28 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/04/15 10:47:17 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo(char **args)
+void	set_env(t_list *lst, char *key, char *value)
 {
-	int	i;
-	int	n;
+	t_env	*tmp;
 
-	i = 0;
-	if (!args[1])
-		return ;
-	n = !utl_strncmp(args[1], "-n");
-	while (args[++i + n + 1])
-		printf("%s ", args[i + n]);
-	printf("%s", args[i + n]);
-	if (n == 0)
-		printf("\n");
+	while (lst)
+	{
+		tmp = (t_env *)lst->content;
+		if (utl_strncmp(tmp->key, key) == 0)
+		{
+			tmp->value = value;
+			return ;
+		}
+		lst = lst->next;
+	}
+	tmp = ft_calloc(1, sizeof(t_env));
+	tmp->key = key;
+	tmp->value = value;
+	ft_lstadd_back(&g_data->env_list, ft_lstnew(tmp));
 }

@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/11 21:22:44 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/15 10:52:29 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_data
 	char			**builtins;
 	int				pipe_number;
 	int				log_fd;
+	int				return_val;
 	t_list			*env_list;
 	t_list			*tokens;
 	t_list			*cmd_grps;
@@ -101,6 +102,7 @@ int		exe_builtins(t_cmd_grp *cmd_grp);
 void	free_env(void *content);
 void	free_cmd_grp(void *content);
 void	free_token(void *content);
+void	set_env(t_list *lst, char *key, char *value);
 
 /* Utils */
 
@@ -115,5 +117,7 @@ void	ft_execve(const char *pathname, char *const argv[], char *const envp[]);
 void	ft_tcgetattr(int fd, struct termios *termios_p);
 void	ft_tcsetattr(int fd, int optional_actions,
 			const struct termios *termios_p);
+void	ft_dup(int oldfd);
+void	ft_unlink(const char *pathname);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/11 22:05:29 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/15 11:11:07 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ void	mini_lexer(char *line)
 			break ;
 		}
 		decide_token(buffer);
-		free(buffer);
+		//free(buffer); // can't free output will all be gone
 	}
 }

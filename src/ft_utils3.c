@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bi_echo.c                                          :+:      :+:    :+:   */
+/*   ft_utils3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 14:45:50 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/14 17:46:23 by leu-lee          ###   ########.fr       */
+/*   Created: 2022/04/11 22:12:24 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/04/11 22:19:17 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo(char **args)
+void	ft_unlink(const char *pathname)
 {
-	int	i;
-	int	n;
+	if (unlink(pathname) == -1)
+	{
+		perror("Unlink failed");
+		exit(errno);
+	}
+}
 
-	i = 0;
-	if (!args[1])
-		return ;
-	n = !utl_strncmp(args[1], "-n");
-	while (args[++i + n + 1])
-		printf("%s ", args[i + n]);
-	printf("%s", args[i + n]);
-	if (n == 0)
-		printf("\n");
+void	ft_dup(int oldfd)
+{
+	if (dup(oldfd) == -1)
+	{
+		perror("Dup failed");
+		exit(errno);
+	}
 }

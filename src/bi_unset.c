@@ -6,25 +6,12 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:47:34 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/09 17:01:12 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/14 18:15:00 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
-
-// int	del_key(void *content, char **args)
-// {
-// 	t_env	*tmp;
-
-// 	tmp = (t_env *)content;
-// 	if (ft_strncmp(tmp->key, args[0], ft_strlen(args[0])) == 0)
-// 	{
-// 		ft_lstdelone(,);
-// 		return (1);
-// 	}
-// 	return (0);
-// }
 
 void	unset(char **args)
 {
