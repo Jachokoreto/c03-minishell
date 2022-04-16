@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/15 10:48:23 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/16 16:15:15 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,36 +40,30 @@ int	check_valid_char(char *str)
 }
 
 // starts with i = 1 which means each argument after export
-void	loop_env(char **args)
+void	loop_env(char **args, t_list *lst)
 {
 	char	**str;
-	t_list	*lst;
 	int		i;
 
 	i = 0;
 	while (args[++i])
 	{
-		lst = g_data->env_list;
 		str = key_value_split(args[i], '=');
 		if (str == NULL)
 			return ;
 		if (check_valid_char(str[0]) == 1)
-		{
 			printf("`%s': not a valid identifier\n", str[0]);
-			continue ;
-		}
-		set_env(g_data->env_list, str[0], str[1]);
-		//free_str_array(str);
+		else
+			set_env(lst, str[0], str[1]);
+		free_str_array(str);
 	}
-	return ;
 }
 
-void	export(char **args)
+int	export(char **args, void *g_data)
 {
 	if (args[1] == NULL)
-	{
-		ft_lstiter(g_data->env_list, print_declarations);
-		return ;
-	}
-	loop_env(args);
+		ft_lstiter(((t_data *)g_data)->env_list, print_declarations);
+	else
+		loop_env(args, ((t_data *)g_data)->env_list);
+	return (0);
 }

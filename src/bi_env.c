@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:38 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/11 18:56:22 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/16 16:14:58 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ void	print_list(void *content)
 	printf("%s=%s\n", tmp->key, tmp->value);
 }
 
-void	env(char **args)
+int	env(char **args, void *g_data)
 {
 	(void)args;
-	ft_lstiter(g_data->env_list, print_list);
+	ft_lstiter(((t_data *)g_data)->env_list, print_list);
+	return (0);
 }

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   prs_process_buffer.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/08 16:36:01 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/16 15:56:41 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-char	*expand_env_var(char *buf, t_list *env)
+static char	*expand_env_var(char *buf, t_list *env, t_list *env_list)
 {
 	char	*tmp[4];
 	int		index;
@@ -31,7 +31,7 @@ char	*expand_env_var(char *buf, t_list *env)
 		if (*(data[0]) == '\'')
 			continue ;
 		tmp[0] = ft_substr(buf, 0, tmp[3] - buf);
-		tmp[1] = mini_getenv(data[1]);
+		tmp[1] = mini_getenv(data[1], env_list);
 		tmp[2] = ft_strdup(&buf[index + ft_strlen(data[1]) + 1]);
 		free(buf);
 		if (tmp[1] == NULL)
@@ -48,7 +48,7 @@ char	*expand_env_var(char *buf, t_list *env)
 	return (buf);
 }
 
-char	*process_buffer(char *buffer)
+char	*process_buffer(char *buffer, t_list *env_list)
 {
 	t_list	*env;
 	char	*i[2];
@@ -80,7 +80,7 @@ char	*process_buffer(char *buffer)
 		i[0]++;
 	}
 	if (env)
-		buffer = expand_env_var(buffer, env);
+		buffer = expand_env_var(buffer, env, env_list);
 	ft_lstclear(&env, free);
 	return (buffer);
 }

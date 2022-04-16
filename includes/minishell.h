@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/15 10:52:29 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/16 16:58:20 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define A_KEY 2
 
 
-typedef void	(*t_builtin_funcs)(char **args);
+typedef int	(*t_builtin_funcs)(char **args, void *data);
 
 enum e_Type { arg, redir, pip, infile, outfile1, outfile2, delim};
 
@@ -58,8 +58,6 @@ typedef struct s_cmd_grp
 typedef struct s_data
 {
 	char			**builtins;
-	int				pipe_number;
-	int				log_fd;
 	int				return_val;
 	t_list			*env_list;
 	t_list			*tokens;
@@ -67,38 +65,49 @@ typedef struct s_data
 	t_builtin_funcs	builtin_funcs[7];
 }	t_data;
 
-t_data			*g_data;
 
+/* utl_init_mini.c */
 t_data	*init_mini(char **envp);
-void	read_commands(t_list *cmd_grp);
-void	echo(char **args);
-void	pwd(char **args);
-void	cd(char **args);
-void	env(char **args);
-void	export(char **args);
-void	unset(char **args);
-void	ft_exit(char **args);
+
+/* read_commands.c */
+void	read_commands(t_list *cmd_grp, t_data *data, int pipe_num);
+
+/* bi_*.c */
+int	echo(char **args, void *data);
+int	pwd(char **args, void *data);
+int	cd(char **args, void *data);
+int	env(char **args, void *data);
+int	export(char **args, void *data);
+int	unset(char **args, void *data);
+int	ft_exit(char **args, void *data);
+
+/* shellsignals.c */
 void	shellsignals(void);
-char	**get_env_array(void);
-char	*mini_getenv(char *key);
+
+/* utl_*.c */
+char	**get_env_array(t_data *data);
+char	*mini_getenv(char *key, t_list *data);
 char	*join_key_value(char *str1, char *str2, char c);
 char	**key_value_split(const char *s, char c);
-void	exe_path(char **input);
-void	heredocsignals(void);
-void	mini_lexer(char *line);
-void	parser(char *line);
-void	decide_token(char *str);
-char	*process_buffer(char *buffer);
-void	mini_yacc(void);
-void	use_redirections(void); // temp;
-void	free_str_array(char **str);
 void	utl_move_fd(int fd1, int fd2);
-void	free_list(void);
-int		redirections(t_list *retokens);
-int		exe_pipes(t_list *cmd_grp_list);
-int		heredoc(char *delim);
 int		utl_strncmp(char *s1, char *s2);
-int		exe_builtins(t_cmd_grp *cmd_grp);
+
+void	heredocsignals(void);
+
+void	mini_lexer(char *line, t_data *g_data);
+void	decide_token(char *str, t_data *g_data);
+char	*process_buffer(char *buffer, t_list *env_list);
+void	mini_yacc(t_data *g_data);
+
+void	use_redirections(void); // temp;
+int		redirections(t_list *retokens);
+int		exe_builtins(t_cmd_grp *cmd_grp, t_data *g_data);
+void	exe_path(char **input, char **envp, char **path);
+int		exe_pipes(t_list *cmd_grp_list, int pipe_number, t_data *g_data);
+int		heredoc(char *delim);
+
+void	free_list(void);
+void	free_str_array(char **str);
 void	free_env(void *content);
 void	free_cmd_grp(void *content);
 void	free_token(void *content);

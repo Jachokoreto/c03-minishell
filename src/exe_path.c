@@ -3,30 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   exe_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:23:09 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/14 12:10:07 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/16 15:19:25 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_path(char **input)
+void	exe_path(char **input, char **envp, char **path)
 {
-	char	**path;
-	char	**envp;
 	int		i;
 	char	*cmd;
 
-	envp = get_env_array();
-	path = ft_split(mini_getenv("PATH"), ':');
-	i = 0;
 	if (execve(input[0], input, envp) == -1)
-	// 	ft_execve(input[0], input, envp);
 	{
-	// else
-	// {
+		i = 0;
 		while (path[i])
 		{
 			cmd = join_key_value(path[i++], input[0], '/');
@@ -35,6 +28,4 @@ void	exe_path(char **input)
 		}
 	}
 	return ;
-	// }
-	// free_str_array(envp);
 }
