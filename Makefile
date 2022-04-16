@@ -3,8 +3,10 @@ NAME	 	= minishell
 LDFLAGS		= -L/usr/local/opt/readline/lib
 CPPFLAGS	= -I/usr/local/opt/readline/include
 
-CC			= gcc 
-# -Wall -Wextra -Werror -fsanitize=address -g3
+CC			= gcc -Wall -Wextra -Werror
+CCD			= gcc -Wall -Wextra -Werror -fsanitize=address -g3
+
+
 RM			= rm -rf
 
 SRCS_DIR	= ./src
@@ -28,7 +30,7 @@ INCLUDES	= -Iincludes -Ilibft
 all:	$(NAME)
 
 $(NAME): $(OBJS) main.c libft/libft.a
-		@$(CC) $(LDFLAGS) $(CPPFLAGS) $(INCLUDES) $(LIB) main.c $(OBJS) -o $@
+		@$(CCD) $(LDFLAGS) $(CPPFLAGS) $(INCLUDES) $(LIB) main.c $(OBJS) -o $@
 		@echo "$(GREEN)Compiled $@ successfully $(RESET)"
 
 libft/libft.a :

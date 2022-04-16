@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:50 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/16 18:48:30 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/16 19:10:41 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ int	echo(char **args, void *data)
 
 	i = 0;
 	if (args[1] == NULL)
-		return ;
+		return (1);
 	if (args[1][0] == '-')
-		i = n_flag(args) - 1;
+		i = n_flag(args);
+	printf("%d\n", i);
 	flag = i;
 	while (args[++i])
 	{
@@ -56,7 +57,7 @@ int	echo(char **args, void *data)
 		if (args[i + 1] != NULL)
 			printf(" ");
 	}
-	if (flag > 1)
+	if (flag > 2)
 		printf("\n");
 	return (0);
 }
