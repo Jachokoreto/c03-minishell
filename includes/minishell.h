@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/15 17:13:36 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/16 16:58:20 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define A_KEY 2
 
 
-typedef void	(*t_builtin_funcs)(char **args, void *data);
+typedef int	(*t_builtin_funcs)(char **args, void *data);
 
 enum e_Type { arg, redir, pip, infile, outfile1, outfile2, delim};
 
@@ -73,13 +73,13 @@ t_data	*init_mini(char **envp);
 void	read_commands(t_list *cmd_grp, t_data *data, int pipe_num);
 
 /* bi_*.c */
-void	echo(char **args, void *data);
-void	pwd(char **args, void *data);
-void	cd(char **args, void *data);
-void	env(char **args, void *data);
-void	export(char **args, void *data);
-void	unset(char **args, void *data);
-void	ft_exit(char **args, void *data);
+int	echo(char **args, void *data);
+int	pwd(char **args, void *data);
+int	cd(char **args, void *data);
+int	env(char **args, void *data);
+int	export(char **args, void *data);
+int	unset(char **args, void *data);
+int	ft_exit(char **args, void *data);
 
 /* shellsignals.c */
 void	shellsignals(void);
@@ -93,10 +93,10 @@ void	utl_move_fd(int fd1, int fd2);
 int		utl_strncmp(char *s1, char *s2);
 
 void	heredocsignals(void);
+
 void	mini_lexer(char *line, t_data *g_data);
-void	parser(char *line);
-void	decide_token(char *str);
-char	*process_buffer(char *buffer);
+void	decide_token(char *str, t_data *g_data);
+char	*process_buffer(char *buffer, t_list *env_list);
 void	mini_yacc(t_data *g_data);
 
 void	use_redirections(void); // temp;

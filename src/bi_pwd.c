@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   bi_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:47:28 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/09 17:01:44 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/16 16:15:25 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd(char **args)
+int	pwd(char **args, void *data)
 {
 	char	*buf;
 
 	(void)args;
+	(void)data;
 	buf = getcwd(NULL, 0);
 	printf("%s\n", buf);
+	free(buf);
+	return (0);
 }

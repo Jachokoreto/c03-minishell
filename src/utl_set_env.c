@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utl_set_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 10:16:28 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/15 10:47:17 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/16 16:08:12 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void	set_env(t_list *lst, char *key, char *value)
 	tmp = ft_calloc(1, sizeof(t_env));
 	tmp->key = key;
 	tmp->value = value;
-	ft_lstadd_back(&g_data->env_list, ft_lstnew(tmp));
+	ft_lstadd_back(&lst, ft_lstnew(tmp));
 }

@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:23:09 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/15 15:25:52 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/16 15:19:25 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	exe_path(char **input, char **envp, char **path)
 {
-	char	**path;
-	char	**envp;
 	int		i;
 	char	*cmd;
 

@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:02:33 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/15 17:12:36 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/16 15:20:03 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	exe_pipes(t_list *cmd_grp_list, int pipe_num, t_data *g_data)
 				middle_child(prev_fd, cmd_grp, fd);
 			else
 				redirections(cmd_grp->retokens);
-			if (exe_builtins(cmd_grp) == 1)
+			if (exe_builtins(cmd_grp, g_data) == 1)
 			{
 				path = ft_split(mini_getenv("PATH", g_data->env_list), ':');
 				envp = get_env_array(g_data);
