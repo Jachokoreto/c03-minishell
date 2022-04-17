@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:47:12 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 10:40:14 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 12:46:30 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,14 @@ char	*mini_getenv(char *key, char **envp)
 	int	i;
 
 	i = 0;
+	printf("key:%s\n", key);
+	printf("%s\n", envp[0]);
 	while (envp[i] != NULL)
 	{
 		if (ft_strncmp(key, envp[i], ft_strlen(key)) == 0
-			&& envp[i][ft_strlen(key) + 1] == '=')
-			return (ft_strdup(&envp[i][ft_strlen(key) + 2]));
+			&& envp[i][ft_strlen(key)] == '=')
+			return (ft_strdup(&envp[i][ft_strlen(key) + 1]));
+		printf("evnp[%d]:%s\n\n", i, envp[i]);
 		i++;
 	}
 	return (NULL);

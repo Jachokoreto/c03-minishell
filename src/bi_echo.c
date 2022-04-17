@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:50 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 07:43:27 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 12:30:44 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	n_flag(char **args)
 		j = 1;
 		while (args[i][0] == '-' && args[i][j] == 'n')
 			j++;
-		if (args[i][j] == '\0')
+		if (args[i][j - 1] == 'n' && args[i][j] == '\0')
 			newline_flag++;
 		else
 			break ;
@@ -46,7 +46,7 @@ int	echo(char **args, void *data)
 	while (args[++i])
 	{
 		if (args[i][0] == '~')
-			printf("%s", mini_getenv("HOME", data));
+			printf("%s", mini_getenv("HOME", ((t_data *)data)->envp));
 		else
 			printf("%s", args[i]);
 		if (args[i + 1] != NULL)

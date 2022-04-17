@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:47 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/16 19:05:09 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 11:57:07 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	read_commands(t_list *cmd_grp_list, t_data *g_data, int pipe_num)
 		{
 			if (ft_fork() == 0)
 			{
-				path = ft_split(mini_getenv("PATH", g_data->env_list), ':');
+				path = ft_split(mini_getenv("PATH", g_data->envp), ':');
 				envp = get_env_array(g_data);
 				exe_path(cmd_grp->args, envp, path);
 				free_str_array(path);

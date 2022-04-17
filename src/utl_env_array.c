@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 10:00:05 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/17 10:33:17 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 12:48:42 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**add_new_env(char **array, char *env)
 	while (array[i] != NULL)
 		i++;
 	new_env = ft_calloc(i + 2, sizeof(char *));
-	new_env[i] = ft_strdup(env);
+	new_env[i] = env;
 	while (--i >= 0)
 		new_env[i] = ft_strdup(array[i]);
 	free_str_array(array);
@@ -55,26 +55,23 @@ char	**del_env(char **array, char *key)
 	return (new_env);
 }
 
-char	**set_env_array(char **array, char *env)
+char	**set_env_array(char **array, char *key, char *value)
 {
 	int		i;
-	char	**new_env;
-	char	**env2;
 
 	i = 0;
-	env2 = key_value_split(env, '=');
 	while (array[i] != NULL)
 	{
-		if (ft_strncmp(env2[0], array[i], ft_strlen(env2[0])) == 0
-			&& array[i][ft_strlen(env2) + 1] == '=')
+		if (ft_strncmp(key, array[i], ft_strlen(key)) == 0
+			&& array[i][ft_strlen(key) + 1] == '=')
 		{
 			free(array[i]);
-			array[i] = ft_strdup(env);
+			array[i] = join_key_value(key, value, '=');
 			return (array);
 		}
 		i++;
 	}
-	return (add_new_env(array, env));
+	return (add_new_env(array, join_key_value(key, value, '=')));
 }
 
 

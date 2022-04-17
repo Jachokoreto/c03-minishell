@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/16 16:58:20 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 14:06:17 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # define KEY 0
 # define B_KEY 1
@@ -59,6 +61,7 @@ typedef struct s_data
 {
 	char			**builtins;
 	int				return_val;
+	char			**envp;
 	t_list			*env_list;
 	t_list			*tokens;
 	t_list			*cmd_grps;
@@ -86,17 +89,18 @@ void	shellsignals(void);
 
 /* utl_*.c */
 char	**get_env_array(t_data *data);
-char	*mini_getenv(char *key, t_list *data);
+char	*mini_getenv(char *key, char **envp);
 char	*join_key_value(char *str1, char *str2, char c);
 char	**key_value_split(const char *s, char c);
 void	utl_move_fd(int fd1, int fd2);
 int		utl_strncmp(char *s1, char *s2);
 
+
 void	heredocsignals(void);
 
 void	mini_lexer(char *line, t_data *g_data);
 void	decide_token(char *str, t_data *g_data);
-char	*process_buffer(char *buffer, t_list *env_list);
+char	*process_buffer(char *buffer, char **envp);
 void	mini_yacc(t_data *g_data);
 
 void	use_redirections(void); // temp;
@@ -113,6 +117,12 @@ void	free_cmd_grp(void *content);
 void	free_token(void *content);
 void	set_env(t_list *lst, char *key, char *value);
 
+/* utl_env_array.c */
+char	**add_new_env(char **array, char *env);
+char	**del_env(char **array, char *key);
+char	**set_env_array(char **array, char *key, char *value);
+
+
 /* Utils */
 
 int		ft_fork(void);
@@ -128,5 +138,6 @@ void	ft_tcsetattr(int fd, int optional_actions,
 			const struct termios *termios_p);
 void	ft_dup(int oldfd);
 void	ft_unlink(const char *pathname);
+void	ft_free_all(t_data *g_data);
 
 #endif

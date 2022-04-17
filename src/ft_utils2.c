@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:43:42 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/15 09:43:45 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/17 14:04:15 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_open(char *filename, int oflag, int mode)
 	int	fd;
 
 	fd = open(filename, oflag, mode);
-	if (fd == - 1)
+	if (fd == -1)
 	{
 		perror("open failed");
 		exit(errno);
@@ -40,7 +40,7 @@ int	ft_read(int fd, void *buf, size_t count)
 
 void	ft_close(int fd)
 {
-	if (close(fd)== -1)
+	if (close(fd) == -1)
 	{
 		ft_putnbr_fd(fd, 2);
 		perror("close failed");
@@ -58,7 +58,7 @@ void	ft_dup2(int oldfd, int newfd)
 	}
 }
 
-void ft_execve(const char *pathname, char *const argv[], char *const envp[])
+void	ft_execve(const char *pathname, char *const argv[], char *const envp[])
 {
 	if (execve(pathname, argv, envp) == -1)
 	{

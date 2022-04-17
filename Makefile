@@ -18,7 +18,7 @@ SRCS		=	read_commands.c shellsignals.c ft_utils.c ft_utils2.c ft_utils3.c \
 				exe_redirections.c \
 				prs_decide_token.c prs_mini_lexer.c prs_mini_yacc.c prs_process_buffer.c \
 				ult_mini_getenv.c utl_free_str_array.c utl_get_env_array.c utl_init_mini.c \
-				utl_key_value_split.c utl_strncmp.c utl_join_key_value.c utl_move_fd.c \
+				utl_key_value_split.c utl_strncmp.c utl_join_key_value.c utl_move_fd.c utl_env_array.c\
 				utl_set_env.c free_list.c \
 
 OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
@@ -30,7 +30,7 @@ INCLUDES	= -Iincludes -Ilibft
 all:	$(NAME)
 
 $(NAME): $(OBJS) main.c libft/libft.a
-		@$(CCD) $(LDFLAGS) $(CPPFLAGS) $(INCLUDES) $(LIB) main.c $(OBJS) -o $@
+		@$(CCD)  main.c $(OBJS) $(LDFLAGS) $(CPPFLAGS) $(INCLUDES) $(LIB) -o $@
 		@echo "$(GREEN)Compiled $@ successfully $(RESET)"
 
 libft/libft.a :

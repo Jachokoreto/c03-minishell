@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:36:13 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/16 15:57:18 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 11:49:17 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_token	*add_new_token(t_data *g_data, char *str, enum e_Type type)
 
 	token = ft_calloc(1, sizeof(t_token));
 	token->type = type;
-	token->value = process_buffer(str, g_data->env_list);
+	token->value = process_buffer(str, g_data->envp);
 	ft_lstadd_back(&g_data->tokens, ft_lstnew(token));
 	return (token);
 }
