@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/17 11:55:43 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 14:15:52 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static char	*expand_env_var(char *buf, t_list *env, char **evnp)
 		else
 			buf = ft_strjoin(tmp[0], tmp[1]);
 		free(tmp[0]);
+		free(tmp[1]);
 		tmp[0] = buf;
 		buf = ft_strjoin(buf, tmp[2]);
 		index += ft_strlen(tmp[1]) - 1;

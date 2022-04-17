@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 14:09:55 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 14:13:07 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 	t_data		*g_data;
 
+	(void)argc;
+	(void)argv;
 	g_data = init_mini(envp);
 	shellsignals();
 	while (1)

@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:55 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 13:59:38 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 14:14:30 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,13 @@ int	cd(char **args, void *data)
 	// set_env(lst, "OLDPWD", getcwd(NULL, 0));
 	tmp1 = getcwd(NULL, 0);
 	*envp = set_env_array(*envp, "OLDPWD", tmp1);
-	printf("1\n");
 	free(tmp1);
 	if (ori_home == NULL)
 		ori_home = mini_getenv("HOME", *envp);
 	process_cd(args, *envp);
-	printf("2\n");
 	// set_env(lst, "PWD", getcwd(NULL, 0));
 	tmp1 = getcwd(NULL, 0);
 	*envp = set_env_array(*envp, "PWD", tmp1);
-	printf("3\n ");
 	free(tmp1);
 	return (0);
 }
