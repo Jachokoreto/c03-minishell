@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/16 15:56:41 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 10:41:31 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,14 @@ char	*process_buffer(char *buffer, t_list *env_list)
 		else if (*i[0] == '\'' || *i[0] == '\"')
 		{
 			*qt = (*qt != *i[0]) * *qt + (*qt == 0) * *i[0];
-			if (*qt == 0 || *qt == *i[0])
-				ft_memmove(i[0], i[0] + 1, ft_strlen(i[0]--));
+			if (*qt == 0 || *qt == *i[0]--)
+				ft_memmove(i[0] + 1, i[0] + 2, ft_strlen(i[0] + 1));
 		}
 		i[0]++;
 	}
 	if (env)
 		buffer = expand_env_var(buffer, env, env_list);
 	ft_lstclear(&env, free);
+	free(qt);
 	return (buffer);
 }

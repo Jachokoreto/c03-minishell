@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 18:12:55 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/15 15:49:55 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 07:23:43 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	count_args(t_list *token_lst)
 void	set_arg_value(char ***value, int c, enum e_Type type, t_list *tokens)
 {
 	t_token	*token;
-	t_token	*p_token;
 	int		i;
 
 	*value = ft_calloc(c + 1, sizeof(char *));
@@ -44,7 +43,6 @@ void	set_arg_value(char ***value, int c, enum e_Type type, t_list *tokens)
 		token = (t_token *)tokens->content;
 		if (token->type == type)
 			(*value)[i++] = token->value;
-		p_token = token;
 		tokens = tokens->next;
 	}
 	(*value)[c] = NULL;

@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:50 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/16 19:10:41 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 07:43:27 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ int	n_flag(char **args)
 	int	i;
 	int	j;
 	int	newline_flag;
-	int	count;
 
 	i = 0;
 	newline_flag = 0;
-	count = 1;
 	while (args[++i])
 	{
 		j = 1;
@@ -31,7 +29,7 @@ int	n_flag(char **args)
 		if (args[i][j] == '\0')
 			newline_flag++;
 		else
-			return (i);
+			break ;
 	}
 	return (newline_flag);
 }
@@ -41,13 +39,10 @@ int	echo(char **args, void *data)
 	int	i;
 	int	flag;
 
-	i = 0;
 	if (args[1] == NULL)
 		return (1);
-	if (args[1][0] == '-')
-		i = n_flag(args);
-	printf("%d\n", i);
-	flag = i;
+	flag = n_flag(args);
+	i = flag;
 	while (args[++i])
 	{
 		if (args[i][0] == '~')
@@ -57,7 +52,7 @@ int	echo(char **args, void *data)
 		if (args[i + 1] != NULL)
 			printf(" ");
 	}
-	if (flag > 2)
+	if (flag == 0)
 		printf("\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:55 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/16 16:49:00 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 07:22:36 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ int	cd(char **args, void *data)
 {
 	t_list		*lst;
 	static char	*ori_home;
-	char		*env;
 
 	lst = ((t_data *)data)->env_list;
-	env = join_key_value("OLDPWD", getcwd(NULL, 0), '=');
 	set_env(lst, "OLDPWD", getcwd(NULL, 0));
 	if (ori_home == NULL)
 		ori_home = ft_strdup(mini_getenv("HOME", lst));
