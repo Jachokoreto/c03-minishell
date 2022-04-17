@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/17 07:22:59 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 14:43:17 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,5 @@ void	mini_lexer(char *line, t_data *g_data)
 			break ;
 		}
 		decide_token(buffer, g_data);
-		//free(buffer); // can't free output will all be gone
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:47 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 11:57:07 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 15:26:27 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	read_commands(t_list *cmd_grp_list, t_data *g_data, int pipe_num)
 	t_cmd_grp	*cmd_grp;
 	int			saved_fd[2];
 	char		**path;
-	char		**envp;
+	char		*tmp;
 
 	saved_fd[0] = dup(0);
 	saved_fd[1] = dup(1);
@@ -34,11 +34,11 @@ void	read_commands(t_list *cmd_grp_list, t_data *g_data, int pipe_num)
 		{
 			if (ft_fork() == 0)
 			{
-				path = ft_split(mini_getenv("PATH", g_data->envp), ':');
-				envp = get_env_array(g_data);
-				exe_path(cmd_grp->args, envp, path);
+				tmp = mini_getenv("PATH", g_data->envp);
+				path = ft_split(tmp, ':');
+				exe_path(cmd_grp->args, g_data->envp, path);
 				free_str_array(path);
-				free_str_array(envp);
+				free(tmp);
 			}
 		}
 		while (waitpid(-1, &status, 0) > 0)

@@ -6,14 +6,14 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:47:28 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/16 18:49:14 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 15:18:17 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-int	pwd(char **args, void *data)
+int	pwd(char **args, t_data *data)
 {
 	char	*buf;
 

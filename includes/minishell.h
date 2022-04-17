@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 14:06:17 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 15:35:19 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # define A_KEY 2
 
 
-typedef int	(*t_builtin_funcs)(char **args, void *data);
 
 enum e_Type { arg, redir, pip, infile, outfile1, outfile2, delim};
 
@@ -56,6 +55,8 @@ typedef struct s_cmd_grp
 	t_list	*retokens;
 }	t_cmd_grp;
 
+struct	s_data;
+typedef int	(*t_builtin_funcs)(char **args, struct s_data *data);
 
 typedef struct s_data
 {
@@ -76,13 +77,13 @@ t_data	*init_mini(char **envp);
 void	read_commands(t_list *cmd_grp, t_data *data, int pipe_num);
 
 /* bi_*.c */
-int	echo(char **args, void *data);
-int	pwd(char **args, void *data);
-int	cd(char **args, void *data);
-int	env(char **args, void *data);
-int	export(char **args, void *data);
-int	unset(char **args, void *data);
-int	ft_exit(char **args, void *data);
+int	echo(char **args, t_data *data);
+int	pwd(char **args, t_data *data);
+int	cd(char **args, t_data *data);
+int	env(char **args, t_data *data);
+int	export(char **args, t_data *data);
+int	unset(char **args, t_data *data);
+int	ft_exit(char **args, t_data *data);
 
 /* shellsignals.c */
 void	shellsignals(void);
@@ -118,9 +119,8 @@ void	free_token(void *content);
 void	set_env(t_list *lst, char *key, char *value);
 
 /* utl_env_array.c */
-char	**add_new_env(char **array, char *env);
-char	**del_env(char **array, char *key);
-char	**set_env_array(char **array, char *key, char *value);
+// char	**del_env(char **array, char *key);
+// char	**set_env_array(char **array, char *key, char *value);
 
 
 /* Utils */

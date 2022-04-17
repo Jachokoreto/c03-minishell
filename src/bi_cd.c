@@ -6,59 +6,65 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:55 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 14:14:30 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 16:36:35 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	process_cd(char **args, char **envp)
+char	*get_dir(char *name, char **envp, char *arg)
 {
-	int		i;
-	char	*tmp;
+	char	*tmp1;
+	char	*tmp2;
 
-	i = 0;
-	while (args[i] != NULL)
-		i++;
-	if (i > 3)
-		return ;
-	if (i == 2)
-	{
-		if (args[1][0] == '~')
-			tmp = ft_strjoin(mini_getenv("HOME", envp), args[1] + 1);
-		else if (args[1][0] == '-')
-			tmp = ft_strjoin(mini_getenv("OLDPWD", envp), args[1] + 1);
-		else
-			tmp = ft_strdup(args[1]);
-		chdir(tmp);
-		free(tmp);
-	}
-	else if (i == 1)
-	{
-		if (mini_getenv("HOME", envp) == NULL)
-			perror("cd error");
-		else
-			chdir(mini_getenv("HOME", envp));
-	}
+	if (arg == NULL)
+		return (mini_getenv(name, envp));
+	tmp1 = mini_getenv(name, envp);
+	tmp2 = ft_strjoin(tmp1, arg);
+	free(tmp1);
+	return (tmp2);
 }
 
-int	cd(char **args, void *data)
+void	process_cd(char **args, char **envp)
 {
-	char		***envp;
-	static char	*ori_home;
-	char		*tmp1;
+	char	*dir;
 
-	envp = &((t_data *)data)->envp;
-	// set_env(lst, "OLDPWD", getcwd(NULL, 0));
+	if (args[2] != NULL)
+		return ;
+	if (args[1] != NULL)
+	{
+		if (args[1][0] == '~')
+			dir = get_dir("HOME", envp, args[1] + 1);
+		else if (args[1][0] == '-')
+			dir = get_dir("OLDPWD", envp, args[1] + 1);
+		else
+			dir = ft_strdup(args[1]);
+	}
+	else
+	{
+		dir = mini_getenv("HOME", envp);
+		if (dir == NULL)
+			perror("cd error HOME Unvailable");
+	}
+	chdir(dir);
+	free(dir);
+}
+
+int	cd(char **args, t_data *data)
+{
+	char		*tmp1;
+	char		*tmp2;
+
 	tmp1 = getcwd(NULL, 0);
-	*envp = set_env_array(*envp, "OLDPWD", tmp1);
+	tmp2 = ft_strjoin("OLDPWD", tmp1);
+	process_cd(args, data->envp);
+	export(&tmp2, data);
 	free(tmp1);
-	if (ori_home == NULL)
-		ori_home = mini_getenv("HOME", *envp);
-	process_cd(args, *envp);
-	// set_env(lst, "PWD", getcwd(NULL, 0));
+	free(tmp2);
 	tmp1 = getcwd(NULL, 0);
-	*envp = set_env_array(*envp, "PWD", tmp1);
+	tmp2 = ft_strjoin("PWD", tmp1);
+	export(&tmp2, data);
 	free(tmp1);
+	free(tmp2);
 	return (0);
 }

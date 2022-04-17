@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utl_free_str_array.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:18:44 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/11 21:44:49 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/17 16:13:30 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_str_array(char **str)
 	char	**tmp;
 
 	tmp = str;
-	while (*tmp)
+	while (tmp && *tmp)
 	{
 		free(*tmp);
 		tmp++;

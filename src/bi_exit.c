@@ -6,14 +6,14 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:54 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/16 18:48:37 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 15:17:50 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-int	ft_exit(char **args, void *data)
+int	ft_exit(char **args, t_data *data)
 {
 	int	i;
 
