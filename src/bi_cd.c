@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:55 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 14:14:30 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/17 16:32:19 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+// ft_chdir returns int, update the exit status through there.
 void	process_cd(char **args, char **envp)
 {
 	int		i;
@@ -20,9 +22,7 @@ void	process_cd(char **args, char **envp)
 	i = 0;
 	while (args[i] != NULL)
 		i++;
-	if (i > 3)
-		return ;
-	if (i == 2)
+	if (i >= 2)
 	{
 		if (args[1][0] == '~')
 			tmp = ft_strjoin(mini_getenv("HOME", envp), args[1] + 1);
@@ -30,7 +30,7 @@ void	process_cd(char **args, char **envp)
 			tmp = ft_strjoin(mini_getenv("OLDPWD", envp), args[1] + 1);
 		else
 			tmp = ft_strdup(args[1]);
-		chdir(tmp);
+		ft_chdir(tmp);
 		free(tmp);
 	}
 	else if (i == 1)

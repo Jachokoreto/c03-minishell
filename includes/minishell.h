@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 14:06:17 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/21 12:04:37 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -60,8 +59,8 @@ typedef struct s_cmd_grp
 typedef struct s_data
 {
 	char			**builtins;
-	int				return_val;
 	char			**envp;
+	int				exit_status;
 	t_list			*env_list;
 	t_list			*tokens;
 	t_list			*cmd_grps;
@@ -72,17 +71,14 @@ typedef struct s_data
 /* utl_init_mini.c */
 t_data	*init_mini(char **envp);
 
-/* read_commands.c */
-void	read_commands(t_list *cmd_grp, t_data *data, int pipe_num);
-
 /* bi_*.c */
-int	echo(char **args, void *data);
-int	pwd(char **args, void *data);
-int	cd(char **args, void *data);
-int	env(char **args, void *data);
-int	export(char **args, void *data);
-int	unset(char **args, void *data);
-int	ft_exit(char **args, void *data);
+int		echo(char **args, void *data);
+int		pwd(char **args, void *data);
+int		cd(char **args, void *data);
+int		env(char **args, void *data);
+int		export(char **args, void *data);
+int		unset(char **args, void *data);
+int		ft_exit(char **args, void *data);
 
 /* shellsignals.c */
 void	shellsignals(void);
@@ -103,11 +99,18 @@ void	decide_token(char *str, t_data *g_data);
 char	*process_buffer(char *buffer, char **envp);
 void	mini_yacc(t_data *g_data);
 
+
+/* executor.c */
+void	executor(t_list *cmd_grp, t_data *data);
 void	use_redirections(void); // temp;
 int		redirections(t_list *retokens);
+void	first_child(t_cmd_grp *cmd_grp, int *fd);
+void	middle_child(int prev_fd, t_cmd_grp *cmd_grp, int *fd);
+void	last_child(int prev_fd, t_cmd_grp *cmd_grp);
 int		exe_builtins(t_cmd_grp *cmd_grp, t_data *g_data);
 void	exe_path(char **input, char **envp, char **path);
-int		exe_pipes(t_list *cmd_grp_list, int pipe_number, t_data *g_data);
+int		exe_pipe_cmds(t_list *cmd_grp_list, t_data *g_data, int pipe_num);
+void	exe_commands(t_cmd_grp *cmd_grp, t_data *g_data, int pipe_num);
 int		heredoc(char *delim);
 
 void	free_list(void);
@@ -125,6 +128,7 @@ char	**set_env_array(char **array, char *key, char *value);
 
 /* Utils */
 
+int		ft_chdir(const char *path);
 int		ft_fork(void);
 void	ft_kill(pid_t pid, int sig);
 void	ft_pipe(int pipefd[2]);
@@ -139,5 +143,6 @@ void	ft_tcsetattr(int fd, int optional_actions,
 void	ft_dup(int oldfd);
 void	ft_unlink(const char *pathname);
 void	ft_free_all(t_data *g_data);
+void	ft_free(char **str);
 
 #endif

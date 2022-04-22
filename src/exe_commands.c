@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe_path.c                                         :+:      :+:    :+:   */
+/*   exe_commands.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 17:23:09 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/16 15:19:25 by jatan            ###   ########.fr       */
+/*   Created: 2022/04/19 16:40:15 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/04/20 18:07:43 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,23 @@ void	exe_path(char **input, char **envp, char **path)
 			free(cmd);
 		}
 	}
-	return ;
+	ft_putstr_fd(input[0], 2);
+	ft_putstr_fd(": command not found\n", 2);
+	exit(127);
+}
+
+void	exe_commands(t_cmd_grp *cmd_grp, t_data *g_data, int pipe_num)
+{
+	char	**envp;
+	char	**path;
+
+	(void)pipe_num;
+	if (exe_builtins(cmd_grp, g_data) == 1)
+	{
+		path = ft_split(mini_getenv("PATH", g_data->envp), ':');
+		envp = get_env_array(g_data);
+		exe_path(cmd_grp->args, envp, path);
+		free_str_array(path);
+		free_str_array(envp);
+	}
 }

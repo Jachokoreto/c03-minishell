@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_mini_yacc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 18:12:55 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/17 07:23:43 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/20 15:31:14 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	set_arg_value(char ***value, int c, enum e_Type type, t_list *tokens)
 	{
 		token = (t_token *)tokens->content;
 		if (token->type == type)
-			(*value)[i++] = token->value;
+		// added strdup to prevent double free
+			(*value)[i++] = ft_strdup(token->value);
 		tokens = tokens->next;
 	}
 	(*value)[c] = NULL;

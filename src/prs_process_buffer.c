@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_process_buffer.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/17 14:15:52 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/21 15:01:51 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ char	*process_buffer(char *buffer, char **envp)
 		else if (*i[0] == '\'' || *i[0] == '\"')
 		{
 			*qt = (*qt != *i[0]) * *qt + (*qt == 0) * *i[0];
-			if (*qt == 0 || *qt == *i[0]--)
-				ft_memmove(i[0] + 1, i[0] + 2, ft_strlen(i[0] + 1));
+			if (*qt == 0 || *qt == *i[0])
+				ft_memmove(i[0] + 1, i[0] + 2, ft_strlen(i[0] - 1));
 		}
 		i[0]++;
 	}
