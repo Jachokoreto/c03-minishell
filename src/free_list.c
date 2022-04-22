@@ -23,10 +23,9 @@ void	free_cmd_grp(void *content)
 
 void	free_env(void *content)
 {
-	t_env	*env;
+	char	**data;
 
-	env = (t_env *)content;
-	free(env->key);
-	free(env->value);
-	free(content);
+	data = (char **)content;
+	free(data[1]);
+	free(data);
 }

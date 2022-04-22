@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 15:35:19 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/22 10:30:55 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,13 @@ char	*join_key_value(char *str1, char *str2, char c);
 char	**key_value_split(const char *s, char c);
 void	utl_move_fd(int fd1, int fd2);
 int		utl_strncmp(char *s1, char *s2);
-
-
 void	heredocsignals(void);
 
 void	mini_lexer(char *line, t_data *g_data);
 void	decide_token(char *str, t_data *g_data);
 char	*process_buffer(char *buffer, char **envp);
+char	*expand_env_var(char *buf, t_list **penv, char **envp);
+
 void	mini_yacc(t_data *g_data);
 
 void	use_redirections(void); // temp;

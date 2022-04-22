@@ -6,83 +6,57 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/17 14:15:52 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/22 10:32:55 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-static char	*expand_env_var(char *buf, t_list *env, char **evnp)
+void	handle_dollar_sign(t_list **env, char *i_0, char qt)
 {
-	char	*tmp[4];
-	int		index;
 	char	**data;
+	char	*i_1;
 
-	index = -1;
-	while (buf[++index])
+	data = ft_calloc(2, sizeof(char *));
+	i_1 = i_0 + 1;
+	while (ft_isalnum(*i_1) == 1 || *i_1 == '_')
+		i_1++;
+	data[1] = ft_substr(i_0, 1, i_1 - i_0 - 1);
+	data[0] = &qt;
+	ft_lstadd_back(env, ft_lstnew(data));
+	i_0 = i_1 - 1;
+}
+
+void	handle_quotes(char *qt, char *i)
+{
+	*qt = (*qt != *i) * *qt + (*qt == 0) * *i;
+	if ((*qt == 0 || *qt == *i))
 	{
-		tmp[3] = ft_strchr(&buf[index], '$');
-		if (tmp[3] == NULL)
-			return (buf);
-		data = env->content;
-		env = env->next;
-		index = tmp[3] - buf;
-		if (*(data[0]) == '\'')
-			continue ;
-		tmp[0] = ft_substr(buf, 0, tmp[3] - buf);
-		tmp[1] = mini_getenv(data[1], evnp);
-		tmp[2] = ft_strdup(&buf[index + ft_strlen(data[1]) + 1]);
-		free(buf);
-		if (tmp[1] == NULL)
-			buf = ft_strdup(tmp[0]);
-		else
-			buf = ft_strjoin(tmp[0], tmp[1]);
-		free(tmp[0]);
-		free(tmp[1]);
-		tmp[0] = buf;
-		buf = ft_strjoin(buf, tmp[2]);
-		index += ft_strlen(tmp[1]) - 1;
-		free(tmp[0]);
-		free(tmp[2]);
+		ft_memmove(i, i + 1, ft_strlen(i));
+		i--;
 	}
-	return (buf);
 }
 
 char	*process_buffer(char *buffer, char **envp)
 {
 	t_list	*env;
-	char	*i[2];
-	char	*qt;
-	char	**data;
+	char	*i;
+	char	qt;
 
-	i[0] = buffer;
-	qt = ft_calloc(2, sizeof(char *));
+	i = buffer;
 	env = NULL;
-	while (i[0] && *(i[0]))
+	qt = 0;
+	while (i && *(i))
 	{
-		if (*i[0] == '$')
+		if (*i == '$')
+			handle_dollar_sign(&env, i, qt);
+		else if (*i == '\'' || *i == '\"')
 		{
-			data = ft_calloc(2, sizeof(char *));
-			i[1] = i[0] + 1;
-			while (ft_isalnum(*i[1]) == 1 || *i[1] == '_')
-				i[1]++;
-			data[1] = ft_substr(i[0], 1, i[1] - i[0] - 1);
-			data[0] = ft_strdup(qt);
-			ft_lstadd_back(&env, ft_lstnew(data));
-			i[0] = i[1] - 1;
+			handle_quotes(&qt, i);
 		}
-		else if (*i[0] == '\'' || *i[0] == '\"')
-		{
-			*qt = (*qt != *i[0]) * *qt + (*qt == 0) * *i[0];
-			if (*qt == 0 || *qt == *i[0]--)
-				ft_memmove(i[0] + 1, i[0] + 2, ft_strlen(i[0] + 1));
-		}
-		i[0]++;
+		i++;
 	}
-	if (env)
-		buffer = expand_env_var(buffer, env, envp);
-	ft_lstclear(&env, free);
-	free(qt);
+	if (env != NULL)
+		buffer = expand_env_var(buffer, &env, envp);
 	return (buffer);
 }
