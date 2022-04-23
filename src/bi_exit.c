@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:54 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 15:17:50 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/22 14:21:01 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,15 @@ int	ft_exit(char **args, t_data *data)
 		if ((int)ft_strlen(args[1]) == i)
 			exit(ft_atoi(args[1]));
 		else
-			perror("exit : numeric argument required");
+		{
+			ft_putstr_fd("exit : numeric argument required\n", 2);
+			exit(1);
+		}
 	}
 	else
-		perror("exit too many arguments");
+	{
+		ft_putstr_fd("exit : too many arguments\n", 2);
+		exit(1);
+	}
 	return (0);
 }

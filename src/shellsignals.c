@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:36:36 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/11 19:11:50 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/18 13:51:20 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	handler(int signo)
 	{
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
+		// is memmove needed?
 		ft_memmove(rl_line_buffer, "", 1);
 		rl_on_new_line();
 		rl_redisplay();

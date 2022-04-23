@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 16:54:56 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/10 15:16:02 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/19 17:58:42 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	parent_close_fd(int **pipes, int i)
 	}
 }
 
-int	exe_pipes(char *input)
+int	exe_pipe_cmds(char *input)
 {
 	int	i;
 	int	process;

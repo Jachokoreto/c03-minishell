@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:55 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 16:36:35 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/22 14:20:23 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -25,6 +26,8 @@ char	*get_dir(char *name, char **envp, char *arg)
 	return (tmp2);
 }
 
+
+// ft_chdir returns int, update the exit status through there.
 void	process_cd(char **args, char **envp)
 {
 	char	*dir;
@@ -38,13 +41,17 @@ void	process_cd(char **args, char **envp)
 		else if (args[1][0] == '-')
 			dir = get_dir("OLDPWD", envp, args[1] + 1);
 		else
+		{
 			dir = ft_strdup(args[1]);
+			// tmp = ft_strdup(args[1]);
+		}
+		// free(tmp);
 	}
 	else
 	{
 		dir = mini_getenv("HOME", envp);
 		if (dir == NULL)
-			perror("cd error HOME Unvailable");
+			perror("cd error HOME Unavailable");
 	}
 	chdir(dir);
 	free(dir);
