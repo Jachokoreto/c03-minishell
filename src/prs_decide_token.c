@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_decide_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:36:13 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/23 09:50:48 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/23 14:45:27 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * Adds a new token to the t_token linked list
  * The type is determined in the if else statements in the decide token func.
- * The value itself is determined 
+ * The value itself is determined
  */
 
 t_token	*add_new_token(t_data *g_data, char *str, enum e_Type type)

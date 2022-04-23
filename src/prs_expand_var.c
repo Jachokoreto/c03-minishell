@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 01:49:15 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/23 14:28:46 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/23 14:49:26 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ char	**get_tmps(char *buf, int index, char **envp, char *key)
 
 	tmp = ft_calloc(4, sizeof(char *));
 	tmp[0] = ft_substr(buf, 0, index);
-	tmp[1] = mini_getenv(key, envp);
+	if (ft_strncmp(key, "?", ft_strlen(key)) == 0)
+		tmp[1] = ft_itoa(g_exit);
+	else
+		tmp[1] = mini_getenv(key, envp);
 	tmp[2] = ft_strdup(&buf[index + ft_strlen(key) + 1]);
 	return (tmp);
 }
