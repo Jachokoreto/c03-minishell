@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/22 14:47:51 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/23 14:27:15 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #include "minishell.h"
@@ -53,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	shellsignals();
 	while (1)
 	{
-		line = readline("minishell > ");
+		line = readline("\033[035mminishell\n🔪 \033[0m");
 		if (line == NULL)
 		{
 			// maybe no need
@@ -72,3 +73,4 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 }
+

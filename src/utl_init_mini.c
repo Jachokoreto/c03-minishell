@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   utl_init_mini.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:37 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/22 15:31:56 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/23 14:31:51 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -21,26 +22,14 @@
 void	init_env(t_data	*g_data, char **envp)
 {
 	int		i;
-	// t_env	*env;
-	// char	**str;
 
-	g_data->env_list = NULL;
-	// i = -1;
-	// while (envp[++i])
-	// {
-	// 	str = key_value_split(envp[i], '=');
-	// 	env = ft_calloc(1, sizeof(t_env));
-	// 	env->key = str[0];
-	// 	env->value = str[1];
-	// 	if (ft_strncmp(env->key, "OLDPWD", ft_strlen("OLDPWD")) == 0)
-	// 		env->value = getcwd(NULL, 0);
-	// 	ft_lstadd_back(&g_data->env_list, ft_lstnew(env));
-	// }
 	i = 0;
 	while (envp[i] != NULL)
 		i++;
 	i++;
-	g_data->envp = ft_calloc(i + 2, sizeof(char *));
+	// g_data->envp = ft_calloc(i + 2, sizeof(char *));
+	g_data->envp = ft_calloc(i + 1, sizeof(char *));
+	g_data->envp[i] = NULL;
 	g_data->envp[--i] = ft_strdup("?=0");
 	while (--i >= 0)
 		g_data->envp[i] = ft_strdup(envp[i]);

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   prs_expand_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 01:49:15 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/23 11:31:47 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/23 14:28:46 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -61,8 +62,8 @@ char	*join_tmps(char *tmp1, char *tmp2, char *tmp3)
  * tmp[0] is string before the expandable variable, eg "hi $USER", where "hi "
  * is the substring.
  * tmp[1] is the value of the key in the environment linked list.
- * tmp[2] is a duplicated string after the environment variable, eg "hi $USER bye"
- * where " bye"
+ * tmp[2] is a duplicated string after the environment variable,
+ * eg "hi $USER bye" where " bye"
  */
 
 char	**get_tmps(char *buf, int index, char **envp, char *key)
@@ -79,7 +80,7 @@ char	**get_tmps(char *buf, int index, char **envp, char *key)
 /**
  * Expansion of the key value of the environment linked list happens here
  * Buffer is checked for any $ sign which indicates an expansion. This is done
- * in the get_dollar_sign function. The expansion does not occur when a single 
+ * in the get_dollar_sign function. The expansion does not occur when a single
  * quotation is found.
  */
 

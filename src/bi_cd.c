@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:55 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/23 12:05:01 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/23 14:27:54 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #include "minishell.h"
@@ -41,11 +42,7 @@ void	process_cd(char **args, char **envp)
 		else if (args[1][0] == '-')
 			dir = get_dir("OLDPWD", envp, args[1] + 1);
 		else
-		{
 			dir = ft_strdup(args[1]);
-			// tmp = ft_strdup(args[1]);
-		}
-		// free(tmp);
 	}
 	else
 	{
@@ -59,19 +56,22 @@ void	process_cd(char **args, char **envp)
 
 int	cd(char **args, t_data *data)
 {
-	char		*tmp1;
-	char		*tmp2;
+	char		*tmps[3];
+	char		*tmp;
 
-	tmp1 = getcwd(NULL, 0);
-	tmp2 = ft_strjoin("OLDPWD", tmp1);
+	tmps[2] = NULL;
+	tmps[0] = ft_strdup("export");
+	tmp = getcwd(NULL, 0);
+	tmps[1] = join_key_value("OLDPWD", tmp, '=');
 	process_cd(args, data->envp);
-	export(&tmp2, data);
-	free(tmp1);
-	free(tmp2);
-	tmp1 = getcwd(NULL, 0);
-	tmp2 = ft_strjoin("PWD", tmp1);
-	export(&tmp2, data);
-	free(tmp1);
-	free(tmp2);
+	export(tmps, data);
+	free(tmp);
+	free(tmps[2]);
+	tmp = getcwd(NULL, 0);
+	tmps[1] = join_key_value("PWD", tmp, '=');
+	export(tmps, data);
+	free(tmp);
+	free(tmps[1]);
+	free(tmps[2]);
 	return (0);
 }
