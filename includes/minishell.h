@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/22 14:13:12 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/22 14:33:58 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ typedef struct s_data
 t_data	*init_mini(char **envp);
 
 /* bi_*.c */
-int		echo(char **args, void *data);
-int		pwd(char **args, void *data);
-int		cd(char **args, void *data);
-int		env(char **args, void *data);
-int		export(char **args, void *data);
-int		unset(char **args, void *data);
-int		ft_exit(char **args, void *data);
+int		echo(char **args, t_data *data);
+int		pwd(char **args, t_data *data);
+int		cd(char **args, t_data *data);
+int		env(char **args, t_data *data);
+int		export(char **args, t_data *data);
+int		unset(char **args, t_data *data);
+int		ft_exit(char **args, t_data *data);
 
 /* shellsignals.c */
 void	shellsignals(void);

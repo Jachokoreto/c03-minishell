@@ -6,11 +6,17 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:36:13 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/20 15:29:05 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/23 09:50:48 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * Adds a new token to the t_token linked list
+ * The type is determined in the if else statements in the decide token func.
+ * The value itself is determined 
+ */
 
 t_token	*add_new_token(t_data *g_data, char *str, enum e_Type type)
 {
@@ -22,6 +28,12 @@ t_token	*add_new_token(t_data *g_data, char *str, enum e_Type type)
 	ft_lstadd_back(&g_data->tokens, ft_lstnew(token));
 	return (token);
 }
+
+/**
+ * Decide tokens read the string and determine its token_type
+ * It goes into add_new_token which assigns the type and value on its
+ * respective linked list node.
+ */
 
 void	decide_token(char *str, t_data *g_data)
 {

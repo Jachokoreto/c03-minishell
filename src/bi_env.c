@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:38 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 15:17:36 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/22 15:41:35 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ int	env(char **args, t_data *data)
 	(void)args;
 	i = -1;
 	while (data->envp[++i] != NULL)
-		printf("%s\n", data->envp[i]);
+	{
+		// if (ft_strncmp(data->envp[i], "?=", 2) != 0)
+			printf("%s\n", data->envp[i]);
+	}
 	return (0);
 }

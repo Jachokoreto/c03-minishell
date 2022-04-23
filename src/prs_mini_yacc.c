@@ -6,11 +6,17 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 18:12:55 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/20 15:31:14 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/23 11:31:30 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * The count arguments count how many arguments in each command groups.
+ * If it finds a pipe, it immediately breaks as that would mean that the
+ * arguments would belong in another command group.
+ */
 
 int	count_args(t_list *token_lst)
 {
@@ -30,7 +36,10 @@ int	count_args(t_list *token_lst)
 	return (count);
 }
 
-//go through token
+/**
+ * The argument values are determined through lexer and this function will 
+ * duplicate each of the token value into its respective value.
+ */
 void	set_arg_value(char ***value, int c, enum e_Type type, t_list *tokens)
 {
 	t_token	*token;
@@ -42,14 +51,20 @@ void	set_arg_value(char ***value, int c, enum e_Type type, t_list *tokens)
 	{
 		token = (t_token *)tokens->content;
 		if (token->type == type)
-		// added strdup to prevent double free
 			(*value)[i++] = ft_strdup(token->value);
 		tokens = tokens->next;
 	}
 	(*value)[c] = NULL;
 }
 
-// take token and organize into cmd_grp
+/**
+ * Mini_yacc inserts the processed tokens into its respective groups.
+ * It counts how many arguments are there in the command group using count_args
+ * Once the number of arguments are counted, the arguments will be set using the
+ * set_arg_value function. The redirection tokens are then innitialized in each 
+ * command group.
+ */ 
+
 void	mini_yacc(t_data *g_data)
 {
 	t_list		*token_lst;

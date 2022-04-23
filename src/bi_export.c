@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 15:35:04 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/23 12:16:55 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**set_env_array(char **array, char *key, char *value)
 	while (array[i] != NULL)
 	{
 		if (ft_strncmp(key, array[i], ft_strlen(key)) == 0
-			&& array[i][ft_strlen(key) + 1] == '=')
+			&& array[i][ft_strlen(key)] == '=')
 		{
 			free(array[i]);
 			array[i] = join_key_value(key, value, '=');

@@ -12,3 +12,5 @@ echo "hellow "world" | grep hello | wc -l
 echo undefined $(something) will seg fault
 
 cat < infile < infile < infile << heredoc > outfile
+
+echo $(UNEXISTING STUFF) = memleak
