@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/23 14:27:15 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/24 17:17:22 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int	main(int argc, char **argv, char **envp)
 	g_data = init_mini(envp);
 	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
 	{
-		int exit_status = ft_launch_minishell(argv[2], g_data);
-		exit(exit_status);
+		ft_launch_minishell(argv[2], g_data);
+		exit(g_exit);
 	}
 	shellsignals();
 	while (1)
 	{
-		line = readline("\033[035mminishell\n🔪 \033[0m");
+		line = readline("\033[035mminishell🔪 \033[0m");
 		if (line == NULL)
 		{
 			// maybe no need
@@ -73,4 +73,3 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 }
-

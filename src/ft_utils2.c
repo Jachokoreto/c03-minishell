@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:43:42 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/17 14:04:15 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/24 16:42:24 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ int	ft_open(char *filename, int oflag, int mode)
 	fd = open(filename, oflag, mode);
 	if (fd == -1)
 	{
-		perror("open failed");
-		exit(errno);
+		// perror("open failed");
+		ft_putstr_fd(filename, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		// exit(errno);
 	}
 	return (fd);
 }
@@ -50,7 +52,6 @@ void	ft_close(int fd)
 
 void	ft_dup2(int oldfd, int newfd)
 {
-
 	if (dup2(oldfd, newfd) == -1)
 	{
 		perror("dup2 failed");

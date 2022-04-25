@@ -19,7 +19,7 @@ SRCS		=	executor.c shellsignals.c ft_utils.c ft_utils2.c ft_utils3.c \
 				prs_decide_token.c prs_mini_lexer.c prs_mini_yacc.c prs_process_buffer.c  prs_expand_var.c \
 				ult_mini_getenv.c utl_free_str_array.c utl_get_env_array.c utl_init_mini.c \
 				utl_key_value_split.c utl_strncmp.c utl_join_key_value.c utl_move_fd.c utl_env_array.c\
-				utl_set_env.c free_list.c \
+				utl_set_env.c utl_check_valid_char.c free_list.c \
 
 OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 

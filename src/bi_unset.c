@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:47:34 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/23 11:14:17 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/25 12:18:20 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,14 @@ int	unset(char **args, t_data *data)
 	(void)data;
 	while (++args && *args != 0)
 	{
-		data->envp = del_env(data->envp, *args);
-	}
+		if (check_valid_char(*args) == 0)
+			data->envp = del_env(data->envp, *args);
+		else
+		{
+			g_exit = 1;
+			ft_putstr_fd(*args, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+		}
+	}	
 	return (0);
 }

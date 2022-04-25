@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utl_free_str_array.c                               :+:      :+:    :+:   */
+/*   utl_check_valid_char.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 20:18:44 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/25 10:29:10 by leu-lee          ###   ########.fr       */
+/*   Created: 2022/04/25 10:13:21 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/04/25 14:02:44 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_str_array(char **str)
+int	check_valid_char(char *str)
 {
-	char	**tmp;
+	int	i;
 
-	tmp = str;
-	while (tmp && *tmp)
+	i = 0;
+	if (!ft_isalpha(str[i]) && str[i] != '_')
+		return (1);
+	i++;
+	while (str[i])
 	{
-		free(*tmp);
-		tmp++;
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (1);
+		i++;
 	}
-	free(str);
+	return (0);
 }

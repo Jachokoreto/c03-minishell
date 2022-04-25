@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 14:44:47 by leu-lee           #+#    #+#             */
+// /*   Created: 2022/03/21 14:44:47 by leu-lee           #+#    #+#             */
 /*   Updated: 2022/04/18 13:19:31 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -16,9 +16,13 @@ void	exe_one_cmd(t_cmd_grp *cmd_grp, t_data *g_data)
 {
 	char		**path;
 	char		**envp;
+	int			status;
 
+	g_exit = 0;
+	// printf("exit_status: %d\n", g_exit);
 	if (exe_builtins(cmd_grp, g_data) == 1)
 	{
+		// printf("----fork----\n");
 		if (ft_fork() == 0)
 		{
 			path = ft_split(mini_getenv("PATH", g_data->envp), ':');
@@ -27,12 +31,16 @@ void	exe_one_cmd(t_cmd_grp *cmd_grp, t_data *g_data)
 			free_str_array(path);
 			free_str_array(envp);
 		}
+		waitpid(-1, &status, 0);
+		if (WIFEXITED(status))
+			g_exit = WEXITSTATUS(status);
 	}
+	// printf("exit_status: %d\n", g_exit);
 }
 
 void	executor(t_list *cmd_grp_list, t_data *g_data)
 {
-	int			status;
+	// int			status;
 	int			saved_fd[2];
 	int			pipe_num;
 	t_cmd_grp	*cmd_grp;
@@ -47,11 +55,9 @@ void	executor(t_list *cmd_grp_list, t_data *g_data)
 	else
 	{
 		cmd_grp = cmd_grp_list->content;
-		redirections(g_data->tokens);
-		exe_one_cmd(cmd_grp, g_data);
-		waitpid(-1, &status, 0);
-		if (WIFEXITED(status))
-			g_data->exit_status = WEXITSTATUS(status);
+		if (redirections(g_data->tokens) != -1)
+			exe_one_cmd(cmd_grp, g_data);
+		return ;
 		// free_str_array(path);
 		// free_str_array(envp);
 	}

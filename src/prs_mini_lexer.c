@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/22 14:28:52 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/25 15:44:33 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,16 @@ void	mini_lexer(char *line, t_data *g_data)
 	{
 		while (*line == ' ')
 			line++;
-		buffer = get_string_into_buffer(&line);
-		if (buffer == NULL)
+		// added if (*line) to handle single command with only spaces behind
+		if (*line)
 		{
-			perror("Invalid");
-			break ;
+			buffer = get_string_into_buffer(&line);
+			if (buffer == NULL)
+			{
+				perror("Invalid");
+				break ;
+			}
+			decide_token(buffer, g_data);
 		}
-		decide_token(buffer, g_data);
 	}
 }

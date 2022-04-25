@@ -3,21 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utl_init_mini.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:37 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/23 14:46:40 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/23 15:44:34 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
-
-// void	init_exit_status(t_data *g_data)
-// {
-// 	;
-// }
-
 
 void	init_env(t_data	*g_data, char **envp)
 {

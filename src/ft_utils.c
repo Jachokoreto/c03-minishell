@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:43:38 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/15 09:43:46 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/23 16:46:42 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_pipe(int pipefd[2])
 	}
 }
 
-void ft_tcgetattr(int fd, struct termios *termios_p)
+void	ft_tcgetattr(int fd, struct termios *termios_p)
 {
 	if (tcgetattr(fd, termios_p) == -1)
 	{
@@ -52,7 +52,8 @@ void ft_tcgetattr(int fd, struct termios *termios_p)
 	}
 }
 
-void ft_tcsetattr(int fd, int optional_actions, const struct termios *termios_p)
+void	ft_tcsetattr(int fd, int optional_actions,
+	const struct termios *termios_p)
 {
 	if (tcsetattr(fd, optional_actions, termios_p) == -1)
 	{

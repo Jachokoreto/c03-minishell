@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:12:24 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/20 11:56:31 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/24 10:51:23 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ int	ft_chdir(const char *path)
 
 	exit_status = chdir(path);
 	if (exit_status == -1)
+	{
 		perror("cd error");
-	return (exit_status);
+		return (1);
+	}
+	return (0);
 }
 
 void	ft_free(char **str)

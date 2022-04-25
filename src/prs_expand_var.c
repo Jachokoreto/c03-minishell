@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_expand_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 01:49:15 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/23 14:49:26 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/25 16:25:08 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	**get_tmps(char *buf, int index, char **envp, char *key)
 
 	tmp = ft_calloc(4, sizeof(char *));
 	tmp[0] = ft_substr(buf, 0, index);
-	if (ft_strncmp(key, "?", ft_strlen(key)) == 0)
+	if (*key == '?' && ft_strlen(key) == 1)
 		tmp[1] = ft_itoa(g_exit);
 	else
 		tmp[1] = mini_getenv(key, envp);
@@ -110,7 +110,10 @@ char	*expand_env_var(char *buf, t_list **penv, char **envp)
 		buf = join_tmps(tmp[0], tmp[1], tmp[2]);
 		index += ft_strlen(tmp[1]) - 1;
 	}
-	free_str_array(tmp);
+	free(tmp[0]);
+	free(tmp[1]);
+	free(tmp[2]);
+	// free_str_array(tmp);
 	ft_lstclear(penv, free_env);
 	return (buf);
 }

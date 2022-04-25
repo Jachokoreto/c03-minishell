@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_process_buffer.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/23 14:45:43 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/25 16:12:46 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ char	*process_buffer(char *buffer, char **envp)
 		i++;
 	}
 	if (env != NULL)
+	{
 		buffer = expand_env_var(buffer, &env, envp);
+		ft_lstclear(&env, free_env);
+	}
 	return (buffer);
 }

@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 15:33:02 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/21 11:50:36 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/24 16:37:01 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ int	redirections(t_list *retokens)
 		fd_in = redir_input(token, fd_in);
 		fd_out = redir_output(token, fd_out);
 		retokens = retokens->next;
+	}
+	if (fd_out == -1 || fd_in == -1)
+	{
+		g_exit = 1;
+		return (-1);
 	}
 	if (fd_out != 0)
 		utl_move_fd(fd_out, 1);

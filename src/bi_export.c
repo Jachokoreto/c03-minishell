@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   bi_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/23 14:28:12 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/25 15:53:24 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #include "minishell.h"
@@ -21,23 +22,6 @@ void	print_declarations(char *env)
 	if (ft_strncmp(tmp[0], "_", ft_strlen(tmp[0])) != 0)
 		printf("declare -x %s=\"%s\"\n", tmp[0], tmp[1]);
 	free_str_array(tmp);
-}
-
-int	check_valid_char(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return (1);
-	i++;
-	while (str[i])
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 char	**set_env_array(char **array, char *key, char *value)
@@ -76,9 +60,24 @@ void	loop_env(char **args, char ***envp)
 	{
 		str = key_value_split(args[i], '=');
 		if (str == NULL)
+		{
+			if (check_valid_char(args[1]) == 1)
+			{
+				printf("Case1\n");
+				g_exit = 1;
+				ft_putstr_fd(args[1], 2);
+				ft_putstr_fd("': not a valid identifier\n", 2);
+			}
+			free_str_array(str);
 			return ;
+		}
 		if (check_valid_char(str[0]) == 1)
-			printf("`%s': not a valid identifier\n", str[0]);
+		{
+			printf("Case2\n");
+			g_exit = 1;
+			ft_putstr_fd(str[0], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+		}
 		else
 			*envp = set_env_array(*envp, str[0], str[1]);
 		free_str_array(str);
@@ -89,7 +88,7 @@ int	export(char **args, t_data *data)
 {
 	int	i;
 
-	if (args[1] == NULL)
+	if (args[1] == NULL || args[1][0] == '#')
 	{
 		i = -1;
 		while (data->envp[++i] != NULL)

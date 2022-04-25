@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 18:38:23 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/21 11:02:01 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/24 16:25:39 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	exe_proc(t_cmd_grp *cmd_grp, int i, int pipe_num, t_data *g_data)
 
 	if (i != pipe_num)
 		ft_pipe(fd);
+	g_exit = 0;
 	process = ft_fork();
 	if (process == 0)
 	{
@@ -68,7 +69,7 @@ int	exe_pipe_cmds(t_list *cmd_grp_list, t_data *g_data, int pipe_num)
 		cmd_grp_list = cmd_grp_list->next;
 		waitpid(-1, &status, 0);
 		if (WIFEXITED(status))
-			g_data->exit_status = WEXITSTATUS(status);
+			g_exit = WEXITSTATUS(status);
 	}
 	return (0);
 }

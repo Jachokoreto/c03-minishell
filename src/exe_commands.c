@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:40:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/20 18:07:43 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/23 16:30:51 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,15 @@ void	exe_path(char **input, char **envp, char **path)
 		while (path[i])
 		{
 			cmd = join_key_value(path[i++], input[0], '/');
+			// g_exit = 0;
 			execve(cmd, input, envp);
 			free(cmd);
 		}
 	}
 	ft_putstr_fd(input[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
-	exit(127);
+	g_exit = 127;
+	exit(g_exit);
 }
 
 void	exe_commands(t_cmd_grp *cmd_grp, t_data *g_data, int pipe_num)
