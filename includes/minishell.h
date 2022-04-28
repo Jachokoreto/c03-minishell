@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/25 10:16:14 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/28 14:01:43 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@
 # define B_KEY 1
 # define A_KEY 2
 
-
-
 enum e_Type { arg, redir, pip, infile, outfile1, outfile2, delim};
 
 typedef struct s_env
@@ -51,11 +49,11 @@ typedef struct s_token
 
 typedef struct s_cmd_grp
 {
-	char	**args; // args[0] = cmd, args[n] = arguments
+	char	**args;
 	t_list	*retokens;
 }	t_cmd_grp;
 
-struct	s_data;
+struct		s_data;
 typedef int	(*t_builtin_funcs)(char **args, struct s_data *data);
 
 typedef struct s_data
@@ -69,7 +67,7 @@ typedef struct s_data
 	t_builtin_funcs	builtin_funcs[7];
 }	t_data;
 
-int	g_exit;
+int			g_exit;
 
 /* utl_init_mini.c */
 t_data	*init_mini(char **envp);
@@ -92,29 +90,26 @@ char	*mini_getenv(char *key, char **envp);
 char	*join_key_value(char *str1, char *str2, char c);
 char	**key_value_split(const char *s, char c);
 void	utl_move_fd(int fd1, int fd2);
-void	heredocsignals(void);
 int		utl_strncmp(char *s1, char *s2);
 int		check_valid_char(char *str);
 
-void	mini_lexer(char *line, t_data *g_data);
-void	decide_token(char *str, t_data *g_data);
+void	decide_token(char *str, t_data *data);
+int		mini_lexer(char *line, t_data *data);
 char	*process_buffer(char *buffer, char **envp);
 char	*expand_env_var(char *buf, t_list **penv, char **envp);
 
-void	mini_yacc(t_data *g_data);
+void	mini_yacc(t_data *data);
 
 
 /* executor.c */
 void	executor(t_list *cmd_grp, t_data *data);
-void	use_redirections(void); // temp;
-int		redirections(t_list *retokens);
 void	first_child(t_cmd_grp *cmd_grp, int *fd);
 void	middle_child(int prev_fd, t_cmd_grp *cmd_grp, int *fd);
 void	last_child(int prev_fd, t_cmd_grp *cmd_grp);
-int		exe_builtins(t_cmd_grp *cmd_grp, t_data *g_data);
-void	exe_path(char **input, char **envp, char **path);
-int		exe_pipe_cmds(t_list *cmd_grp_list, t_data *g_data, int pipe_num);
-void	exe_commands(t_cmd_grp *cmd_grp, t_data *g_data, int pipe_num);
+void	exe_commands(t_cmd_grp *cmd_grp, t_data *data, int pipe_num);
+int		redirections(t_list *retokens);
+int		exe_builtins(t_cmd_grp *cmd_grp, t_data *data);
+int		exe_pipe_cmds(t_list *cmd_grp_list, t_data *data, int pipe_num);
 int		heredoc(char *delim);
 
 void	free_list(void);
@@ -145,7 +140,7 @@ void	ft_tcsetattr(int fd, int optional_actions,
 			const struct termios *termios_p);
 void	ft_dup(int oldfd);
 void	ft_unlink(const char *pathname);
-void	ft_free_all(t_data *g_data);
+void	ft_free_all(t_data *data);
 void	ft_free(char **str);
 
 #endif

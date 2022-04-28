@@ -6,10 +6,9 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 01:49:15 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/25 16:25:08 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/28 14:00:51 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -35,7 +34,6 @@ int	get_dollar_sign(char *buf, int index)
 		return (-1);
 	return (tmp - buf);
 }
-
 
 /**
  * The strings are joined back up together with the key env string replaced with
@@ -70,7 +68,7 @@ char	**get_tmps(char *buf, int index, char **envp, char *key)
 {
 	char	**tmp;
 
-	tmp = ft_calloc(4, sizeof(char *));
+	tmp = ft_calloc(3, sizeof(char *));
 	tmp[0] = ft_substr(buf, 0, index);
 	if (*key == '?' && ft_strlen(key) == 1)
 		tmp[1] = ft_itoa(g_exit);
@@ -78,6 +76,14 @@ char	**get_tmps(char *buf, int index, char **envp, char *key)
 		tmp[1] = mini_getenv(key, envp);
 	tmp[2] = ft_strdup(&buf[index + ft_strlen(key) + 1]);
 	return (tmp);
+}
+
+void	free_tmp(char **tmp)
+{
+	free(tmp[0]);
+	free(tmp[1]);
+	free(tmp[2]);
+	free(tmp);
 }
 
 /**
@@ -108,12 +114,9 @@ char	*expand_env_var(char *buf, t_list **penv, char **envp)
 		tmp = get_tmps(buf, index, envp, data[1]);
 		free(buf);
 		buf = join_tmps(tmp[0], tmp[1], tmp[2]);
+		free_tmp(tmp);
 		index += ft_strlen(tmp[1]) - 1;
 	}
-	free(tmp[0]);
-	free(tmp[1]);
-	free(tmp[2]);
-	// free_str_array(tmp);
 	ft_lstclear(penv, free_env);
 	return (buf);
 }

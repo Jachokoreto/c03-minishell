@@ -34,5 +34,11 @@ pressing enter will cause memleak
 
 export @$@##@$#ASDASDASDaASDASDSA=SDADAS
 
-export #@@#@#!@#!@#!@#@#!@#@!#@#!@#!@#!@##!@!@#@#!@#@!#!@@!#adskjhasfkjsadhfkjsdhfsadfs=sadkfjhasfjhasdhfsahgfdsf
+export @@#@#!@#!@#!@#@#!@#@!#@#!@#!@#!@##!@!@#@#!@#@!#!@@!#adskjhasfkjsadhfkjsdhfsadfs=sadkfjhasfjhasdhfsahgfdsf
 does not cause memleak
+
+export @' exports -declare somehow
+
+
+echo hi > output | grep hi | wc -l
+Bad file descriptor

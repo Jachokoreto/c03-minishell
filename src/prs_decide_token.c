@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_decide_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:36:13 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/23 14:45:27 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/28 11:38:32 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
  * The value itself is determined
  */
 
-t_token	*add_new_token(t_data *g_data, char *str, enum e_Type type)
+t_token	*add_new_token(t_data *data, char *str, enum e_Type type)
 {
 	t_token	*token;
 
 	token = ft_calloc(1, sizeof(t_token));
 	token->type = type;
-	token->value = process_buffer(str, g_data->envp);
-	ft_lstadd_back(&g_data->tokens, ft_lstnew(token));
+	token->value = process_buffer(str, data->envp);
+	ft_lstadd_back(&data->tokens, ft_lstnew(token));
 	return (token);
 }
 
@@ -35,12 +35,12 @@ t_token	*add_new_token(t_data *g_data, char *str, enum e_Type type)
  * respective linked list node.
  */
 
-void	decide_token(char *str, t_data *g_data)
+void	decide_token(char *str, t_data *data)
 {
 	static t_token	*p_token;
 	enum e_Type		type;
 
-	if (g_data->tokens == NULL)
+	if (data->tokens == NULL)
 		p_token = NULL;
 	if (utl_strncmp(str, "|") == 0)
 		type = pip;
@@ -60,5 +60,5 @@ void	decide_token(char *str, t_data *g_data)
 	}
 	else
 		type = arg;
-	p_token = add_new_token(g_data, str, type);
+	p_token = add_new_token(data, str, type);
 }

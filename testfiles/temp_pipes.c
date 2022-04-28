@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 16:54:56 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/19 17:58:42 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/28 11:38:32 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	**get_pipes(void)
 	int	**pipes;
 	int	i;
 
-	pipes = ft_calloc(g_data->pipe_number, sizeof(int *));
+	pipes = ft_calloc(data->pipe_number, sizeof(int *));
 	i = 0;
-	while (i < g_data->pipe_number)
+	while (i < data->pipe_number)
 	{
 		pipes[i] = ft_calloc(2, sizeof(int));
 		pipe(pipes[i]);
@@ -42,7 +42,7 @@ void	first_last_child(int **pipes, int i, char *input)
 			dup2(fd_in, 0);
 			close(fd_in);
 		}
-		if (g_data->pipe_number > 0)
+		if (data->pipe_number > 0)
 		{
 			dup2(pipes[i][1], 1);
 			close(pipes[i][1]);
@@ -50,12 +50,12 @@ void	first_last_child(int **pipes, int i, char *input)
 		}
 		exe_path(input);
 	}
-	else if (i == g_data->pipe_number)
+	else if (i == data->pipe_number)
 	{
 		printf("lastchild\n");
 		// fix when there is only 1 pipe
 		fd_out = open("outfile", O_CREAT | O_WRONLY| O_APPEND, 0644);
-		// if (i == g_data->pipe_number)
+		// if (i == data->pipe_number)
 		// {
 			// printf("if\n");
 		dup2(pipes[i][0], 0);
@@ -90,7 +90,7 @@ void	parent_close_fd(int **pipes, int i)
 {
 	if (i == 0)
 		close(pipes[i][1]);
-	else if (i == g_data->pipe_number)
+	else if (i == data->pipe_number)
 		close(pipes[i - 1][0]);
 	else
 	{
@@ -108,12 +108,12 @@ int	exe_pipe_cmds(char *input)
 
 	pipes = get_pipes();
 	i = -1;
-	while (++i <= g_data->pipe_number)
+	while (++i <= data->pipe_number)
 	{
 		process = fork();
 		if (process == 0)
 		{
-			if ((i == 0) || (i == g_data->pipe_number))
+			if ((i == 0) || (i == data->pipe_number))
 				first_last_child(pipes, i, input);
 			else
 				middle_child(pipes, i, input);

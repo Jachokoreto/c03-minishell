@@ -6,12 +6,9 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:55 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/25 11:36:54 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/28 10:57:59 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #include "minishell.h"
 
@@ -20,20 +17,16 @@ char	*get_dir(char *name, char **envp, char *arg)
 	char	*tmp1;
 	char	*tmp2;
 
-	// printf("---entered get dir---\n");
 	if (arg == NULL)
 		return (mini_getenv(name, envp));
 	tmp1 = mini_getenv(name, envp);
 	if (tmp1 == NULL)
 		return (NULL);
-	// printf("temp1 %s\n", tmp1);
-	// printf("args %s\n", arg);
 	tmp2 = ft_strjoin(tmp1, arg);
 	free(tmp1);
 	return (tmp2);
 }
 
-// ft_chdir returns int, update the exit status through there.
 int	process_cd(char **args, char **envp)
 {
 	char	*dir;

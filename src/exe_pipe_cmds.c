@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 18:38:23 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/24 16:25:39 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/28 11:38:32 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exe_parent_proc(int i, int *fd, int pipe_num, int *prev_fd)
 	}
 }
 
-void	exe_proc(t_cmd_grp *cmd_grp, int i, int pipe_num, t_data *g_data)
+void	exe_proc(t_cmd_grp *cmd_grp, int i, int pipe_num, t_data *data)
 {
 	int			fd[2];
 	static int	prev_fd;
@@ -49,13 +49,13 @@ void	exe_proc(t_cmd_grp *cmd_grp, int i, int pipe_num, t_data *g_data)
 			middle_child(prev_fd, cmd_grp, fd);
 		else
 			redirections(cmd_grp->retokens);
-		exe_commands(cmd_grp, g_data, pipe_num);
-		exit(0);
+		exe_commands(cmd_grp, data, pipe_num);
+		exit (0);
 	}
 	exe_parent_proc(i, fd, pipe_num, &prev_fd);
 }
 
-int	exe_pipe_cmds(t_list *cmd_grp_list, t_data *g_data, int pipe_num)
+int	exe_pipe_cmds(t_list *cmd_grp_list, t_data *data, int pipe_num)
 {
 	int			i;
 	int			status;
@@ -65,7 +65,7 @@ int	exe_pipe_cmds(t_list *cmd_grp_list, t_data *g_data, int pipe_num)
 	while (++i <= pipe_num)
 	{
 		cmd_grp = cmd_grp_list->content;
-		exe_proc(cmd_grp, i, pipe_num, g_data);
+		exe_proc(cmd_grp, i, pipe_num, data);
 		cmd_grp_list = cmd_grp_list->next;
 		waitpid(-1, &status, 0);
 		if (WIFEXITED(status))

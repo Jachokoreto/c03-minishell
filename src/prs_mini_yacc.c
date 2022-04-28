@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 18:12:55 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/23 11:31:30 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/28 11:38:32 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ void	set_arg_value(char ***value, int c, enum e_Type type, t_list *tokens)
  * Mini_yacc inserts the processed tokens into its respective groups.
  * It counts how many arguments are there in the command group using count_args
  * Once the number of arguments are counted, the arguments will be set using the
- * set_arg_value function. The redirection tokens are then innitialized in each 
+ * set_arg_value function. The redirection tokens are then innitialized in each
  * command group.
- */ 
+ */
 
-void	mini_yacc(t_data *g_data)
+void	mini_yacc(t_data *data)
 {
 	t_list		*token_lst;
 	t_token		*token;
 	t_cmd_grp	*cmd_grp;
 	int			count;
 
-	token_lst = g_data->tokens;
+	token_lst = data->tokens;
 	while (token_lst)
 	{
 		cmd_grp = ft_calloc(1, sizeof(t_cmd_grp));
@@ -87,7 +87,7 @@ void	mini_yacc(t_data *g_data)
 			else if (token->type != arg && token->type != redir)
 				ft_lstadd_back(&cmd_grp->retokens, ft_lstnew(token));
 		}
-		ft_lstadd_back(&g_data->cmd_grps, ft_lstnew(cmd_grp));
+		ft_lstadd_back(&data->cmd_grps, ft_lstnew(cmd_grp));
 		token_lst = token_lst->next;
 	}
 }

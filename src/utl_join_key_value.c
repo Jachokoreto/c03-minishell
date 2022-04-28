@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utl_join_key_value.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/28 11:02:25 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/04/28 11:02:25 by leu-lee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*join_key_value(char *str1, char *str2, char c)
@@ -10,7 +22,7 @@ char	*join_key_value(char *str1, char *str2, char c)
 	heap = (char *)ft_calloc(len, sizeof(char));
 	if (!heap)
 		return (NULL);
-	i = 0;	
+	i = 0;
 	while (str1 && *str1)
 		heap[i++] = *str1++;
 	heap[i++] = c;

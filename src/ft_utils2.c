@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:43:42 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/24 16:42:24 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/28 10:42:44 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ int	ft_open(char *filename, int oflag, int mode)
 	fd = open(filename, oflag, mode);
 	if (fd == -1)
 	{
-		// perror("open failed");
 		ft_putstr_fd(filename, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		// exit(errno);
 	}
 	return (fd);
 }
@@ -44,8 +42,7 @@ void	ft_close(int fd)
 {
 	if (close(fd) == -1)
 	{
-		ft_putnbr_fd(fd, 2);
-		perror("close failed");
+		perror(" close failed");
 		exit(errno);
 	}
 }

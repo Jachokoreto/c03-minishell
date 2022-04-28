@@ -6,10 +6,9 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/25 15:44:33 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/28 11:38:32 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -54,26 +53,27 @@ char	*get_string_into_buffer(char **line)
  * "get_string_into_buffer". After getting the string, the string will be
  * tokenized.
  */
-void	mini_lexer(char *line, t_data *g_data)
+int	mini_lexer(char *line, t_data *data)
 {
 	char	*buffer;
 
-	g_data->tokens = NULL;
+	data->tokens = NULL;
 	buffer = NULL;
 	while (*line)
 	{
 		while (*line == ' ')
 			line++;
-		// added if (*line) to handle single command with only spaces behind
 		if (*line)
 		{
 			buffer = get_string_into_buffer(&line);
 			if (buffer == NULL)
 			{
-				perror("Invalid");
-				break ;
+				g_exit = 1;
+				ft_putstr_fd("Syntax error : unclosed quotes\n", 2);
+				return (1);
 			}
-			decide_token(buffer, g_data);
+			decide_token(buffer, data);
 		}
 	}
+	return (0);
 }

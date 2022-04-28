@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:12:24 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/24 10:51:23 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/28 11:38:32 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	ft_dup(int oldfd)
 	}
 }
 
-void	ft_free_all(t_data *g_data)
+void	ft_free_all(t_data *data)
 {
-	ft_lstclear(&g_data->env_list, free_env);
-	ft_lstclear(&g_data->tokens, free_token);
-	ft_lstclear(&g_data->cmd_grps, free_cmd_grp);
-	free_str_array(g_data->builtins);
-	free_str_array(g_data->envp);
-	free(g_data);
+	ft_lstclear(&data->env_list, free_env);
+	ft_lstclear(&data->tokens, free_token);
+	ft_lstclear(&data->cmd_grps, free_cmd_grp);
+	free_str_array(data->builtins);
+	free_str_array(data->envp);
+	free(data);
 }
 
 int	ft_chdir(const char *path)

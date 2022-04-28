@@ -1,0 +1,56 @@
+minishell🔪 /bin/ls
+Makefile                includes                logfile                 minishell_tester        output
+README.md               infile                  main.c                  obj                     src
+UTILITIES.md            infile2                 minishell               outfile                 testfiles
+grep                    libft                   minishell.dSYM          outfile2
+minishell🔪
+minishell🔪
+minishell🔪
+minishell🔪
+minishell🔪
+minishell🔪
+minishell🔪 $?
+0: command not found
+minishell🔪 echo $?
+127
+minishell🔪 echo $?
+0
+minishell🔪 echo $>
+
+minishell🔪 echo $?
+0
+minishell🔪 echo $
+
+minishell🔪
+Process:         minishell [5719]
+Path:            /Volumes/VOLUME/*/minishell
+Load Address:    0x104d6a000
+Identifier:      minishell
+Version:         ???
+Code Type:       X86-64
+Parent Process:  bash [4878]
+
+Date/Time:       2022-04-28 13:35:03.868 +0800
+Launch Time:     2022-04-28 13:34:44.679 +0800
+OS Version:      Mac OS X 10.15.7 (19H1824)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 12.3 (12C33)
+
+Physical footprint:         704K
+Physical footprint (peak):  704K
+----
+
+leaks Report Version: 4.0
+Process 5719: 410 nodes malloced for 308 KB
+Process 5719: 5 leaks for 128 total leaked bytes.
+
+    5 (128 bytes) ROOT LEAK: 0x7fd9d9604160 [32]
+       3 (80 bytes) 0x7fd9da004180 [32]
+          1 (32 bytes) 0x7fd9d9604140 [32]
+          1 (16 bytes) 0x7fd9da004110 [16]  length: 1  "/"
+       1 (16 bytes) 0x7fd9d96041e0 [16]  length: 1  "$"
+
+
+
+HOW TO REPLICATE PLS SEND HELP FOR THE LOVE OF GOD
