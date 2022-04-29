@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exe_pipe_cmds.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 18:38:23 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/28 11:38:32 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/29 18:35:41 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_parent_proc(int i, int *fd, int pipe_num, int *prev_fd)
+static void	exe_parent_proc(int i, int *fd, int pipe_num, int *prev_fd)
 {
 	if (i == 0)
 	{
@@ -29,11 +29,35 @@ void	exe_parent_proc(int i, int *fd, int pipe_num, int *prev_fd)
 	}
 }
 
+static void	exe_child_proc(int prev_fd, int *fd, int child_num, int redir)
+{
+	if (child_num == FIRST)
+	{
+		if (redir != 2 && redir != 3)
+			utl_move_fd(fd[1], 1);
+		ft_close(fd[0]);
+	}
+	else if (child_num == LAST)
+	{
+		if (redir != 1 && redir != 3)
+			utl_move_fd(prev_fd, 0);
+	}
+	else if (child_num == MIDDLE)
+	{
+		if (redir != 1 && redir != 3)
+			utl_move_fd(prev_fd, 0);
+		if (redir != 2 && redir != 3)
+			utl_move_fd(fd[1], 1);
+		ft_close(fd[0]);
+	}
+}
+
 void	exe_proc(t_cmd_grp *cmd_grp, int i, int pipe_num, t_data *data)
 {
 	int			fd[2];
 	static int	prev_fd;
 	int			process;
+	int			redir;
 
 	if (i != pipe_num)
 		ft_pipe(fd);
@@ -41,14 +65,13 @@ void	exe_proc(t_cmd_grp *cmd_grp, int i, int pipe_num, t_data *data)
 	process = ft_fork();
 	if (process == 0)
 	{
+		redir = redirections(cmd_grp->retokens);
 		if (pipe_num > 0 && (i == 0))
-			first_child(cmd_grp, fd);
+			exe_child_proc(prev_fd, fd, FIRST, redir);
 		else if (pipe_num > 0 && (i == pipe_num))
-			last_child(prev_fd, cmd_grp);
+			exe_child_proc(prev_fd, fd, LAST, redir);
 		else if (pipe_num > 0)
-			middle_child(prev_fd, cmd_grp, fd);
-		else
-			redirections(cmd_grp->retokens);
+			exe_child_proc(prev_fd, fd, MIDDLE, redir);
 		exe_commands(cmd_grp, data, pipe_num);
 		exit (0);
 	}

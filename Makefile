@@ -15,7 +15,7 @@ OBJS_DIR 	= ./obj
 SRCS		=	executor.c shellsignals.c ft_utils.c ft_utils2.c ft_utils3.c \
 				bi_cd.c bi_echo.c bi_env.c bi_exit.c bi_export.c bi_pwd.c bi_unset.c \
 				exe_pipe_cmds.c exe_heredoc.c exe_builtins.c\
-				exe_redirections.c exe_children.c exe_commands.c \
+				exe_redirections.c exe_commands.c \
 				prs_decide_token.c prs_mini_lexer.c prs_mini_yacc.c prs_process_buffer.c  prs_expand_var.c \
 				ult_mini_getenv.c utl_free_str_array.c utl_get_env_array.c utl_init_mini.c \
 				utl_key_value_split.c utl_strncmp.c utl_join_key_value.c utl_move_fd.c utl_env_array.c\
@@ -37,7 +37,7 @@ VALGRIND = valgrind --tool=memcheck \
 all:	$(NAME)
 
 $(NAME): $(OBJS) main.c libft/libft.a
-		@$(CC)  main.c $(OBJS) $(LDFLAGS) $(CPPFLAGS) $(INCLUDES) $(LIB) -o $@
+		@$(CCD)  main.c $(OBJS) $(LDFLAGS) $(CPPFLAGS) $(INCLUDES) $(LIB) -o $@
 		@echo "$(GREEN)Compiled $@ successfully $(RESET)"
 
 libft/libft.a :
