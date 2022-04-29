@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:50 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/29 13:55:35 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/29 19:00:13 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ int	echo(char **args, t_data *data)
 	i = flag;
 	while (args[++i])
 	{
-		// if (args[i][0] == '~')
-		// 	tmp = mini_getenv("HOME", data->envp);
-		// else
 		tmp = ft_strdup(args[i]);
 		printf("%s", tmp);
 		free(tmp);

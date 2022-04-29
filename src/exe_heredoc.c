@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:36:52 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/28 10:36:33 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/29 18:59:51 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	heredoc(char *delim)
 	char		*line;
 	int			fd_temp;
 
-	// if (delim == NULL)
-	// 	return (0);
 	fd_temp = ft_open("heredocfile", O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	while (1)
 	{
