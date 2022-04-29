@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_expand_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 01:49:15 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/28 14:00:51 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/29 13:38:40 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,14 @@ char	*expand_env_var(char *buf, t_list **penv, char **envp)
 			break ;
 		data = env->content;
 		env = env->next;
-		if (*(data[0]) == '\'')
+		if (*(data[0]) == '\'' || *(data[1]) == 0)
 			continue ;
 		tmp = get_tmps(buf, index, envp, data[1]);
 		free(buf);
 		buf = join_tmps(tmp[0], tmp[1], tmp[2]);
-		free_tmp(tmp);
+		// printf("tmp[1]: |%s|\n", tmp[1]);
 		index += ft_strlen(tmp[1]) - 1;
+		free_tmp(tmp);
 	}
 	ft_lstclear(penv, free_env);
 	return (buf);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ult_mini_getenv.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:47:12 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/27 16:44:29 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/29 13:01:46 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*mini_getenv(char *key, char **envp)
 	int	i;
 
 	i = 0;
-	while (envp[i] != NULL)
+	while (envp[i] != NULL && key != NULL)
 	{
 		if (ft_strncmp(key, envp[i], ft_strlen(key)) == 0
 			&& envp[i][ft_strlen(key)] == '=')

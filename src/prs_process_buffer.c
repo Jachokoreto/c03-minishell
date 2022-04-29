@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_process_buffer.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/27 11:29:01 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/29 15:18:12 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
  * For example: Assuming $USER is passed as string, USER is extracted as
  * substring and placed into the env linked list.
  */
-
-char	*handle_dollar_sign(t_list **env, char *i_0, char qt)
+static char	*handle_dollar_sign(t_list **env, char *i_0, char *qt)
 {
 	char	**data;
 	char	*i_1;
@@ -31,13 +30,15 @@ char	*handle_dollar_sign(t_list **env, char *i_0, char qt)
 	i_1 = i_0 + 1;
 	if (*i_1 == '?')
 		data[1] = ft_strdup("?");
+	else if (ft_isdigit(*i_1) == 1)
+		data[1] = ft_substr(i_0, 1, 1);
 	else
 	{
 		while (ft_isalnum(*i_1) == 1 || *i_1 == '_')
 			i_1++;
 		data[1] = ft_substr(i_0, 1, i_1 - i_0 - 1);
 	}
-	data[0] = &qt;
+	data[0] = ft_strdup(qt);
 	ft_lstadd_back(env, ft_lstnew(data));
 	return (i_1 - 1);
 }
@@ -48,8 +49,7 @@ char	*handle_dollar_sign(t_list **env, char *i_0, char qt)
  * When a quotation is found, the string buffer itself will undergo memmmove
  * which in the end would remove the quotation itself.
  */
-
-char	*handle_quotes(char *qt, char *i)
+static char	*handle_quotes(char *qt, char *i)
 {
 	*qt = (*qt != *i) * *qt + (*qt == 0) * *i;
 	if ((*qt == 0 || *qt == *i))
@@ -71,23 +71,26 @@ char	*process_buffer(char *buffer, char **envp)
 {
 	t_list	*env;
 	char	*i;
-	char	qt;
+	char	*qt;
 
 	i = buffer;
 	env = NULL;
-	qt = 0;
+	qt = ft_calloc(2, sizeof(char));
 	while (i && *(i))
 	{
 		if (*i == '$')
-			handle_dollar_sign(&env, i, qt);
+			i = handle_dollar_sign(&env, i, qt);
 		else if (*i == '\'' || *i == '\"')
-			i = handle_quotes(&qt, i);
+			i = handle_quotes(qt, i);
 		i++;
 	}
 	if (env != NULL)
 	{
 		buffer = expand_env_var(buffer, &env, envp);
 		ft_lstclear(&env, free_env);
+		if (*buffer == 0)
+			return (NULL);
 	}
+	free(qt);
 	return (buffer);
 }

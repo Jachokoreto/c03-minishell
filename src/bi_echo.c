@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:50 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/28 10:58:41 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/29 13:55:35 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,17 @@ int	echo(char **args, t_data *data)
 	int		flag;
 	char	*tmp;
 
+	(void)data;
 	if (args[1] == NULL)
 		return (1);
 	flag = n_flag(args);
 	i = flag;
 	while (args[++i])
 	{
-		if (args[i][0] == '~')
-			tmp = mini_getenv("HOME", data->envp);
-		else
-			tmp = ft_strdup(args[i]);
+		// if (args[i][0] == '~')
+		// 	tmp = mini_getenv("HOME", data->envp);
+		// else
+		tmp = ft_strdup(args[i]);
 		printf("%s", tmp);
 		free(tmp);
 		if (args[i + 1] != NULL)

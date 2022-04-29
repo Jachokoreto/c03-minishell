@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/28 14:01:43 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/29 14:49:09 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,10 @@ char	*join_key_value(char *str1, char *str2, char c);
 char	**key_value_split(const char *s, char c);
 void	utl_move_fd(int fd1, int fd2);
 int		utl_strncmp(char *s1, char *s2);
+int		utl_error(char *msg, int error_num);
 int		check_valid_char(char *str);
 
-void	decide_token(char *str, t_data *data);
+int		decide_token(char *str, t_data *data);
 int		mini_lexer(char *line, t_data *data);
 char	*process_buffer(char *buffer, char **envp);
 char	*expand_env_var(char *buf, t_list **penv, char **envp);

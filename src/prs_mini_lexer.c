@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_mini_lexer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/28 11:38:32 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/29 15:06:11 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  *		(already ++index so yea)
  * 4. if the index IS NOT a pipe then it breaks.
  */
-char	*get_string_into_buffer(char **line)
+static char	*get_string_into_buffer(char **line)
 {
 	char	*index;
 	char	*buffer;
@@ -67,12 +67,9 @@ int	mini_lexer(char *line, t_data *data)
 		{
 			buffer = get_string_into_buffer(&line);
 			if (buffer == NULL)
-			{
-				g_exit = 1;
-				ft_putstr_fd("Syntax error : unclosed quotes\n", 2);
-				return (1);
-			}
-			decide_token(buffer, data);
+				return (utl_error("Syntax error: unexpected quotes\n", 1));
+			if (decide_token(buffer, data) == 1)
+				return (utl_error("Syntax error: unexpected token\n", 1));
 		}
 	}
 	return (0);
