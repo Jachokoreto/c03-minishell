@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 01:49:15 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/29 13:38:40 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/29 18:37:42 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  * length of the string is passed back as a return value.
  */
 
-int	get_dollar_sign(char *buf, int index)
+static int	get_dollar_sign(char *buf, int index)
 {
 	char	*tmp;
 
@@ -40,7 +40,7 @@ int	get_dollar_sign(char *buf, int index)
  * the value env string. eg for "hi $USER bye", where it becomes "hi jatan bye"
  */
 
-char	*join_tmps(char *tmp1, char *tmp2, char *tmp3)
+static char	*join_tmps(char *tmp1, char *tmp2, char *tmp3)
 {
 	char	*buf;
 	char	*tmp;
@@ -64,7 +64,7 @@ char	*join_tmps(char *tmp1, char *tmp2, char *tmp3)
  * eg "hi $USER bye" where " bye"
  */
 
-char	**get_tmps(char *buf, int index, char **envp, char *key)
+static char	**get_tmps(char *buf, int index, char **envp, char *key)
 {
 	char	**tmp;
 
@@ -78,7 +78,7 @@ char	**get_tmps(char *buf, int index, char **envp, char *key)
 	return (tmp);
 }
 
-void	free_tmp(char **tmp)
+static void	free_tmp(char **tmp)
 {
 	free(tmp[0]);
 	free(tmp[1]);
@@ -114,7 +114,6 @@ char	*expand_env_var(char *buf, t_list **penv, char **envp)
 		tmp = get_tmps(buf, index, envp, data[1]);
 		free(buf);
 		buf = join_tmps(tmp[0], tmp[1], tmp[2]);
-		// printf("tmp[1]: |%s|\n", tmp[1]);
 		index += ft_strlen(tmp[1]) - 1;
 		free_tmp(tmp);
 	}

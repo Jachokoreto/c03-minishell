@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:22:53 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/21 14:25:23 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/29 18:41:47 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	free_env(void *content)
 	char	**data;
 
 	data = (char **)content;
+	free(data[0]);
 	free(data[1]);
 	free(data);
 }
