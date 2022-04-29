@@ -37,7 +37,7 @@ VALGRIND = valgrind --tool=memcheck \
 all:	$(NAME)
 
 $(NAME): $(OBJS) main.c libft/libft.a
-		@$(CCD)  main.c $(OBJS) $(LDFLAGS) $(CPPFLAGS) $(INCLUDES) $(LIB) -o $@
+		@$(CC)  main.c $(OBJS) $(LDFLAGS) $(CPPFLAGS) $(INCLUDES) $(LIB) -o $@
 		@echo "$(GREEN)Compiled $@ successfully $(RESET)"
 
 libft/libft.a :

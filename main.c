@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/29 18:40:01 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/29 21:25:11 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,45 @@ static void	ft_launch_minishell(char *line, t_data *data)
 	exit(g_exit);
 }
 
-	// if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
-	// {
-	// 	exit_status = ft_launch_minishell(argv[2], data);
-	// 	exit(exit_status);
-	// }
-
 static void	reset_data(t_data *data)
 {
 	ft_lstclear(&data->tokens, free_token);
 	ft_lstclear(&data->cmd_grps, free_cmd_grp);
 	unlink("heredocfile");
+}
+
+void	print_welcome(void)
+{
+	int		fd;
+	char	buffer[1];
+
+	fd = open("./banner.txt", O_RDONLY);
+	while (read(fd, buffer, 1))
+		write(1, buffer, 1);
+}
+
+static char	*manage_readline(char *prompt, t_data *data)
+{
+	char	*line;
+	int		i;
+
+	line = readline(prompt);
+	if (line == NULL)
+	{
+		ft_free_all(data);
+		system("leaks minishell");
+		exit(10);
+	}
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] != ' ')
+		{
+			add_history(line);
+			return (line);
+		}
+	}
+	return (line);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -47,16 +75,10 @@ int	main(int argc, char **argv, char **envp)
 	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
 		ft_launch_minishell(argv[2], data);
 	shellsignals();
+	print_welcome();
 	while (1)
 	{
-		line = readline("\033[035mminishell🔪\033[0m ");
-		if (line == NULL)
-		{
-			ft_free_all(data);
-			// system("leaks minishell");
-			exit(10);
-		}
-		add_history(line);
+		line = manage_readline("\033[035mminishell🔪\033[0m ", data);
 		if (mini_lexer(line, data) == 0)
 		{
 			mini_yacc(data);
