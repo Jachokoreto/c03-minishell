@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:39:06 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/29 15:18:12 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/29 19:12:25 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,36 +60,44 @@ static char	*handle_quotes(char *qt, char *i)
 	return (i);
 }
 
+char	*check_buffer(char *buffer)
+{
+	if (buffer != NULL && *buffer == 0)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	return (buffer);
+}
+
 /**
  * The process buffer handles expansion and quotes of the string.
  * It is both handled by its respective functions.
  * Once expansion and quotations are done, the buffer is returned back as the
  * token value of the t_token linked list.
  */
-
 char	*process_buffer(char *buffer, char **envp)
 {
-	t_list	*env;
+	t_list	*env_list;
 	char	*i;
 	char	*qt;
 
 	i = buffer;
-	env = NULL;
+	env_list = NULL;
 	qt = ft_calloc(2, sizeof(char));
 	while (i && *(i))
 	{
 		if (*i == '$')
-			i = handle_dollar_sign(&env, i, qt);
+			i = handle_dollar_sign(&env_list, i, qt);
 		else if (*i == '\'' || *i == '\"')
 			i = handle_quotes(qt, i);
 		i++;
 	}
-	if (env != NULL)
+	if (env_list != NULL)
 	{
-		buffer = expand_env_var(buffer, &env, envp);
-		ft_lstclear(&env, free_env);
-		if (*buffer == 0)
-			return (NULL);
+		buffer = expand_env_var(buffer, &env_list, envp);
+		ft_lstclear(&env_list, free_env);
+		buffer = check_buffer(buffer);
 	}
 	free(qt);
 	return (buffer);

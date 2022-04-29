@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/29 15:06:11 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/29 18:54:42 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ int	mini_lexer(char *line, t_data *data)
 			if (buffer == NULL)
 				return (utl_error("Syntax error: unexpected quotes\n", 1));
 			if (decide_token(buffer, data) == 1)
+			{
+				free(buffer);
 				return (utl_error("Syntax error: unexpected token\n", 1));
+			}
 		}
 	}
 	return (0);

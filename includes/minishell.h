@@ -6,7 +6,7 @@
 /*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/29 14:49:09 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/29 18:31:43 by jatan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-# define KEY 0
-# define B_KEY 1
-# define A_KEY 2
+# define FIRST 0
+# define MIDDLE 1
+# define LAST 2
 
 enum e_Type { arg, redir, pip, infile, outfile1, outfile2, delim};
 
