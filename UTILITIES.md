@@ -42,3 +42,5 @@ export @' exports -declare somehow
 
 echo hi > output | grep hi | wc -l
 Bad file descriptor
+
+cat | cat | ls somehow abit different -> due to waitpid

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_pipe_cmds.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 18:38:23 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/29 18:35:41 by jatan            ###   ########.fr       */
+/*   Updated: 2022/04/30 18:16:20 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	exe_proc(t_cmd_grp *cmd_grp, int i, int pipe_num, t_data *data)
 		else if (pipe_num > 0)
 			exe_child_proc(prev_fd, fd, MIDDLE, redir);
 		exe_commands(cmd_grp, data, pipe_num);
-		exit (0);
+		exit(0);
 	}
 	exe_parent_proc(i, fd, pipe_num, &prev_fd);
 }

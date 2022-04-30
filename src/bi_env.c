@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:38 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/27 15:00:50 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/04/30 16:18:45 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ int	env(char **args, t_data *data)
 
 	(void)args;
 	i = -1;
+	if (mini_getenv("PATH", data->envp) == NULL)
+	{
+		ft_putstr_fd("env: No such file or directory\n", 2);
+		g_exit = 1;
+		return (1);
+	}
 	while (data->envp[++i] != NULL)
 		printf("%s\n", data->envp[i]);
 	return (0);
