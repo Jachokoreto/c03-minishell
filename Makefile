@@ -6,17 +6,17 @@ CPPFLAGS	= -I/usr/local/opt/readline/include
 CC			= gcc -Wall -Wextra -Werror
 CCD			= gcc -Wall -Wextra -Werror -fsanitize=address -g3
 
-
 RM			= rm -rf
 
 SRCS_DIR	= ./src
 OBJS_DIR 	= ./obj
 
-SRCS		=	executor.c shellsignals.c ft_utils.c ft_utils2.c ft_utils3.c \
+SRCS		=	shellsignals.c ft_utils.c ft_utils2.c ft_utils3.c \
 				bi_cd.c bi_echo.c bi_env.c bi_exit.c bi_export.c bi_pwd.c bi_unset.c \
-				exe_pipe_cmds.c exe_heredoc.c exe_builtins.c\
-				exe_redirections.c exe_commands.c \
-				prs_decide_token.c prs_mini_lexer.c prs_mini_yacc.c prs_process_buffer.c  prs_expand_var.c \
+				executor.c exe_redirections.c exe_commands.c \
+				exe_pipe_cmds.c exe_heredoc.c exe_builtins.c  \
+				prs_decide_token.c prs_mini_lexer.c prs_mini_yacc.c \
+				prs_process_buffer.c prs_expand_var.c \
 				ult_mini_getenv.c utl_free_str_array.c utl_get_env_array.c utl_init_mini.c \
 				utl_key_value_split.c utl_strncmp.c utl_join_key_value.c utl_move_fd.c \
 				utl_set_env.c utl_check_valid_char.c free_list.c utl_error.c \
@@ -41,11 +41,12 @@ $(NAME): $(OBJS) main.c libft/libft.a
 		@echo "$(GREEN)Compiled $@ successfully $(RESET)"
 
 libft/libft.a :
-		@make -C libft
+		@make bonus -C libft
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	$(CC) $(INCLUDES) $(CPPFLAGS) -c $< -o $@
+	@$(CC) $(INCLUDES) $(CPPFLAGS) -c $< -o $@
+
 
 test: re
 	./minishell
@@ -58,7 +59,8 @@ clean:
 	@echo "$(RED)Removed $(NAME) .obj$(RESET)"
 
 fclean: clean
-	@$(RM)  $(NAME)
+	@$(RM) $(NAME)
+	@ make fclean -C libft
 	@echo "$(RED)Removed $(NAME)$(RESET)"
 	
 re:		fclean all

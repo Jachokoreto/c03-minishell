@@ -6,11 +6,9 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/05/01 12:24:26 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 14:51:41 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -71,10 +69,7 @@ typedef struct s_data
 
 int			g_exit;
 
-/* utl_init_mini.c */
-t_data	*init_mini(char **envp);
-
-/* bi_*.c */
+/* Builtins */
 int		echo(char **args, t_data *data);
 int		pwd(char **args, t_data *data);
 int		cd(char **args, t_data *data);
@@ -83,46 +78,44 @@ int		export(char **args, t_data *data);
 int		unset(char **args, t_data *data);
 int		ft_exit(char **args, t_data *data);
 
-/* shellsignals.c */
-void	shellsignals(void);
-
-/* utl_*.c */
-char	**get_env_array(t_data *data);
-char	*mini_getenv(char *key, char **envp);
-char	*join_key_value(char *str1, char *str2, char c);
-char	**key_value_split(const char *s, char c);
-void	utl_move_fd(int fd1, int fd2);
-int		utl_strncmp(char *s1, char *s2);
-int		utl_error(char *msg, int error_num);
-int		check_valid_char(char *str);
-
+/* Parsing */
+t_data	*init_mini(char **envp);
 int		decide_token(char *str, t_data *data);
 int		mini_lexer(char *line, t_data *data);
+void	mini_yacc(t_data *data);
 char	*process_buffer(char *buffer, char **envp);
 char	*expand_env_var(char *buf, t_list **penv, char **envp);
 
-void	mini_yacc(t_data *data);
-
-
-/* executor.c */
+/* Executor */
 void	executor(t_list *cmd_grp, t_data *data);
-void	first_child(t_cmd_grp *cmd_grp, int *fd);
-void	middle_child(int prev_fd, t_cmd_grp *cmd_grp, int *fd);
-void	last_child(int prev_fd, t_cmd_grp *cmd_grp);
 void	exe_commands(t_cmd_grp *cmd_grp, t_data *data, int pipe_num);
 int		redirections(t_list *retokens);
 int		exe_builtins(t_cmd_grp *cmd_grp, t_data *data);
 int		exe_pipe_cmds(t_list *cmd_grp_list, t_data *data, int pipe_num);
 int		heredoc(char *delim);
 
+/* Signals */
+void	shellsignals(void);
+
+/* Free functions */
 void	free_list(void);
 void	free_str_array(char **str);
 void	free_env(void *content);
 void	free_cmd_grp(void *content);
 void	free_token(void *content);
-void	set_env(t_list *lst, char *key, char *value);
 
-/* Utils */
+/* Function Utils */
+char	**get_env_array(t_data *data);
+char	*mini_getenv(char *key, char **envp);
+char	*join_key_value(char *str1, char *str2, char c);
+char	**key_value_split(const char *s, char c);
+void	utl_move_fd(int fd1, int fd2);
+void	set_env(t_list *lst, char *key, char *value);
+int		utl_strncmp(char *s1, char *s2);
+int		utl_error(char *msg, int error_num);
+int		check_valid_char(char *str);
+
+/* General utils */
 
 int		ft_chdir(const char *path);
 int		ft_fork(void);
