@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prs_expand_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 01:49:15 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/29 18:37:42 by jatan            ###   ########.fr       */
+/*   Updated: 2022/05/01 12:44:47 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * Iterate through the input line to identify commands and argument in order to
- * categorize each token for the yacc.
- * the spaces will be ignored until reaching an argument before passing it into
- * "get_string_into_buffer". After getting the string, the string will be
- * tokenized.
- */
 
 /**
  * Get_dollar sign counts the index of a string that has a $ infront of it. The

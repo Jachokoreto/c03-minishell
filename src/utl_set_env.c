@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   utl_set_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 10:16:28 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/16 16:08:12 by jatan            ###   ########.fr       */
+/*   Updated: 2022/05/01 11:55:03 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * Helper function add a node of key and value to the environment linked list.
+ */
 
 void	set_env(t_list *lst, char *key, char *value)
 {

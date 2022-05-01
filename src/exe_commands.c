@@ -6,11 +6,17 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:40:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/30 18:33:10 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 12:34:43 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * Execve is done according to the PATH, execve will keep running until
+ * a command can be run or if no command is found. When no command is found, 
+ * an error message will be prompt to indicate that.
+ */
 
 void	exe_path(char **input, char **envp, char **path)
 {
@@ -28,10 +34,14 @@ void	exe_path(char **input, char **envp, char **path)
 		}
 	}
 	ft_putstr_fd(input[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
-	g_exit = 127;
-	exit(g_exit);
+	exit(utl_error(": command not found\n", 127));
 }
+
+/**
+ * Execve is done here. Before that, the PATH is checked whether or not if it
+ * exist or not. The commands cannot be run if PATH does not exist. Else if it
+ * exists, the input is passed into exe_path.
+ */
 
 void	exe_execve(t_cmd_grp *cmd_grp, t_data *data)
 {
@@ -39,20 +49,32 @@ void	exe_execve(t_cmd_grp *cmd_grp, t_data *data)
 	char	**path;
 	char	*mini_env;
 
+	signal(SIGINT, SIG_DFL);
 	mini_env = mini_getenv("PATH", data->envp);
 	envp = get_env_array(data);
 	if (mini_env == NULL)
 	{
 		execve(cmd_grp->args[0], cmd_grp->args, envp);
 		ft_putstr_fd(cmd_grp->args[0], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		exit (1);
+		exit(utl_error(": No such file or directory\n", 1));
 	}
 	path = ft_split(mini_env, ':');
 	exe_path(cmd_grp->args, envp, path);
 	free_str_array(path);
 	free_str_array(envp);
 }
+
+/**
+ * There are 4 ways the program can run.
+ * 1. One command group with builtins
+ * --- The program does not need to fork.
+ * 2. One command group without builtins
+ * --- The program needs to fork.
+ * 3. More than one command group with builtins
+ * --- The program needs to fork. 
+ * 4. More than one command group without builtins
+ * --- The program needs to fork.
+ */
 
 void	exe_commands(t_cmd_grp *cmd_grp, t_data *data, int pipe_num)
 {

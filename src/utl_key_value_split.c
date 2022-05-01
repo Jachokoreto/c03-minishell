@@ -6,11 +6,15 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 09:56:47 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/25 13:52:17 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 11:50:28 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * Helper function to split a string to key and value from the environment.
+ */
 
 char	**key_value_split(const char *s, char c)
 {

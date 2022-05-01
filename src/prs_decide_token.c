@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_decide_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:36:13 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/29 15:14:23 by jatan            ###   ########.fr       */
+/*   Updated: 2022/05/01 12:44:56 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
  * The type is determined in the if else statements in the decide token func.
  * The value itself is determined
  */
+
 static t_token	*add_new_token(t_data *data, char *str, enum e_Type type)
 {
 	t_token	*token;
@@ -31,6 +32,10 @@ static t_token	*add_new_token(t_data *data, char *str, enum e_Type type)
 	ft_lstadd_back(&data->tokens, ft_lstnew(token));
 	return (token);
 }
+
+/**
+ * enumeration of redirection types
+ */
 
 static enum e_Type	set_file_type(char *value)
 {
@@ -49,6 +54,7 @@ static enum e_Type	set_file_type(char *value)
  * It goes into add_new_token which assigns the type and value on its
  * respective linked list node.
  */
+
 int	decide_token(char *str, t_data *data)
 {
 	static t_token	*p_token;

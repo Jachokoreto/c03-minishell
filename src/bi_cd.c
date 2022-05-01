@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:44:55 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/28 10:57:59 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 12:45:56 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ int	process_cd(char **args, char **envp)
 	else
 		dir = mini_getenv("HOME", envp);
 	if (dir == NULL)
-	{
-		ft_putstr_fd("cd error: HOME not set\n", 2);
-		return (1);
-	}
+		return (utl_error("cd error: HOME not set\n", 1));
 	ret = ft_chdir(dir);
 	free(dir);
 	return (ret);

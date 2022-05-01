@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_mini_lexer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/29 18:54:42 by jatan            ###   ########.fr       */
+/*   Updated: 2022/05/01 12:19:59 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
  *		(already ++index so yea)
  * 4. if the index IS NOT a pipe then it breaks.
  */
+
 static char	*get_string_into_buffer(char **line)
 {
 	char	*index;
@@ -53,6 +54,7 @@ static char	*get_string_into_buffer(char **line)
  * "get_string_into_buffer". After getting the string, the string will be
  * tokenized.
  */
+
 int	mini_lexer(char *line, t_data *data)
 {
 	char	*buffer;

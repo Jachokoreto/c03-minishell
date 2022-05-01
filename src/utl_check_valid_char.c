@@ -6,11 +6,15 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:13:21 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/25 14:02:44 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 11:54:58 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * Helper function to checking in unset and export base on bash criteria.
+ */
 
 int	check_valid_char(char *str)
 {

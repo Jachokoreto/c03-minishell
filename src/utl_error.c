@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   utl_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 14:44:24 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/29 14:45:56 by jatan            ###   ########.fr       */
+/*   Updated: 2022/05/01 11:52:57 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * Helper function to prompt error message and return error number.
+ */
 
 int	utl_error(char *msg, int error_num)
 {

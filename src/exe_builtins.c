@@ -6,11 +6,16 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:44:05 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/28 11:38:32 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 11:38:23 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * The builtins are looped here through a malloc-ed function pointer from the
+ * init_mini.
+ */
 
 int	exe_builtins(t_cmd_grp *cmd_grp, t_data *data)
 {

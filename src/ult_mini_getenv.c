@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ult_mini_getenv.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:47:12 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/29 13:01:46 by jatan            ###   ########.fr       */
+/*   Updated: 2022/05/01 11:46:17 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-// char	*mini_getenv(char *key, t_list *env_list)
-// {
-// 	t_list	*node;
-// 	t_env	*env;
-
-// 	node = env_list;
-// 	while (node)
-// 	{
-// 		env = node->content;
-// 		if (utl_strncmp(env->key, key) == 0)
-// 			return (env->value);
-// 		node = node->next;
-// 	}
-// 	return (NULL);
-// }
 
 char	*mini_getenv(char *key, char **envp)
 {

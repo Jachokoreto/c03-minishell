@@ -6,11 +6,15 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 11:02:54 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/28 11:02:55 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 11:51:39 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * Helper function do some string comparison and shorten code.
+ */
 
 int	utl_strncmp(char *s1, char *s2)
 {

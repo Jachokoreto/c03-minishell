@@ -6,11 +6,15 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 20:18:44 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/28 10:56:44 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 11:52:10 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * Helper function free a double pointer array.
+ */
 
 void	free_str_array(char **str)
 {

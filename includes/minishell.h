@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/30 17:05:24 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 12:24:26 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,6 @@ void	free_env(void *content);
 void	free_cmd_grp(void *content);
 void	free_token(void *content);
 void	set_env(t_list *lst, char *key, char *value);
-
-/* utl_env_array.c */
-// char	**del_env(char **array, char *key);
-// char	**set_env_array(char **array, char *key, char *value);
-
 
 /* Utils */
 

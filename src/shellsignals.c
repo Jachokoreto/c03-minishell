@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:36:36 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/30 18:23:23 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 11:56:12 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ void	handler(int signo)
 		return ;
 	}
 }
+
+/**
+ * Signals that handles CTRL-C and CTRL-/
+ * The termios is also handled here to prevent things like ^C from occuring.
+ */
 
 void	shellsignals(void)
 {

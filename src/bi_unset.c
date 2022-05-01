@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:47:34 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/25 12:18:20 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 12:25:26 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ char	**del_env(char **old_env, char *key)
 	return (new_env);
 }
 
+/**
+ * The builtins are looped here through a malloc-ed function pointer from the
+ * init_mini.
+ */
+
 int	unset(char **args, t_data *data)
 {
 	(void)data;
@@ -58,9 +63,8 @@ int	unset(char **args, t_data *data)
 			data->envp = del_env(data->envp, *args);
 		else
 		{
-			g_exit = 1;
 			ft_putstr_fd(*args, 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
+			utl_error(": not a valid identifier\n", 1);
 		}
 	}	
 	return (0);

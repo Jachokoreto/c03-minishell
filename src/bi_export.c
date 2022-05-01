@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/28 11:04:06 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 12:31:26 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,16 @@ void	loop_env(char **args, char ***envp, int i)
 	{
 		if (check_valid_char(args[1]) == 1)
 		{
-			g_exit = 1;
 			ft_putstr_fd(args[1], 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
+			utl_error(": not a valid identifier\n", 1);
 		}
 		free_str_array(str);
 		return ;
 	}
 	if (check_valid_char(str[0]) == 1)
 	{
-		g_exit = 1;
 		ft_putstr_fd(str[0], 2);
-		ft_putstr_fd("': not a valid identifier\n", 2);
+		utl_error(": not a valid identifier\n", 1);
 	}
 	else
 		*envp = set_env_array(*envp, str[0], str[1]);

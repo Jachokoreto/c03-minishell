@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/30 17:30:09 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 10:58:58 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ft_launch_minishell(char *line, t_data *data)
 	executor(data->cmd_grps, data);
 	ft_lstclear(&data->tokens, free_token);
 	ft_lstclear(&data->cmd_grps, free_cmd_grp);
-	unlink("heredocfile");
+	unlink(".heredocfile");
 	exit(g_exit);
 }
 
@@ -28,7 +28,7 @@ static void	reset_data(t_data *data)
 {
 	ft_lstclear(&data->tokens, free_token);
 	ft_lstclear(&data->cmd_grps, free_cmd_grp);
-	unlink("heredocfile");
+	unlink(".heredocfile");
 }
 
 static void	print_welcome(void)

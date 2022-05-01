@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:37 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/28 11:38:32 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 11:55:12 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ void	init_env(t_data	*data, char **envp)
 	while (--i >= 0)
 		data->envp[i] = ft_strdup(envp[i]);
 }
+
+/**
+ * Initialization of builtin functions, environment and data structure.
+ */
 
 t_data	*init_mini(char **envp)
 {

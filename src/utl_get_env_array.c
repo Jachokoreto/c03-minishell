@@ -6,11 +6,15 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 11:00:37 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/28 11:38:32 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 11:53:02 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * Helper function to prompt error message and return error number.
+ */
 
 char	**get_env_array(t_data *data)
 {

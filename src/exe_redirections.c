@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 15:33:02 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/24 16:37:01 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/01 11:55:25 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,15 @@ int	redir_input(t_token *token, int fd_in)
 	}
 	return (fd_in);
 }
+
+/**
+ * The input and output redirections are handled in their respective functions.
+ * Base on bash, the redirection would only occur on the last found redirection
+ * token.
+ * For eg: cat < infile > outfile < infile2 > outfile2
+ * Redirection occurs from outfile2 and infile2.
+ * Based on the returned redirection, the output and input fds will be dup-ed.
+ */
 
 int	redirections(t_list *retokens)
 {

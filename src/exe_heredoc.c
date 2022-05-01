@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exe_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:36:52 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/04/29 18:59:51 by jatan            ###   ########.fr       */
+/*   Updated: 2022/05/01 11:57:24 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * Heredoc opens a temp file.
+ * This temp filed will be read from readline with its heredoc prompt.
+ * Once the delim is found, the heredoc will break and return as a fd_in.
+ */
 
 int	heredoc(char *delim)
 {
@@ -18,7 +24,7 @@ int	heredoc(char *delim)
 	char		*line;
 	int			fd_temp;
 
-	fd_temp = ft_open("heredocfile", O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	fd_temp = ft_open(".heredocfile", O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	while (1)
 	{
 		line = readline("heredoc > ");
@@ -35,6 +41,6 @@ int	heredoc(char *delim)
 		free(line);
 	}
 	close(fd_temp);
-	fd_temp = ft_open("heredocfile", O_RDONLY, 0666);
+	fd_temp = ft_open(".heredocfile", O_RDONLY, 0666);
 	return (fd_temp);
 }
