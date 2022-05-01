@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   bi_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:38 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/23 19:44:37 by jatan            ###   ########.fr       */
+/*   Updated: 2022/05/01 12:43:25 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,18 @@ void	print_list(void *content)
 	t_env	*tmp;
 
 	tmp = (t_env *)content;
-	printf("%s=", tmp->key);
-	printf("%s\n", tmp->value);
+	printf("%s=%s\n", tmp->key, tmp->value);
 }
 
-void	env(char **args)
+int	env(char **args, t_data *data)
 {
+	int	i;
+
 	(void)args;
-	ft_lstiter(g_data->env_list, print_list);
+	i = -1;
+	if (mini_getenv("PATH", data->envp) == NULL)
+		return (utl_error("env: No such file or directory\n", 1));
+	while (data->envp[++i] != NULL)
+		printf("%s\n", data->envp[i]);
+	return (0);
 }

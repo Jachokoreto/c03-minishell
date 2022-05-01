@@ -1,41 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utl_get_env_array.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/28 11:00:37 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/05/01 11:53:02 by leu-lee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-char	*join_key_value(char *str1, char *str2, char c)
-{
-	int			i;
-	char		*heap;
-	int			len;
+/**
+ * Helper function to prompt error message and return error number.
+ */
 
-	len = ft_strlen(str1) + ft_strlen(str2) + 2;
-	heap = (char *)malloc(sizeof(char) * len);
-	if (!heap)
-		return (NULL);
-	i = 0;	
-	while (str1 && *str1)
-		heap[i++] = *str1++;
-	heap[i++] = c;
-	while (str2 && *str2)
-		heap[i++] = *str2++;
-	heap[i] = '\0';
-	return (heap);
-}
-
-char	**get_env_array(void)
+char	**get_env_array(t_data *data)
 {
-	char 	**arr;
+	char	**arr;
 	t_list	*node;
 	t_env	*env;
-	int i;
+	int		i;
 
+	arr = NULL;
 	i = 0;
-	arr = malloc(sizeof(char *) * ft_lstsize(g_data->env_list) + 1);
-	node = g_data->env_list;
+	arr = ft_calloc(ft_lstsize(data->env_list) + 1, sizeof(char *));
+	node = data->env_list;
 	while (node)
 	{
 		env = node->content;
 		arr[i] = join_key_value(env->key, env->value, '=');
 		node = node->next;
-		//printf("%s\n", arr[i++]);
 	}
 	return (arr);
 }

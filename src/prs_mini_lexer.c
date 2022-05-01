@@ -3,73 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   prs_mini_lexer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/03/29 12:38:03 by jatan            ###   ########.fr       */
+/*   Updated: 2022/05/01 12:19:59 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*add_new_token(char *str, enum e_Type type)
-{
-	t_token	*token;
+/**
+ * 1. if the index is still line
+ * 2. move the pointer address of index.
+ * 3. if the character of index before that is the same index
+ *		(already ++index so yea)
+ * 4. if the index IS NOT a pipe then it breaks.
+ */
 
-	token = malloc(sizeof(t_token));
-	token->type = type;
-	token->value = ft_strdup(str);
-	ft_lstadd_back(&g_data->tokens, ft_lstnew(token));
-	return (token);
-}
-
-void	decide_token_type(char *str)
-{
-	static t_token	*prev_token;
-
-	if (g_data->tokens == NULL)
-		prev_token = NULL;
-	if (str[0] == '|')
-		prev_token = add_new_token(str, pip);
-	else if (ft_strncmp(str, ">>", 2) == 1
-		|| str[0] == '>' || str[0] == '<')
-		prev_token = add_new_token(str, redir);
-	else if (prev_token == NULL || (prev_token && prev_token->type == pip))
-		prev_token = add_new_token(str, cmd);
-	else if (prev_token->type == redir)
-		prev_token = add_new_token(str, file);
-	else
-		prev_token = add_new_token(str, arg);
-}
-
-char	*expand_env_var(char *buf)
-{
-	char	*tmp[4];
-
-	while (buf)
-	{
-		tmp[3] = ft_strrchr(buf, '$');
-		if (tmp[3] == NULL)
-			return (buf);
-		tmp[1] = ft_substr(buf, 0, tmp[3] - buf);
-		buf = tmp[3] + 1;
-		while (ft_isalnum(*buf) == 1 || *buf == '_')
-			buf++;
-		tmp[0] = ft_substr(tmp[3], 0, buf - tmp[3]);
-		tmp[2] = ft_strdup(buf);
-		free(buf);
-		buf = ft_strjoin(tmp[1], mini_getenv(tmp[0]));
-		free(tmp[0]);
-		tmp[0] = buf;
-		buf = ft_strjoin(buf, tmp[2]);
-		free(tmp[0]);
-		free(tmp[1]);
-		free(tmp[2]);
-	}
-	return (buf);
-}
-
-char	*get_string_into_buffer(char **line)
+static char	*get_string_into_buffer(char **line)
 {
 	char	*index;
 	char	*buffer;
@@ -79,8 +30,7 @@ char	*get_string_into_buffer(char **line)
 	{
 		if (*index == '<' || *index == '>' || *index == '|')
 		{
-			if (index == *line && *(++index)
-				&& *index == *(index - 1) && *(index - 1) != '|')
+			while (*index == **line)
 				index++;
 			break ;
 		}
@@ -97,37 +47,35 @@ char	*get_string_into_buffer(char **line)
 	return (buffer);
 }
 
-// char	*process_buffer(char *buffer)
-// {
-// 	t_list	*env;
+/**
+ * Iterate through the input line to identify commands and argument in order to
+ * categorize each token for the yacc.
+ * the spaces will be ignored until reaching an argument before passing it into
+ * "get_string_into_buffer". After getting the string, the string will be
+ * tokenized.
+ */
 
-// 	while (*buffer)
-// 	{
-
-// 	}
-// 	return (buffer);
-// }
-
-void	mini_lexer(char *line)
+int	mini_lexer(char *line, t_data *data)
 {
-	int		i;
 	char	*buffer;
 
-	i = 0;
-	g_data->tokens = NULL;
+	data->tokens = NULL;
 	buffer = NULL;
 	while (*line)
 	{
 		while (*line == ' ')
 			line++;
-		buffer = get_string_into_buffer(&line);
-		if (buffer == NULL)
+		if (*line)
 		{
-			perror("Invalid");
-			break ;
+			buffer = get_string_into_buffer(&line);
+			if (buffer == NULL)
+				return (utl_error("Syntax error: unexpected quotes\n", 1));
+			if (decide_token(buffer, data) == 1)
+			{
+				free(buffer);
+				return (utl_error("Syntax error: unexpected token\n", 1));
+			}
 		}
-		// buffer = process_buffer(buffer);
-		decide_token_type(buffer);
-		free(buffer);
 	}
+	return (0);
 }

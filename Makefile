@@ -3,31 +3,41 @@ NAME	 	= minishell
 LDFLAGS		= -L/usr/local/opt/readline/lib
 CPPFLAGS	= -I/usr/local/opt/readline/include
 
-CC			= gcc -Wall -Wextra -Werror -fsanitize=address -g3
+CC			= gcc -Wall -Wextra -Werror
+CCD			= gcc -Wall -Wextra -Werror -fsanitize=address -g3
+
+
 RM			= rm -rf
 
 SRCS_DIR	= ./src
-GNL_DIR		= ./get_next_line
 OBJS_DIR 	= ./obj
 
-SRCS		=	bi_cd.c bi_echo.c bi_env.c bi_export.c bi_ft_exit.c bi_pwd.c bi_unset.c \
-				prs_mini_lexer.c prs_mini_yacc.c prs_parser.c \
+SRCS		=	executor.c shellsignals.c ft_utils.c ft_utils2.c ft_utils3.c \
+				bi_cd.c bi_echo.c bi_env.c bi_exit.c bi_export.c bi_pwd.c bi_unset.c \
+				exe_pipe_cmds.c exe_heredoc.c exe_builtins.c\
+				exe_redirections.c exe_commands.c \
+				prs_decide_token.c prs_mini_lexer.c prs_mini_yacc.c prs_process_buffer.c  prs_expand_var.c \
 				ult_mini_getenv.c utl_free_str_array.c utl_get_env_array.c utl_init_mini.c \
-				shellsignals.c 
+				utl_key_value_split.c utl_strncmp.c utl_join_key_value.c utl_move_fd.c \
+				utl_set_env.c utl_check_valid_char.c free_list.c utl_error.c \
 
 OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-SRCS_GNL	= get_next_line.c get_next_line_utils.c
-OBJS_GNL	= $(SRCS_GNL:%.c=$(OBJS_DIR)/%.o)
-
 
 LIB			= -Llibft -lft -lreadline
-INCLUDES	= -Iincludes -Iget_next_line -Ilibft
+INCLUDES	= -Iincludes -Ilibft
+
+VALGRIND = valgrind --tool=memcheck \
+					--leak-check=full \
+					--leak-resolution=high \
+					--track-origins=yes \
+					--show-reachable=yes \
+					--log-file=valgrind.log \
 
 all:	$(NAME)
 
-$(NAME): $(OBJS) $(OBJS_GNL) main.c libft/libft.a
-		@$(CC) $(LDFLAGS) $(CPPFLAGS) $(INCLUDES) $(LIB) main.c $(OBJS) $(OBJS_GNL) -o $@
+$(NAME): $(OBJS) main.c libft/libft.a
+		@$(CC)  main.c $(OBJS) $(LDFLAGS) $(CPPFLAGS) $(INCLUDES) $(LIB) -o $@
 		@echo "$(GREEN)Compiled $@ successfully $(RESET)"
 
 libft/libft.a :
@@ -35,14 +45,13 @@ libft/libft.a :
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) $(INCLUDES) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(INCLUDES) $(CPPFLAGS) -c $< -o $@
 
-$(OBJS_DIR)/%.o: $(GNL_DIR)/%.c
-	@mkdir -p $(OBJS_DIR)
-	@$(CC) $(INCLUDES) -c $< -o $@
+test: re
+	./minishell
 
 t: all
-	./minishell
+	$(VALGRIND) ./minishell -c "cat $$USER"
 
 clean:
 	@$(RM) $(OBJS_DIR)

@@ -1,53 +1,71 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   bi_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jatan <jatan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:47:34 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/03/23 19:44:37 by jatan            ###   ########.fr       */
+/*   Updated: 2022/05/01 12:25:26 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int	del_key(void *content, char **args)
-// {
-// 	t_env	*tmp;
-
-// 	tmp = (t_env *)content;
-// 	if (ft_strncmp(tmp->key, args[0], ft_strlen(args[0])) == 0)
-// 	{
-// 		ft_lstdelone(,);
-// 		return (1);
-// 	}
-// 	return (0);
-// }
-
-void	unset(char **args)
+int	get_to_del_env(char **old_env, char *key, int *i)
 {
-	char	**str;
-	t_env	*tmp;
-	t_list	*curnode;
-	t_list	*prevnode;
+	int		to_del;
 
-	curnode = g_data->env_list;
-	prevnode = NULL;
-	str = ft_split(args[0], '=');
-	while (curnode)
+	to_del = -1;
+	while (old_env[*i] != NULL)
 	{
-		tmp = (t_env *)curnode->content;
-		if (ft_strncmp(tmp->key, args[0], ft_strlen(args[0])) == 0)
-		{
-			if (prevnode == NULL)
-				g_data->env_list = curnode->next;
-			else
-				prevnode->next = curnode->next;
-			ft_lstdelone(curnode, free);
-			return ;
-		}
-		prevnode = curnode;
-		curnode = curnode->next;
+		if (ft_strncmp(key, old_env[*i], ft_strlen(key)) == 0
+			&& old_env[*i][ft_strlen(key)] == '=')
+			to_del = *i;
+		(*i)++;
 	}
+	return (to_del);
+}
+
+char	**del_env(char **old_env, char *key)
+{
+	int		i;
+	int		j;
+	int		to_del;
+	char	**new_env;
+
+	i = 0;
+	to_del = get_to_del_env(old_env, key, &i);
+	if (to_del == -1)
+		return (old_env);
+	new_env = ft_calloc(i, sizeof(char *));
+	j = i - 1;
+	while (--i >= 0)
+	{
+		if (i != to_del)
+			new_env[--j] = ft_strdup(old_env[i]);
+	}
+	free_str_array(old_env);
+	return (new_env);
+}
+
+/**
+ * The builtins are looped here through a malloc-ed function pointer from the
+ * init_mini.
+ */
+
+int	unset(char **args, t_data *data)
+{
+	(void)data;
+	while (++args && *args != 0)
+	{
+		if (check_valid_char(*args) == 0)
+			data->envp = del_env(data->envp, *args);
+		else
+		{
+			ft_putstr_fd(*args, 2);
+			utl_error(": not a valid identifier\n", 1);
+		}
+	}	
+	return (0);
 }

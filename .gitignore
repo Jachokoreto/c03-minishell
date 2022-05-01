@@ -52,3 +52,7 @@ Mkfile.old
 dkms.conf
 
 minishell
+.vscode
+minishell_tester
+valgrind.log
+
