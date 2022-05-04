@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:40:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/05/01 12:34:43 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/04 12:11:11 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	exe_path(char **input, char **envp, char **path)
 		}
 	}
 	ft_putstr_fd(input[0], 2);
-	exit(utl_error(": command not found\n", 127));
+	if (input[0] != NULL)
+		exit(utl_error(": command not found\n", 127));
+	exit(0);
 }
 
 /**
