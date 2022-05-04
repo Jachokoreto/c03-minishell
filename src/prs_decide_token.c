@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:36:13 by jatan             #+#    #+#             */
-/*   Updated: 2022/05/01 12:44:56 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/04 15:13:32 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	decide_token(char *str, t_data *data)
 	else if (utl_strncmp(str, ">>") == 0 || utl_strncmp(str, "<<") == 0
 		|| utl_strncmp(str, ">") == 0 || utl_strncmp(str, "<") == 0)
 	{
-		if (p_token == NULL || p_token->type == redir)
+		if (p_token != NULL && p_token->type == redir)
 			return (1);
 		type = redir;
 	}

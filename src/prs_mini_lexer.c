@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/05/01 12:19:59 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/04 15:20:36 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,23 @@ static char	*get_string_into_buffer(char **line)
 	return (buffer);
 }
 
+static int	check_token(t_data *data)
+{
+	t_list	*token_lst;
+	t_token	*token;
+
+	token_lst = data->tokens;
+	while (token_lst)
+	{
+		token = token_lst->content;
+		if ((token->type == redir || token->type == pip)
+			&& token_lst->next == NULL)
+			return (1);
+		token_lst = token_lst->next;
+	}
+	return (0);
+}
+
 /**
  * Iterate through the input line to identify commands and argument in order to
  * categorize each token for the yacc.
@@ -77,5 +94,7 @@ int	mini_lexer(char *line, t_data *data)
 			}
 		}
 	}
+	if (check_token(data) == 1)
+		return (utl_error("Syntax error: unexpected token\n", 1));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 08:49:05 by jatan             #+#    #+#             */
-/*   Updated: 2022/04/30 15:13:09 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/04 15:14:08 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@
 # define WHT "\033[037m"
 # define RESET "\033[0m"
 
-
-// # define BOLD "\033[1m"
-
 # define RST  "\x1B[0m"
 # define KRED  "\x1B[31m"
 # define KGRN  "\x1B[32m"
@@ -37,7 +34,6 @@
 # define KCYN  "\x1B[36m"
 # define KWHT  "\x1B[37m"
 # define TEST  "\e[38;5;166m"
-
 
 # define BOLD "\x1B[1m"
 # define UNDL "\x1B[4m"
