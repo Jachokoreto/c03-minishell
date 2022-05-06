@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/05/04 15:15:16 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/06 10:54:50 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,24 @@ static void	ft_launch_minishell(char *line, t_data *data)
 
 static void	reset_data(t_data *data)
 {
+	struct stat	buf;
+	int			i;
+	char		*str;
+
 	ft_lstclear(&data->tokens, free_token);
 	ft_lstclear(&data->cmd_grps, free_cmd_grp);
-	unlink(".heredocfile");
+	i = 0;
+	while (1)
+	{
+		str = heredoc_file(i++);
+		if (stat(str, &buf) == -1)
+		{
+			free(str);
+			break ;
+		}
+		unlink(str);
+		free(str);
+	}
 }
 
 static void	print_welcome(void)
@@ -54,10 +69,12 @@ static char	*manage_readline(char *prompt, t_data *data)
 	char	*line;
 	int		i;
 
+	(void)data;
 	line = readline(prompt);
 	if (line == NULL)
 	{
 		ft_free_all(data);
+		system("leaks minishell");
 		exit(10);
 	}
 	i = -1;
