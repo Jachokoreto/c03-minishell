@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   utl_heredoc_files.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/03 18:15:54 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/05/06 11:03:14 by leu-lee          ###   ########.fr       */
+/*   Created: 2022/05/06 10:37:23 by leu-lee           #+#    #+#             */
+/*   Updated: 2022/05/06 10:38:49 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-t_list	*ft_lstlast(t_list *lst)
+char	*heredoc_file(int i)
 {
-	t_list	*tmp;
+	char	*str;
+	char	*index;
 
-	tmp = lst;
-	while (tmp && tmp->next)
-	{
-		tmp = tmp->next;
-	}
-	return (tmp);
+	index = ft_itoa(i);
+	str = ft_strjoin(".heredocfile", index);
+	free(index);
+	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 08:49:05 by jatan             #+#    #+#             */
-/*   Updated: 2022/05/04 15:07:47 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/06 11:05:41 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # define TEL "\033[036m"
 # define WHT "\033[037m"
 # define RESET "\033[0m"
-
-// # define BOLD "\033[1m"
 
 # define RST  "\x1B[0m"
 # define KRED  "\x1B[31m"

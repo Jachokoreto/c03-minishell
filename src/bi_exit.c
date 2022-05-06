@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:46:54 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/05/01 12:43:01 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/05 21:59:54 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,13 @@ int	ft_exit(char **args, t_data *data)
 	i = 0;
 	while (args[1][i])
 	{
-		if (!(ft_isdigit(args[1][i]) == 1))
-			exit(utl_error("exit : numeric argument required\n", 255));
+		if (args[1][i] == '-')
+			i++;
+		if (ft_isdigit(args[1][i]) == 0)
+		{
+			ft_putstr_fd(args[1], 2);
+			exit(utl_error(": numeric argument required\n", 255));
+		}
 		i++;
 	}
 	if (args[1] && args[2] != NULL)

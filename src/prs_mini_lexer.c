@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:57 by jatan             #+#    #+#             */
-/*   Updated: 2022/05/04 15:06:41 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/06 11:04:02 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,6 @@ int	mini_lexer(char *line, t_data *data)
 		}
 	}
 	if (check_token(data) == 1)
-		return (utl_error("Parsing error\n", 1));
+		return (utl_error("Syntax error: unexpected token\n", 1));
 	return (0);
 }

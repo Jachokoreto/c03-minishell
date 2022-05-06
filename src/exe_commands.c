@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:40:15 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/05/04 12:11:11 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/06 11:03:27 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	exe_execve(t_cmd_grp *cmd_grp, t_data *data)
 	{
 		execve(cmd_grp->args[0], cmd_grp->args, envp);
 		ft_putstr_fd(cmd_grp->args[0], 2);
+		free_str_array(envp);
 		exit(utl_error(": No such file or directory\n", 1));
 	}
 	path = ft_split(mini_env, ':');

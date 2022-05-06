@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:36:36 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/05/01 16:20:52 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/06 11:05:04 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 void	handler(int signo)
 {
-	if (signo == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		return ;
-	}
 	if (signo == SIGINT)
 	{
+		g_exit = 1;
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
@@ -44,7 +39,7 @@ void	shellsignals(void)
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;
 	ft_tcsetattr(0, 0, &termios_new);
-	signal(SIGQUIT, handler);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, handler);
 	return ;
 }

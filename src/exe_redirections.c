@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 15:33:02 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/05/01 11:55:25 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/06 10:13:38 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@ int	redir_input(t_token *token, int fd_in)
 		if (fd_in != 0)
 			ft_close(fd_in);
 		fd_in = ft_open(token->value, O_RDONLY, 0666);
-	}
-	else if (token->type == delim)
-	{
-		if (fd_in != 0)
-			ft_close(fd_in);
-		fd_in = heredoc(token->value);
 	}
 	return (fd_in);
 }

@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:14 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/05/01 14:51:41 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/06 10:39:15 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <sys/stat.h>
 # include <fcntl.h>
 # include "libft.h"
 # include <signal.h>
@@ -25,6 +24,7 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include "styling.h"
@@ -60,7 +60,6 @@ typedef struct s_data
 {
 	char			**builtins;
 	char			**envp;
-	int				exit_status;
 	t_list			*env_list;
 	t_list			*tokens;
 	t_list			*cmd_grps;
@@ -92,7 +91,7 @@ void	exe_commands(t_cmd_grp *cmd_grp, t_data *data, int pipe_num);
 int		redirections(t_list *retokens);
 int		exe_builtins(t_cmd_grp *cmd_grp, t_data *data);
 int		exe_pipe_cmds(t_list *cmd_grp_list, t_data *data, int pipe_num);
-int		heredoc(char *delim);
+char	*heredoc(char *delim, int i);
 
 /* Signals */
 void	shellsignals(void);
@@ -113,6 +112,7 @@ void	utl_move_fd(int fd1, int fd2);
 void	set_env(t_list *lst, char *key, char *value);
 int		utl_strncmp(char *s1, char *s2);
 int		utl_error(char *msg, int error_num);
+char	*heredoc_file(int i);
 int		check_valid_char(char *str);
 
 /* General utils */
