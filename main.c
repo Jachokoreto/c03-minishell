@@ -6,7 +6,7 @@
 /*   By: leu-lee <leu-lee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:45:41 by leu-lee           #+#    #+#             */
-/*   Updated: 2022/05/06 10:54:50 by leu-lee          ###   ########.fr       */
+/*   Updated: 2022/05/09 10:36:37 by leu-lee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static char	*manage_readline(char *prompt, t_data *data)
 	if (line == NULL)
 	{
 		ft_free_all(data);
-		system("leaks minishell");
 		exit(10);
 	}
 	i = -1;
